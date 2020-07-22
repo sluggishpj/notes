@@ -7,8 +7,4 @@ module.exports = {
     }
   },
   '@vuepress/back-to-top': true
-  // 'vuepress-plugin-auto-sidebar': {
-  //   titleMode: 'uppercase',
-  //   collapseList: ['/frontend/js/', '/frontend/css/']
-  // }
 }

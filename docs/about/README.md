@@ -4,11 +4,11 @@ title: Introduction
 
 ## What
 
-笔记
+个人笔记
 
 ## Why
 
-希望有自己的知识体系
+构建自己的知识体系
 
 ## How
 
