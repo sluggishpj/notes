@@ -6,5 +6,11 @@ module.exports = {
       buttonText: '刷新'
     }
   },
-  '@vuepress/back-to-top': true
+  '@vuepress/back-to-top': true,
+  'vuepress-plugin-mathjax': {
+    target: 'svg',
+    macros: {
+      '*': '\\times'
+    }
+  }
 }
