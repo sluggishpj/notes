@@ -12,5 +12,6 @@ module.exports = {
     macros: {
       '*': '\\times'
     }
-  }
+  },
+  '@vuepress/medium-zoom': true
 }
