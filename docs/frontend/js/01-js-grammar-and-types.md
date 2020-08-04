@@ -236,3 +236,5 @@ Violets are blue.
 Sugar is sweet,
 and so is foo.`
 ```
+
+> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_types

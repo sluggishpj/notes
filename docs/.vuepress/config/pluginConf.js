@@ -13,5 +13,6 @@ module.exports = {
       '*': '\\times'
     }
   },
-  '@vuepress/medium-zoom': true
+  '@vuepress/medium-zoom': true,
+  'vuepress-plugin-mermaidjs': {}
 }

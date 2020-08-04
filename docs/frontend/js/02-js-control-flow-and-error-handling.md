@@ -78,3 +78,5 @@ try {
 // OUTPUT
 // caught inner "bogus"
 ```
+
+> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Control_flow_and_error_handling

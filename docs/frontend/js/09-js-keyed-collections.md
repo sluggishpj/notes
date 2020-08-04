@@ -105,3 +105,5 @@ Array.from(mySet)
 - 判断使用与 `===`相似的规则
 - `-0` 和 `+0` 相等
 - `NaN` 与自身相等（与`===`有所不同）
+
+> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Keyed_collections

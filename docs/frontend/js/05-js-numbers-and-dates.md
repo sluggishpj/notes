@@ -239,3 +239,5 @@ new Date(year, monthIndex [, day [, hours [, minutes [, seconds [, milliseconds]
 - "parse" 方法 用于解析 `Date` 字符串
   - `Date.parse(dateString)`: 解析一个表示某个日期的字符串，并返回从 1970-1-1 00:00:00 UTC 到该日期对象（该日期对象的 UTC 时间）的毫秒数，如果该字符串无法识别，或者一些情况下，包含了不合法的日期数值，则返回值为 NaN。
   - 相当于 `new Date(dateString).getTime()`
+
+> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Numbers_and_dates

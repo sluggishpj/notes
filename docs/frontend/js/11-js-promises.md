@@ -1,4 +1,6 @@
-# Promise
+---
+title: Promise
+---
 
 ## 组合
 
@@ -215,3 +217,5 @@ limitLoade2(arr, wait, 3)
     console.error(err)
   })
 ```
+
+> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises

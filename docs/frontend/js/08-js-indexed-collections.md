@@ -73,3 +73,5 @@ ArrayBuffer 是一种数据类型，用于表示一个通用的、固定长度�
 类型数组视图具有自描述性的名字，并且提供数据类型信息，例如 `Int8`, `Uint32`, `Float64` 等等。如一个特定类型数组视图 `Uint8ClampedArray`. 它意味着数据元素只包含 0 到 255 的整数值。
 
 > MORE: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Typed_arrays
+
+> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Indexed_collections

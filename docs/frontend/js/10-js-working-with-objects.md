@@ -319,3 +319,5 @@ JS 解释器在遇到**非匿名的立即执行函数**时，会创建一个辅�
   console.log(foo)
 })() // -> ƒ foo() { foo = 10 ; console.log(foo) }
 ```
+
+> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Details_of_the_Object_Model

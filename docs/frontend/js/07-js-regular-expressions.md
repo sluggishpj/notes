@@ -246,3 +246,5 @@ mixedCharacters.match(/\p{Sc=Cyrillic}/u) // Л
 | `s`  | 允许 `.` 匹配换行符                                              |
 | `u`  | 使用 unicode 码的模式进行匹配                                    |
 | `y`  | 执行“粘性”搜索,匹配从目标字符串的当前位置开始，可以使用 `y` 标志 |
+
+> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions

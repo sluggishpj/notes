@@ -185,3 +185,5 @@ if (shouldDefineZero) {
 ```
 
 > 在**严格模式**下，所有支持 ECMAScript 6 的浏览器以相同的方式处理：只有在 shouldDefineZero 为 true 的情况下定义 zero，并且作用域只是这个块内。然而，这是标准的新的一部分。由于历史遗留问题，无论这个块是否执行，**一些浏览器会定义 zero**。
+
+> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Functions
