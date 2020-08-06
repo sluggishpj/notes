@@ -13,25 +13,133 @@ title: 事件
 ### 注册事件
 
 ```js
+target.ontypexxx = listener
+// btn.onclick = function() {}
+// 移除事件监听
+// btn.onclick = null
+
 target.addEventListener(type, listener, options)
 target.addEventListener(type, listener, useCapture)
 ```
 
 - options 【可选】，一个指定有关 listener 属性的可选参数对象。可用的选项如下：
-  -  capture: Boolean，表示 listener 会在该类型的事件捕获阶段传播到该 EventTarget 时触发。、
-  -  once: Boolean，表示 listener 在添加之后最多只调用一次。如果是 true， listener 会在其被调用之后自动移除。
-  -  passive: Boolean，设置为 true 时，表示 listener 永远不会调用 preventDefault()。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告。
 
-- useCapture 【可选】
+  - capture: Boolean，表示 listener 会在该类型的事件捕获阶段传播到该 EventTarget 时触发。、
+  - once: Boolean，表示 listener 在添加之后最多只调用一次。如果是 true， listener 会在其被调用之后自动移除。
+  - passive: Boolean，设置为 true 时，表示 listener 永远不会调用 preventDefault()。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告。
+
+- useCapture 【可选】，默认为 false
   - `Boolean`: 在捕获阶段触发事件
 
-#### 拓展
+### 移除事件
 
 ```js
-event.stopImmediatePropagation()
+target.removeEventListener(type, listener[, options])
+target.removeEventListener(type, listener[, useCapture])
 ```
 
-> 如果有多个相同类型事件的事件监听函数绑定到同一个元素，当该类型的事件触发时，它们会按照被添加的顺序执行。如果其中某个监听函数执行了 `event.stopImmediatePropagation()` 方法，则当前元素剩下的监听函数将不会被执行
+> 匹配目标事件的标准是：`type` && `listener` 相同的前提下， 检测的是 `capture`/`useCapture` 标志是否一致。
+
+## 事件对象
+
+在触发 DOM 上的某个事件时，会产生一个事件对象 event
+
+### 属性
+
+- `type`: 事件类型
+- `target`: 最初派发（dispatch）事件时指定的目标
+  - `srcElement` : IE 中对 `Event.target` 的别称
+- `button`: 按下的鼠标键
+- `clientX/clientY`: 事件发生的时候，鼠标相对于浏览器窗口可视文档区域的左上角的位置
+- `offsetX/offsetY`: 鼠标相对于源元素左上角的位置
+- `keyCode`: 键盘按键的代码
+
+### 方法
+
+- `preventDefault()`
+- `stopPropagation()`
+- `stopImmediatePropagation()`: 如果有多个相同类型事件的事件监听函数绑定到同一个元素，当该类型的事件触发时，它们会按照被添加的顺序执行。如果其中某个监听函数执行了 `event.stopImmediatePropagation()` 方法，则当前元素剩下的监听函数将不会被执行
+
+## 事件类型
+
+- UI 事件，当用户与页面上的元素交互时触发。如 load, unload, abort, error, select, resize, scroll
+- 焦点事件，当元素获得或失去焦点时触发。如 blur, focus
+
+### 鼠标事件
+
+当用户通过鼠标在页面上执行操作时触发。如 click, dbclick, mousedown, mouseenter, mouseleave, mousemove, mouseout, mouseup
+
+> 同一个元素上相继触发 mousedown 和 mouseup 事件，才会触发 click 事件；如果 mousedown 或 mouseup 中的一个被取消，就不会触发 click 事件
+
+### 滚轮事件
+
+当使用鼠标滚轮（或类似设备）时触发。鼠标滚动 mousewheel
+
+- 与 mousewheel 事件对应的 event 对象除包含鼠标事件的所有标准信息外，还包含一个特殊的 wheelDelta 属性。当用户向前滚动鼠标滚轮时， wheelDelta 是 120 的倍数；当用户向后滚动鼠标滚轮时， wheelDelta 是-120 的倍数
+
+```js
+document.addEventListener('mousewheel', function(event) {
+  console.log(event.wheelDelta) //120或-120
+})
+```
+
+### 设备事件
+
+- orientationchange
+
+```js
+window.addEventListener('orientationchange', function() {
+  console.log('the orientation of the device is now ' + screen.orientation.angle)
+})
+```
+
+### 触摸事件
+
+- touchstart
+- touchmove
+- touchend
+- touchcancel
+
+#### 属性
+
+除了 event 常见的属性外，还有
+
+- touches ：表示当前跟踪的触摸操作的 Touch 对象的数组。
+- targetTouches: 触摸起始于当前事件的目标 element 上【就是监听事件的那个元素】，并且仍然没有离开触摸平面的触点。
+  > https://stackoverflow.com/questions/7056026/variation-of-e-touches-e-targettouches-and-e-changedtouches
+
+### 其他
+
+- `contextmenu`：用户尝试打开上下文菜单时被触发。该事件通常在鼠标点击右键或者按下键盘上的菜单键时被触发，如果使用菜单键，该上下文菜单会被展示 到所聚焦元素的左下角。任何没有被禁用的鼠标右击事件 (通过调用事件的 `preventDefault()` 方法) 将会使得 `contextmenu` 事件在目标元素上被触发。
+
+```html
+<p id="noContextMenu">这个段落右键菜单已被禁用。</p>
+<p>但是这个段落没有被禁用。</p>
+```
+
+```js
+noContext = document.getElementById('noContextMenu')
+
+noContext.addEventListener('contextmenu', e => {
+  e.preventDefault()
+})
+```
+
+- hashchange
+
+## 创建和触发 events
+
+```js
+var event = new Event('build');
+
+// Listen for the event.
+elem.addEventListener('build', function (e) { ... }, false);
+
+// Dispatch the event.
+elem.dispatchEvent(event);
+```
+
+> https://developer.mozilla.org/zh-CN/docs/Web/Guide/Events/Creating_and_triggering_events
 
 ## Event loop
 
