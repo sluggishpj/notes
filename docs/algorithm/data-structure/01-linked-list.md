@@ -51,7 +51,7 @@ function insertAfter(p, node) {
  */
 function deleteNextNode(p) {
   const node = p.next
-  p.next = node.next
+  p.next = node && node.next
   return node
 }
 ```

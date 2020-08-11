@@ -47,10 +47,19 @@ function insertAfter(p, node) {
  */
 function deleteNextNode(p) {
   const node = p.next
-  const q = node.next
+  const q = node && node.next
+
+  if (!node) {
+    // p 是最后1个结点
+    return node
+  }
 
   p.next = q
-  q.prior = p
+
+  if (q) {
+    // node 不是最后1个结点
+    q.prior = p
+  }
 
   return node
 }
@@ -71,3 +80,21 @@ function deleteNode(p) {
   deleteNextNode(p)
 }
 ```
+
+### 遍历
+
+和单链表遍历差不多
+
+## 复杂度
+
+### 时间复杂度
+
+| Access | Search | Insertion | Deletion |
+| ------ | ------ | --------- | -------- |
+| O(n)   | O(n)   | O(1)      | O(1)     |
+
+### 空间复杂度
+
+O(n)
+
+> https://github.com/trekhleb/javascript-algorithms/tree/master/src/data-structures/doubly-linked-list
