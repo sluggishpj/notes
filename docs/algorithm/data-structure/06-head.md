@@ -11,3 +11,5 @@ title: 堆
 
 如果 P 是 C 的一个父级节点, 最大堆(max heap) 中, P 的 key(或 value)大于 C 的对应值。
 ![最大堆](https://upload.wikimedia.org/wikipedia/commons/3/38/Max-Heap.svg)
+
+> https://github.com/trekhleb/javascript-algorithms/blob/master/src/data-structures/heap

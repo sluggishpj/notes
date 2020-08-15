@@ -9,5 +9,6 @@ install:
 before_script:
   - chmod 777 ./deploy.sh
 script:
+  - npm run test:unit
   - ./deploy.sh
 branch: master
