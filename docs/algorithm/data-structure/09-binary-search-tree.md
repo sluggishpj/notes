@@ -23,7 +23,7 @@ title: 二叉查找树
 3. 若 x 小于 b 的根节点的数据域之值，则搜索左子树；否则：
 4. 查找右子树。
 
-<<< @/src/algorithm/data-structure/binary-search-tree.js#search
+<<< @/src/algorithm/data-structure/binary-search-tree.js#contain
 
 ### 插入
 

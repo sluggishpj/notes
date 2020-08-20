@@ -21,7 +21,7 @@ function insertAfter(p, node) {
   node.prior = p
 
   node.next = n
-  n.prior = node
+  n && (n.prior = node)
 }
 //#endregion insertAfter
 
@@ -64,3 +64,5 @@ function deleteNode(p) {
   deleteNextNode(p)
 }
 //#endregion deleteNode
+
+export { DLNode, insertAfter, deleteNextNode, deleteNode }

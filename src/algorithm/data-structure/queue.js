@@ -37,3 +37,5 @@ class Queue {
   }
 }
 //#endregion Queue
+
+export { Queue }
