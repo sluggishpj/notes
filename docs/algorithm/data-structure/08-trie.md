@@ -17,6 +17,6 @@ title: 字典树
 
 ### 查找
 
-<<< @/src/algorithm/data-structure/trie.js#has
+<<< @/src/algorithm/data-structure/trie.js#contains
 
 > https://zh.wikipedia.org/wiki/Trie

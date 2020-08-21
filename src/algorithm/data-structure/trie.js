@@ -35,14 +35,14 @@ function insert(root, str) {
 }
 //#endregion insert
 
-//#region has
+//#region contains
 /**
  * 在字典树中查找一个完全匹配的单词
  * @param {TrieNode} root 根结点
  * @param {String} str 要查找的单词
  * @returns {Boolean}
  */
-function has(root, str) {
+function contains(root, str) {
   if (!str) {
     return false
   }
@@ -55,4 +55,6 @@ function has(root, str) {
   }
   return root.isEnd
 }
-//#endregion has
+//#endregion contains
+
+export { TrieNode, insert, contains }
