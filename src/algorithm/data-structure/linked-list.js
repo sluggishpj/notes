@@ -2,9 +2,9 @@ import { ERROR } from '../constants'
 
 //#region SLNode
 class SLNode {
-  constructor(value = null) {
+  constructor(value = null, next = null) {
     this.value = value // 数据
-    this.next = null // 指向下一个结点
+    this.next = next // 指向下一个结点
   }
 }
 //#endregion SLNode

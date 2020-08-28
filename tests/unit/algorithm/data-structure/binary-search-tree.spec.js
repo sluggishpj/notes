@@ -74,26 +74,94 @@ describe('data-structure.binary-search-tree', () => {
     expect(node4.right.value).toBe(5)
   })
 
-  test('deleteNode', () => {
-    // 删除结点1
-    expect(root.left).toBe(node1)
-    expect(deleteNode(root, 1)).toBe(true)
+  test('deleteNode#1左右子树为空-根结点', () => {
+    let root = new TreeNode(2)
+    deleteNode(root, 2)
+    expect(root.value).toBe(null)
+  })
+
+  test('deleteNode#1左右子树为空-非根结点', () => {
+    deleteNode(root, 1)
     expect(root.left).toBe(null)
+  })
 
-    // 再插回来
-    insert(root, 1)
+  test('deleteNode#2.1有左子树无右子树-根结点', () => {
+    //     2
+    //    /
+    //   1
+    let root = new TreeNode(2)
+    let node1 = new TreeNode(1)
+    root.left = node1
+
+    deleteNode(root, 2)
+    expect(root.value).toBe(1)
+  })
+
+  test('deleteNode#2.1有左子树无右子树非根结点', () => {
+    //    2
+    //  /   \
+    // 1     4
+    //      /
+    //     3
     insert(root, 3)
-    insert(root, 5)
-    expect(root.left.value).toBe(1)
-
-    //    2        删掉4后变成 2
-    //  /   \                /  \
-    // 1     4              1    3
-    //      / \                   \
-    //     3   5                   5
-    expect(deleteNode(root, 4)).toBe(true)
+    deleteNode(root, 4)
     expect(root.right.value).toBe(3)
-    expect(root.right.right.value).toBe(5)
+    expect(root.right.left).toBe(null)
+  })
+
+  test('deleteNode#2.2有右子树无左子树-根结点', () => {
+    //     2
+    //      \
+    //       4
+    let root = new TreeNode(2)
+    let node1 = new TreeNode(4)
+    root.right = node1
+
+    deleteNode(root, 2)
+    expect(root.value).toBe(4)
+  })
+
+  test('deleteNode#2.2有右子树无左子树-非根结点', () => {
+    //    2
+    //  /   \
+    // 1     4
+    //        \
+    //         5
+    insert(root, 5)
+    deleteNode(root, 4)
+    expect(root.right.value).toBe(5)
+    expect(root.right.right).toBe(null)
+  })
+
+  test('deleteNode3左右子树不为空-根结点', () => {
+    //        2
+    //      /   \
+    //      1    4
+    //     /  \
+    //    0  1.5
+    insert(root, 0)
+    insert(root, 1.5)
+    deleteNode(root, 2)
+    expect(root.value).toBe(1.5)
+    expect(root.left.value).toBe(1)
+    expect(root.left.right).toBe(null)
+
+    expect(root.right.value).toBe(4)
+  })
+
+  test('deleteNode3左右子树不为空-非根结点', () => {
+    //        2
+    //      /   \
+    //      1    4
+    //     /  \
+    //    0  1.5
+    insert(root, 0)
+    insert(root, 1.5)
+    deleteNode(root, 1)
+
+    expect(root.left.value).toBe(0)
+    expect(root.left.left).toBe(null)
+    expect(root.left.right.value).toBe(1.5)
   })
 
   test('preorder', () => {
