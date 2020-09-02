@@ -18,27 +18,47 @@ export default class Comparator {
     return a < b ? -1 : 1
   }
 
-  // 是否相等
+  /**
+   * 是否 a === b
+   * @param {*} a
+   * @param {*} b
+   */
   equal(a, b) {
     return this.compare(a, b) === 0
   }
 
-  // 是否 a < b
+  /**
+   * 是否 a < b
+   * @param {*} a
+   * @param {*} b
+   */
   lessThan(a, b) {
     return this.compare(a, b) < 0
   }
 
-  // 是否 a > b
+  /**
+   * 是否 a > b
+   * @param {*} a
+   * @param {*} b
+   */
   greaterThan(a, b) {
     return this.compare(a, b) > 0
   }
 
-  // 是否 a <= b
+  /**
+   * 是否 a <= b
+   * @param {*} a
+   * @param {*} b
+   */
   lessThanOrEqual(a, b) {
     return this.lessThan(a, b) || this.equal(a, b)
   }
 
-  // 是否 a >= b
+  /**
+   * 是否 a >= b
+   * @param {*} a
+   * @param {*} b
+   */
   greaterThanOrEqual(a, b) {
     return this.greaterThan(a, b) || this.equal(a, b)
   }

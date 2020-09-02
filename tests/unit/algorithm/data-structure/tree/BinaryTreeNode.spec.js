@@ -61,7 +61,7 @@ describe('BinaryTreeNode', () => {
 
     rootNode.setLeft(leftNode).setRight(rightNode)
 
-    expect(rootNode.traverPostOrder()).toEqual([2, 1, 3])
+    expect(rootNode.traverPostOrder()).toEqual([1, 3, 2])
   })
 
   it('should remove child node', () => {
