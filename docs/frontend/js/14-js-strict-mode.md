@@ -89,11 +89,6 @@ console.log(pair2[1])
 // 42
 ```
 
-### call & apply
-
-- 在**非严格模式**下使用 `call` 或者 `apply` 时，如果第一个参数被指定为 `null` 或 `undefined`，那么函数执行时的 `this` 指向全局对象（浏览器环境中是 `window`）；如果第一个参数被指定为原始值，该原始值会被包装。
-- 严格模式下则第一个参数传啥，函数执行时的 `this` 中就是啥
-
 ### 为未来的 ECMAScript 版本铺平道路
 
 - 在严格模式中一部分字符变成了保留的关键字。包括 `implements`, `interface`, `let`, `package`, `private`, `protected`, `public`, `static` 和 `yield`

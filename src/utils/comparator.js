@@ -62,4 +62,12 @@ export default class Comparator {
   greaterThanOrEqual(a, b) {
     return this.greaterThan(a, b) || this.equal(a, b)
   }
+
+  /**
+   * Reverses the comparison order.
+   */
+  reverse() {
+    const compareOriginal = this.compare
+    this.compare = (a, b) => compareOriginal(b, a)
+  }
 }

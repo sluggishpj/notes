@@ -253,7 +253,7 @@ describe('BinarySearchTreeNode', () => {
     expect(childNode.parent).toBeNull()
   })
 
-  it('测试remove', () => {
+  it('测试remove 右子树最大结点中存在左子树', () => {
     const rootNode = new BinarySearchTreeNode(10)
     rootNode.insert(5)
     rootNode.insert(20)

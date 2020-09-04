@@ -93,7 +93,7 @@ export default class BinarySearchTreeNode extends BinaryTreeNode {
     const { parent } = nodeToRemove
 
     if (!nodeToRemove.left && !nodeToRemove.right) {
-      // 叶子结点
+      // 情况1：没有孩子
       if (parent) {
         parent.removeChild(nodeToRemove)
       } else {
@@ -101,20 +101,20 @@ export default class BinarySearchTreeNode extends BinaryTreeNode {
         nodeToRemove.setValue(undefined)
       }
     } else if (nodeToRemove.left && nodeToRemove.right) {
-      // 左右子树都存在
-      // 将右子树中的最小结点取出，替换掉nodeToRemove 结点
+      // 情况2：左右子树都存在
+      // 将右子树中的最小结点取出，替换掉nodeToRemove 结点【也可以取左子树的最小结点】
       const nextBiggerNode = nodeToRemove.right.findMin()
 
       if (this.nodeValueComparator.equal(nextBiggerNode.value, nodeToRemove.right.value)) {
         // nextBiggerNode 结点是要删除结点的右孩子
         nodeToRemove.setRight(nextBiggerNode.right)
       } else {
-        // nextBiggerNode.parent.removeChild(nextBiggerNode) // 当 nextBiggerNode 有右子树会有问题
-        // setValue 要在 this.remove 之后，否则死循环
+        // 删除 nextBiggerNode，这里的 nextBiggerNode 最多只有一个 直接孩子，删除时进入情况3中
         this.remove(nextBiggerNode.value)
       }
       nodeToRemove.setValue(nextBiggerNode.value)
     } else {
+      // 情况3：只有左子树或只有右子树
       const childNode = nodeToRemove.left || nodeToRemove.right
       if (parent) {
         parent.replaceChild(nodeToRemove, childNode)
@@ -135,5 +135,16 @@ export default class BinarySearchTreeNode extends BinaryTreeNode {
       return this
     }
     return this.left.findMin()
+  }
+
+  /**
+   * 查找最最大值
+   * @return {BinarySearchTreeNode}
+   */
+  findMax() {
+    if (!this.right) {
+      return this
+    }
+    return this.right.findMax()
   }
 }

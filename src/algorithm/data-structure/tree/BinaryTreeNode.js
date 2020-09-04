@@ -2,6 +2,7 @@
 // 二叉树结点
 import Comparator from '@/utils/comparator'
 
+//#region BinaryTreeNode
 export default class BinaryTreeNode {
   constructor(value = null) {
     this.left = null
@@ -191,3 +192,5 @@ export default class BinaryTreeNode {
     return this.traverseInOrder().toString()
   }
 }
+
+//#endregion BinaryTreeNode

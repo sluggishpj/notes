@@ -38,6 +38,8 @@ function f() {
 
 ### 变量**声明**提升
 
+- var 变量的作用域是整个函数，但仅在 var 语句出现的位置进行赋值
+
 ```js
 console.log('The value of b is ' + b) // b 的值是 undefined
 var b = 2
@@ -235,6 +237,34 @@ var poem = `Roses are red,
 Violets are blue.
 Sugar is sweet,
 and so is foo.`
+```
+
+## 其他
+
+### 分号插入的局限
+
+5 个明确有问题的字符需要密切注意：`(`、`[`、`+`、`-`和`/`，每一个字符都能作为一个表达式运算符或者一条语句的前缀。如果下一行以这 5 个字符之一开始，那么本行不会自动插入分号。
+
+```txt
+var color = {}
+var b = 3
+var a = b
+[('r', 'g', 'b')].forEach(function(key) {
+  color[key] = 255
+})
+
+// 报错：
+// [('r', 'g', 'b')].forEach(function (key) {
+//                   ^
+// TypeError: Cannot read property 'forEach' of undefined
+```
+
+> 原因在于第 4 行以[开始，因此和第三行一起被解析为一条语句，等价于：
+
+```js
+var a = b[('r', 'g', 'b')].forEach(function(key) {
+  color[key] = 255
+})
 ```
 
 > https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_types

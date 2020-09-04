@@ -34,6 +34,81 @@ items.sort(function(a, b) {
 // items is ['adieu', 'café', 'cliché', 'communiqué', 'premier', 'réservé']
 ```
 
+#### forEach, map, filter, some, every 等
+
+##### forEach
+
+要想在 `forEach` 中终止循环，可以使用一个内部异常来提前终止该循环。不如直接使用 `for` 循环再 `break`
+
+```js
+function takeWhile(a, pred) {
+  var result = []
+  var earlyExit = {}
+  try {
+    a.forEach(function(x, i) {
+      if (!pred(x)) {
+        throw earlyExit
+      }
+      result[i] = x
+    })
+  } catch (e) {
+    if (e !== earlyExit) {
+      // only catch earlyExit
+      throw e
+    }
+  }
+  return result
+}
+
+var prefix = takeWhile([1, 2, 10, 3, 30], function(n) {
+  return n < 10
+})
+console.log(prefix) // [ 1, 2 ]
+```
+
+##### for 循环
+
+如果要在循环中删除数组，可以采用反向循环，避免 length 变化影响遍历
+
+```js
+// 正向循环
+var arr = [1, 2, 3, 4, 5]
+for (var i = 0; i < arr.length; i++) {
+  if (arr[i] > 3) {
+    arr.splice(i, 1)
+  }
+}
+console.log(arr) // [1,2,3,5]
+```
+
+> 因为从数组删除项会使数组变短。所以在循环内，当 i===3 时，删掉一项，数组长度变为 4。下一个循环导致循环条件不满足，便结束。
+
+```js
+// 反向循环
+var arr = [1, 2, 3, 4, 5]
+for (var i = arr.length - 1; i >= 0; i--) {
+  if (arr[i] > 3) {
+    arr.splice(i, 1)
+  }
+}
+console.log(arr) // [1,2,3]
+```
+
+另一个解决方法
+
+```js
+// 另一个解决办法
+var arr = [1, 2, 3, 4, 5]
+for (var i = 0, len = arr.length; i < len; i++) {
+  if (arr[i] > 3) {
+    arr.splice(i, 1)
+    i--
+    len--
+  }
+}
+console.log(arr) // [1,2,3]
+```
+
 ## 对象转基本类型
 
 对象在转换基本类型时，首先会调用 `valueOf` 然后调用 `toString`。也可以重写 `Symbol.toPrimitive` ，该方法在转基本类型时调用优先级最高。

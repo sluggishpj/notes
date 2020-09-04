@@ -184,4 +184,275 @@ var mycar = { make: 'Honda', model: 'Accord', year: 1998 }
 'make' in mycar // returns true
 ```
 
+## this
+
+> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this
+
+### 全局上下文
+
+在全局执行环境中（在任何函数体外部）`this` 都指向全局对象
+
+```js
+// 在浏览器中, window 对象同时也是全局对象：
+console.log(this === window) // true
+```
+
+### 函数上下文
+
+`this` 的值取决于函数被调用的方式。
+
+- 非严格模式下
+
+```js
+function f1() {
+  return this
+}
+// 在浏览器中：
+f1() === window //在浏览器中，全局对象是window
+
+// 在 Node中：
+f1() === globalThis
+```
+
+- 严格模式下，`this` 为 `undefined`
+
+```js
+function f2() {
+  'use strict' // 这里是严格模式
+  return this
+}
+
+f2() === undefined // true
+```
+
+### 类上下文
+
+在类的构造函数中，this 是一个常规对象。类中所有非静态的方法都会被添加到 this 的原型中
+
+```js
+class Example {
+  constructor() {
+    const proto = Object.getPrototypeOf(this)
+    console.log(Object.getOwnPropertyNames(proto))
+  }
+  first() {}
+  second() {}
+  static third() {}
+}
+
+new Example() // ['constructor', 'first', 'second']
+```
+
+### 派生类
+
+不像基类的构造函数，派生类的构造函数没有初始的 `this` 绑定。在构造函数中调用 `super()` 会生成一个 `this` 绑定，并相当于执行如下代码, `Base` 为基类：
+
+```js
+this = new Base()
+```
+
+### call & apply
+
+- 在**非严格模式**下使用 `call` 或者 `apply` 时，如果第一个参数被指定为 `null` 或 `undefined`，那么函数执行时的 `this` 指向全局对象（浏览器环境中是 `window`）；如果第一个参数被指定为原始值，该原始值会被包装。
+- 严格模式下则第一个参数传啥，函数执行时的 `this` 中就是啥
+
+### bind
+
+调用 `f.bind(someObject)` 会创建一个与 `f` 具有相同函数体和作用域的函数，但是在这个新函数中, `this` 将永久地被绑定到了 `bind` 的第一个参数，无论这个函数是如何被调用的。
+
+### 箭头函数
+
+在箭头函数中，`this` 与**封闭词法环境**的 `this` 保持一致。在全局代码中，它将被设置为全局对象
+
+```js
+var globalObject = this
+var foo = () => this
+console.log(foo() === globalObject) // true
+```
+
+> 如果将 this 传递给 call、bind、或者 apply 来调用箭头函数，它将被忽略。不过你仍然可以为调用添加参数，不过第一个参数（thisArg）应该设置为 null。
+
+```js
+// 接着上面的代码
+// 作为对象的一个方法调用
+var obj = { foo: foo }
+console.log(obj.foo() === globalObject) // true
+
+// 尝试使用call来设定 this
+console.log(foo.call(obj) === globalObject) // true
+
+// 尝试使用bind来设定 this
+foo = foo.bind(obj)
+console.log(foo() === globalObject) // true
+```
+
+foo 的 `this` 被设置为他被创建时的环境（在上面的例子中，就是全局对象）。这同样适用于在其他函数内创建的箭头函数：这些箭头函数的 `this` 被设置为封闭的词法环境的。
+
+```js
+// 创建一个含有bar方法的obj对象，
+// bar返回一个函数，
+// 这个函数返回this，
+// 这个返回的函数是以箭头函数创建的，
+// 所以它的this被永久绑定到了它外层函数的this。
+// bar的值可以在调用中设置，这反过来又设置了返回函数的值。
+var obj = {
+  bar: function() {
+    var x = () => this
+    return x
+  }
+}
+
+// 作为obj对象的一个方法来调用bar，把它的this绑定到obj。
+// 将返回的函数的引用赋值给fn。
+var fn = obj.bar()
+
+// 直接调用fn而不设置this，
+// 通常(即不使用箭头函数的情况)默认为全局对象
+// 若在严格模式则为undefined
+console.log(fn() === obj) // true
+
+// 但是注意，如果你只是引用obj的方法，
+// 而没有调用它
+var fn2 = obj.bar
+// 那么调用箭头函数后，this指向window，因为它从 bar 继承了this。
+console.log(fn2()() == window) // true
+```
+
+> 一个赋值给了 `obj.bar` 的函数（称为匿名函数 A），返回了另一个箭头函数（称为匿名函数 B）。因此，在 A 调用时，函数 B 的 `this` 被永久设置为 `obj.bar`（函数 A）的 `this`。当返回的函数（函数 B）被调用时，它 `this` 始终是最初设置的。在上面的代码示例中，函数 B 的 `this` 被设置为函数 A 的 `this`，即 `obj`，所以即使被调用的方式通常将其设置为 undefined 或全局对象（或者如前面示例中的其他全局执行环境中的方法），它的 `this` 也仍然是 `obj` 。
+
+### 作为对象的方法
+
+当函数作为对象里的方法被调用时，this 被设置为调用该函数的对象
+
+```js
+var o = {
+  prop: 37,
+  f: function() {
+    return this.prop
+  }
+}
+
+console.log(o.f()) // 37
+```
+
+#### 原型链中的 `this`
+
+如果该方法存在于一个对象的原型链上，那么 this 指向的是调用这个方法的对象，就像该方法就在这个对象上一样。
+
+```js
+var o = {
+  f: function() {
+    return this.a + this.b
+  }
+}
+var p = Object.create(o)
+p.a = 1
+p.b = 4
+
+console.log(p.f()) // 5
+```
+
+#### getter/setter 中的 `this`
+
+相同的概念也适用于当函数在一个 `getter` 或者 `setter` 中被调用。用作 `getter` 或 `setter` 的函数都会把 `this` 绑定到设置或获取属性的对象
+
+```js
+function sum() {
+  return this.a + this.b + this.c
+}
+
+var o = {
+  a: 1,
+  b: 2,
+  c: 3,
+  get average() {
+    return (this.a + this.b + this.c) / 3
+  }
+}
+
+Object.defineProperty(o, 'sum', {
+  get: sum,
+  enumerable: true,
+  configurable: true
+})
+
+console.log(o.average, o.sum) // logs 2, 6
+```
+
+### 作为构造函数
+
+虽然构造函数返回的默认值是 `this` 所指的那个对象，但它仍可以手动返回其他的对象（如果返回值不是一个对象，则返回 `this` 对象）。
+
+```js
+/*
+ * 构造函数这样工作:
+ *
+ * function MyConstructor(){
+ *   // 函数实体写在这里
+ *   // 根据需要在this上创建属性，然后赋值给它们，比如：
+ *   this.fum = "nom";
+ *   // 等等...
+ *
+ *   // 如果函数具有返回对象的 return 语句，
+ *   // 则该对象将是 new 表达式的结果。
+ *   // 否则，表达式的结果是当前绑定到 this 的对象。
+ *   //（即通常看到的常见情况）。
+ * }
+ */
+
+function C() {
+  this.a = 37
+}
+
+var o = new C()
+console.log(o.a) // logs 37
+
+function C2() {
+  this.a = 37
+  return { a: 38 }
+}
+
+o = new C2()
+console.log(o.a) // logs 38
+```
+
+### 作为一个 DOM 事件处理函数
+
+当函数被用作事件处理函数时，它的 this 指向触发事件的元素
+
+```js
+// 被调用时，将关联的元素变成蓝色
+function bluify(e) {
+  console.log(this === e.currentTarget) // 总是 true
+
+  // 当 currentTarget 和 target 是同一个对象时为 true
+  console.log(this === e.target)
+  this.style.backgroundColor = '#A5D9F3'
+}
+
+// 获取文档中的所有元素的列表
+var elements = document.getElementsByTagName('*')
+
+// 将bluify作为元素的点击监听函数，当元素被点击时，就会变成蓝色
+for (var i = 0; i < elements.length; i++) {
+  elements[i].addEventListener('click', bluify, false)
+}
+```
+
+### 作为一个内联事件处理函数
+
+```js
+<button onclick="alert(this.tagName.toLowerCase());">Show this</button>
+```
+
+> 上面的 alert 会显示 button。注意只有外层代码中的 this 是这样设置的：
+
+```
+<button onclick="alert((function(){return this})());">
+  Show inner this
+</button>
+```
+
+> 没有设置内部函数的 this，所以它指向 global/window 对象（即非严格模式下调用的函数未设置 this 时指向的默认对象）
+
 > https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Expressions_and_Operators

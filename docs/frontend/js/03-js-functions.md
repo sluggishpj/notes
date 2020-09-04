@@ -92,62 +92,48 @@ result1 = outside(3)(5) // returns 8
 
 函数和对其周围状态（lexical environment，词法环境）的引用捆绑在一起构成闭包（closure）。也就是说，闭包可以让你从内部函数访问外部函数作用域。在 JavaScript 中，每当函数被创建，就会在函数生成时生成闭包。
 
+### 循环和闭包
+
+```js
+for (var i = 1; i <= 5; i++) {
+  setTimeout(function timer() {
+    console.log(i)
+  }, i * 1000)
+}
+// 依次输出5个 6
+```
+
+> 尽管循环中的五个函数是在各个迭代中分别定义的， 但是它们都被封闭在一个共享的全局作用域中，因此实际上只有一个 i。使用 let/const 就不会有这问题
+
+```js
+for (var i = 1; i <= 5; i++) {
+  ;(function() {
+    setTimeout(function timer() {
+      console.log(i)
+    }, i * 1000)
+  })()
+}
+// 依次输出5个 6
+```
+
+> 如果作用域是空的，那么仅仅将它们进行封闭是不够的。
+
+```js
+for (var i = 1; i <= 5; i++) {
+  ;(function(j) {
+    setTimeout(function timer() {
+      console.log(j)
+    }, j * 1000)
+  })(i)
+}
+// 依次输出 1 2 3 4 5
+```
+
 ### 性能考量
 
 如果不是某些特定任务需要使用闭包，在其它函数中创建函数是不明智的，因为闭包在处理速度和内存消耗方面对脚本性能具有负面影响。
 
 例如，在创建新的对象或者类时，方法通常应该关联于对象的原型，而不是定义到对象的构造器中。原因是这将导致每次构造器被调用时，方法都会被重新赋值一次（也就是说，对于每个对象的创建，方法都会被重新赋值）。
-
-## 箭头函数
-
-### this 的用法
-
-在箭头函数出现之前，每一个新函数都重新定义了自己的 this 值（在构造函数中是一个新的对象；在严格模式下是未定义的；在作为“对象方法”调用的函数中指向这个对象；等等）
-
-```js
-function Person() {
-  // 构造函数Person()将`this`定义为自身
-  this.age = 0
-
-  setInterval(function growUp() {
-    // 在非严格模式下，growUp()函数将`this`定义为“全局对象”，
-    // 这与Person()定义的`this`不同，
-    // 所以下面的语句不会起到预期的效果。
-    this.age++
-  }, 1000)
-}
-
-var p = new Person()
-```
-
-通过把 this 的值赋值给一个变量可以修复这个问题
-
-```js
-function Person() {
-  var self = this // 有的人习惯用`that`而不是`self`，
-  // 无论你选择哪一种方式，请保持前后代码的一致性
-  self.age = 0
-
-  setInterval(function growUp() {
-    // 以下语句可以实现预期的功能
-    self.age++
-  }, 1000)
-}
-```
-
-箭头函数捕捉闭包上下文的 this 值，所以下面的代码工作正常
-
-```js
-function Person() {
-  this.age = 0
-
-  setInterval(() => {
-    this.age++ // 这里的`this`正确地指向person对象
-  }, 1000)
-}
-
-var p = new Person()
-```
 
 ## 块级函数
 
@@ -185,5 +171,9 @@ if (shouldDefineZero) {
 ```
 
 > 在**严格模式**下，所有支持 ECMAScript 6 的浏览器以相同的方式处理：只有在 shouldDefineZero 为 true 的情况下定义 zero，并且作用域只是这个块内。然而，这是标准的新的一部分。由于历史遗留问题，无论这个块是否执行，**一些浏览器会定义 zero**。
+
+## 高阶函数
+
+将函数作为参数或返回值的函数，像 `Array.prototype.map`, `Array.prototype.forEach` 等
 
 > https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Functions
