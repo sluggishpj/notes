@@ -16,8 +16,8 @@ AVL 树的基本操作 和 不平衡的二叉查找树 基本同样的算法。�
 
 ![Tree Reblancing](https://upload.wikimedia.org/wikipedia/commons/c/c7/Tree_Rebalancing.png)
 
-### 删除
-
-删除和 BST 类似，将结点与后继交换后删除。删除可能会导致树高以及平衡因子变化，需要进行平衡处理
+<<< @/src/algorithm/data-structure/tree/avl-tree/AvlTree.js#AvlTree
 
 > https://github.com/trekhleb/javascript-algorithms/tree/master/src/data-structures/tree/avl-tree
+>
+> https://zh.wikipedia.org/wiki/AVL%E6%A0%91

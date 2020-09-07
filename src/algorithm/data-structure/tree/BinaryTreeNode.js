@@ -1,8 +1,8 @@
 // https://github.com/trekhleb/javascript-algorithms/blob/master/src/data-structures/tree/BinaryTreeNode.js
+//#region BinaryTreeNode
 // 二叉树结点
 import Comparator from '@/utils/comparator'
 
-//#region BinaryTreeNode
 export default class BinaryTreeNode {
   constructor(value = null) {
     this.left = null
