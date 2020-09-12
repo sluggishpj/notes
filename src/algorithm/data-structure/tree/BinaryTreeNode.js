@@ -1,5 +1,5 @@
 // https://github.com/trekhleb/javascript-algorithms/blob/master/src/data-structures/tree/BinaryTreeNode.js
-//#region BinaryTreeNode
+// #region BinaryTreeNode
 // 二叉树结点
 import Comparator from '@/utils/comparator'
 
@@ -70,10 +70,12 @@ export default class BinaryTreeNode {
     }
     return grandNode.left
   }
+
   setValue(value) {
     this.value = value
     return this
   }
+
   /**
    * 将node结点作为当前结点的左子树
    * @param {BinaryTreeNode} node
@@ -103,6 +105,7 @@ export default class BinaryTreeNode {
     this.right && (this.right.parent = this)
     return this
   }
+
   /**
    * 删除的直接子结点
    * @param {BinaryTreeNode} nodeToRemove 要删除的节点
@@ -138,6 +141,7 @@ export default class BinaryTreeNode {
     }
     return false
   }
+
   /**
    * 复制结点
    * @param {BinaryTreeNode} sourceNode 被复制的结点
@@ -193,4 +197,4 @@ export default class BinaryTreeNode {
   }
 }
 
-//#endregion BinaryTreeNode
+// #endregion BinaryTreeNode

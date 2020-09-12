@@ -1,4 +1,4 @@
-import BinaryTreeNode from '@/algorithm/data-structure/tree/BinaryTreeNode.js'
+import BinaryTreeNode from '@/algorithm/data-structure/tree/BinaryTreeNode'
 
 describe('BinaryTreeNode', () => {
   it('should create node', () => {

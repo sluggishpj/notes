@@ -1,8 +1,8 @@
 // https://github.com/trekhleb/javascript-algorithms/blob/master/src/data-structures/tree/binary-search-tree/BinarySearchTreeNode.js
 
 // BST 结点
-import BinaryTreeNode from '../BinaryTreeNode'
 import Comparator from '@/utils/comparator'
+import BinaryTreeNode from '../BinaryTreeNode'
 
 export default class BinarySearchTreeNode extends BinaryTreeNode {
   constructor(value = null, compareFunction) {
