@@ -18,6 +18,57 @@ var factorial = function fac(n) {
 }
 ```
 
+## 可变长度的参数列表
+
+### 函数的 length 属性
+
+函数的 length 属性等于该函数声明时所要传入的**形参**数量
+
+```js
+function bar(a) {}
+function foo(a, b, c) {}
+
+console.log(bar.length) // 1
+console.log(foo.length) // 3
+```
+
+> 通过其 length 属性，可以知道声明了多少命名参数
+>
+> 通过 `arguments.length`，可以知道在调用时传入了多少参数
+>
+> 利用参数个数的差异创建重载函数
+
+### 利用参数的个数进行函数重载
+
+```js
+function addMethod(object, name, fn) {
+  const old = object[name]
+  object[name] = function() {
+    if (fn.length == arguments.length) {
+      return fn.apply(this, arguments)
+    } else if (typeof old === 'function') {
+      return old.apply(this, arguments)
+    }
+  }
+}
+
+const myobj = {}
+
+addMethod(myobj, 'a', function() {
+  console.log('0个参数')
+})
+addMethod(myobj, 'a', function(n) {
+  console.log('1个参数', n)
+})
+addMethod(myobj, 'a', function(n1, n2) {
+  console.log('两个参数', n1, n2)
+})
+
+myobj.a() // 0个参数
+myobj.a(1) // 1个参数 1
+myobj.a(1, 2) // 两个参数 1 2
+```
+
 ## 作用域和函数堆栈
 
 ### 递归
@@ -176,4 +227,87 @@ if (shouldDefineZero) {
 
 将函数作为参数或返回值的函数，像 `Array.prototype.map`, `Array.prototype.forEach` 等
 
+## 偏应用函数
+
+### 函数科里化
+
+> https://github.com/mqyqingfeng/Blog/issues/42
+
+```js
+// 第1版
+function curry(fn, ...args1) {
+  return function(...args2) {
+    return fn.apply(this, [...args1, ...args2])
+  }
+}
+
+function add(a, b) {
+  return a + b
+}
+
+var addCurry = curry(add, 1, 2)
+console.log(addCurry()) // 3
+
+//或者
+var addCurry = curry(add, 1)
+console.log(addCurry(2)) // 3
+
+//或者
+var addCurry = curry(add)
+console.log(addCurry(1, 2)) // 3
+```
+
+```js
+// 第2版
+function subCurry(fn, ...args1) {
+  return function(...args2) {
+    return fn.apply(this, [...args1, ...args2])
+  }
+}
+
+function curry(fn, length = fn.length) {
+  return function(...args1) {
+    if (args1.length >= length) {
+      // 参数个数符合要求
+      return fn.apply(this, args1)
+    }
+    return curry(subCurry.call(this, fn, ...args1), length - args1.length)
+  }
+}
+
+const fn = curry(function(a, b, c) {
+  return [a, b, c]
+})
+
+console.log(fn('a', 'b', 'c')) // ["a", "b", "c"]
+console.log(fn('a', 'b')('c')) // ["a", "b", "c"]
+console.log(fn('a')('b')('c')) // ["a", "b", "c"]
+console.log(fn('a')('b', 'c')) // ["a", "b", "c"]
+```
+
+### “分部”函数
+
+```js
+function partialArg(fn, ...args1) {
+  return function(...args2) {
+    let allArg = args1
+    let j = 0
+    allArg.forEach((v, idx) => {
+      if (v === undefined) {
+        allArg[idx] = args2[j++]
+      }
+    })
+
+    return fn.apply(null, allArg)
+  }
+}
+
+const delay = partialArg(setTimeout, undefined, 2000)
+delay(() => {
+  console.log('delay 2s') // 2秒后输出
+})
+```
+
 > https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Functions
+>
+> `<<JavaScript 忍者秘籍>>`
