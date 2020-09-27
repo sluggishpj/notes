@@ -160,6 +160,13 @@ document.querySelector('.container').style.background = 'blue'
 document.querySelector('.container').style = 'background:blue;width: 400px;'
 ```
 
+将所有改变合并在一起执行，只修改 DOM 一次。可通过使用 cssText 属性实现：
+
+```js
+var el = document.getElementById('mydiv')
+el.style.cssText = 'border-left: 1px; border-right: 2px; padding: 5px;'
+```
+
 ### 使用特定容器元素进行包装的问题元素
 
 - `<option>` and `< optgroup>` need to be contained in a `<select multiple="multiple">...</select>`

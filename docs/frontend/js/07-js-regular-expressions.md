@@ -7,9 +7,31 @@ title: 正则表达式
 ## 创建正则表达式
 
 ```js
-var re1 = /ab+c/
+// var reg = /pattern/flags
 
+var re1 = /ab+c/gi
+
+// var reg = new RegExp(pattern,flags)
 var re2 = new RegExp('ab+c')
+```
+
+flags，用来标明正则表达式的行为，可选值有以下
+
+- `g`: 表示全局匹配（global match），查找所有匹配的字符串，而不是在发现第一个匹配项时就停止
+- `i`: 表示不区分字符串大小写（ignore case），即在确定匹配项时忽略模式与字符串的大小写
+- `m`: 表示多行模式（multiline），Treat beginning and end characters (`^` and `$`) as working over multiple lines. In other words, match the beginning or end of each line (delimited by `\n` or `\r`), not only the very beginning or end of the whole input string.
+- `s`: (dotAll) 允许`.` 匹配换行符
+- `u`: (unicode) Treat `pattern` as a sequence of Unicode code points
+- `y`: (sticky) Matches only from the index indicated by the lastIndex property of this regular expression in the target string. Does not attempt to match from any later indexes.
+
+```js
+// 测试 flag: m
+var reg = /^a.*e$/s
+var regM = /^a.*e$/ms
+
+console.log(reg.test('abcd\ne')) // true
+console.log(reg.test('abce\nf')) // false
+console.log(regM.test('abce\nf')) // true
 ```
 
 ## 编写一个正则表达式的模式
@@ -236,15 +258,6 @@ mixedCharacters.match(/\p{Sc=Cyrillic}/u) // Л
 | `replace`  | 一个在字符串中执行查找匹配的 String 方法，并且使用替换字符串替换掉匹配到的子字符串。                 |
 | `split`    | 一个使用正则表达式或者一个固定字符串分隔一个字符串，并将分隔后的子字符串存储到数组中的 String 方法。 |
 
-### 标志
-
-| 标志 | 描述                                                             |
-| ---- | ---------------------------------------------------------------- |
-| `g`  | 全局搜索                                                         |
-| `i`  | 不区分大小写搜索                                                 |
-| `m`  | 多行搜索                                                         |
-| `s`  | 允许 `.` 匹配换行符                                              |
-| `u`  | 使用 unicode 码的模式进行匹配                                    |
-| `y`  | 执行“粘性”搜索,匹配从目标字符串的当前位置开始，可以使用 `y` 标志 |
-
 > https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
+>
+> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/RegExp
