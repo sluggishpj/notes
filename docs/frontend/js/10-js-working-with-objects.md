@@ -134,7 +134,7 @@ console.log(o.b) // 6
 
 ### 基于原型链的继承
 
-`someObject.[[Prototype]]` 符号是用于指向 `someObject` 的原型。从 ECMAScript 6 开始，`[[Prototype]]` 可以通过 `Object.getPrototypeOf()` 和 `Object.setPrototypeOf()` 访问器来访问/设置。这个等同于 `JavaScript` 的非标准但许多浏览器实现的属性 \***\*proto\*\***。
+`someObject.[[Prototype]]` 符号是用于指向 `someObject` 的原型。从 ECMAScript 6 开始，`[[Prototype]]` 可以通过 `Object.getPrototypeOf()` 和 `Object.setPrototypeOf()` 访问器来访问/设置。这个等同于 `JavaScript` 的非标准但许多浏览器实现的属性 `__proto__`。
 
 但它不应该与构造函数 `func` 的 `prototype` 属性相混淆。被构造函数创建的实例对象的 `[[Prototype]]`指向 `func` 的 `prototype` 属性。`Object.prototype` 属性表示 `Object` 的原型对象。
 

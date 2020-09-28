@@ -109,6 +109,24 @@ for (var i = 0, len = arr.length; i < len; i++) {
 console.log(arr) // [1,2,3]
 ```
 
+### 判断是否数组
+
+- Array.isArray()
+
+```js
+const isArray = function(value) {
+  return (
+    value && // 不接受null或其他为假的值
+    typeof value === 'object' && // 剩下对象和数组
+    typeof value.length === 'number' && // 判断是否有值Wie数字的length属性
+    typeof value.splice === 'function' && // 判断是否包含一个splice方法
+    !value.propertyIsEnumerable('length')
+  )
+}
+```
+
+> `value.propertyIsEnumerable('length')`： // 判断`length`属性是否可枚举（`length`是否能通过`for in`遍历出来？）。对于所有数组来说，将得到 false
+
 ## 对象转基本类型
 
 对象在转换基本类型时，首先会调用 `valueOf` 然后调用 `toString`。也可以重写 `Symbol.toPrimitive` ，该方法在转基本类型时调用优先级最高。
