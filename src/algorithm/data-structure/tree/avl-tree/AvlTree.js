@@ -1,6 +1,6 @@
 // https://github.com/trekhleb/javascript-algorithms/blob/master/src/data-structures/tree/avl-tree/AvlTree.js
 
-//#region AvlTree
+// #region AvlTree
 import BinarySearchTree from '../binary-search-tree/BinarySearchTree'
 
 export default class AvlTree extends BinarySearchTree {
@@ -31,7 +31,7 @@ export default class AvlTree extends BinarySearchTree {
    * @param {*} node 需要重新平衡的树
    */
   balance(node) {
-    const balanceFactor = node.balanceFactor
+    const { balanceFactor } = node
 
     if (balanceFactor > 1) {
       const leftBalanceFactor = node.left.balanceFactor
@@ -55,11 +55,11 @@ export default class AvlTree extends BinarySearchTree {
   }
 
   /**
-   * 左左情况，参照图理解
+   * 左左情况，进行右旋，参照图理解
    * @param {BinarySearchTreeNode} rootNode
    */
   rotateLeftLeft(rootNode) {
-    const parent = rootNode.parent
+    const { parent } = rootNode
 
     // 旋转后重新平衡的树的根结点
     const pivot = rootNode.left
@@ -77,11 +77,11 @@ export default class AvlTree extends BinarySearchTree {
   }
 
   /**
-   * 右右情况
+   * 右右情况，进行左旋
    * @param {BinarySearchTreeNode} rootNode
    */
   rotateRightRight(rootNode) {
-    const parent = rootNode.parent
+    const { parent } = rootNode
 
     // 旋转后重新平衡的树的根结点
     const pivot = rootNode.right
@@ -117,4 +117,6 @@ export default class AvlTree extends BinarySearchTree {
     this.rotateRightRight(rootNode)
   }
 }
-//#endregion AvlTree
+// #endregion AvlTree
+
+// https://zh.wikipedia.org/wiki/AVL%E6%A0%91

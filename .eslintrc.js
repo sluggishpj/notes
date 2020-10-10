@@ -19,6 +19,7 @@ module.exports = {
     'no-plusplus': 0,
     'import/no-unresolved': 0,
     'class-methods-use-this': 0,
+    'consistent-return': 0,
   },
   overrides: [
     {
