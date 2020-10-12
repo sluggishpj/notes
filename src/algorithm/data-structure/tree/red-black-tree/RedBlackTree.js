@@ -1,4 +1,6 @@
 // https://zh.wikipedia.org/wiki/%E7%BA%A2%E9%BB%91%E6%A0%91
+
+// #region RedBlackTree
 import BinarySearchTree from '../binary-search-tree/BinarySearchTree'
 
 const COLORS = { red: 'red', black: 'black' }
@@ -10,11 +12,8 @@ export default class RedBlackTree extends BinarySearchTree {
   insert(value) {
     const newNode = super.insert(value)
     newNode.meta.set(COLOR_PROP_NAME, COLORS.red)
-    let currentNode = newNode
-    while (currentNode) {
-      this.balance(currentNode)
-      currentNode = currentNode.parent
-    }
+    this.balance(newNode)
+
     return newNode
   }
 
@@ -32,6 +31,7 @@ export default class RedBlackTree extends BinarySearchTree {
       // 黑色结点就不管了
       return true
     }
+
     let { parent } = node
     // 情形1：新结点N位于树的根上，没有父结点。在
     // 这种情形下，我们把它重绘为黑色以满足性质2。
@@ -197,3 +197,5 @@ export default class RedBlackTree extends BinarySearchTree {
     pivot.parent = parent
   }
 }
+
+// #endregion RedBlackTree

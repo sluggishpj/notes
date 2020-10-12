@@ -31,6 +31,8 @@ title: 红黑树
 
 详细内容看 :point_right: [WIKI](https://zh.wikipedia.org/wiki/%E7%BA%A2%E9%BB%91%E6%A0%91)
 
+<<< @/src/algorithm/data-structure/tree/red-black-tree/RedBlackTree.js#RedBlackTree
+
 > https://zh.wikipedia.org/wiki/%E7%BA%A2%E9%BB%91%E6%A0%91
-> 
+>
 > https://github.com/trekhleb/javascript-algorithms/tree/master/src/data-structures/tree/red-black-tree
