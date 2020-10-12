@@ -1,6 +1,6 @@
 // 二叉搜索树
 
-//#region TreeNode
+// #region TreeNode
 // 树结点
 class TreeNode {
   constructor(v) {
@@ -9,9 +9,9 @@ class TreeNode {
     this.right = null
   }
 }
-//#endregion TreeNode
+// #endregion TreeNode
 
-//#region contains
+// #region contains
 /**
  * 查找是否存在目标结点
  * @param {TreeNode} root 根结点
@@ -24,17 +24,16 @@ function contains(root, value) {
   const val = root.value
   if (val === value) {
     return true
-  } else if (value < val) {
+  } if (value < val) {
     // 往左子树找
     return contains(root.left, value)
-  } else {
-    // 往右子树找
-    return contains(root.right, value)
   }
+  // 往右子树找
+  return contains(root.right, value)
 }
-//#endregion contains
+// #endregion contains
 
-//#region findNode
+// #region findNode
 /**
  * 查找目标元素结点
  * @param {TreeNode} root 根结点
@@ -48,16 +47,16 @@ function findNode(root, value) {
   const val = root.value
   if (val === value) {
     return root
-  } else if (value < val) {
+  } if (value < val) {
     return findNode(root.left, value)
-  } else if (value > val) {
+  } if (value > val) {
     // 右子树
     return findNode(root.right, value)
   }
 }
-//#endregion findNode
+// #endregion findNode
 
-//#region findParentNode
+// #region findParentNode
 /**
  * 查找目标元素结点父结点
  * @param {TreeNode} root 根结点
@@ -74,21 +73,21 @@ function findParentNode(root, value) {
   }
   if (value < val) {
     // 左子树
-    const left = root.left
+    const { left } = root
     if (left && left.value === value) {
       return root
     }
     return findParentNode(left, value)
-  } else if (value > val) {
+  } if (value > val) {
     // 右子树
-    const right = root.right
+    const { right } = root
     if (right && right.value === value) {
       return root
     }
     return findParentNode(right, value)
   }
 }
-//#endregion findParentNode
+// #endregion findParentNode
 
 // #region findMin
 /**
@@ -101,12 +100,11 @@ function findMin(root) {
     if (!root.left) {
       // 左子树不存在
       return root.value
-    } else {
-      return findMin(root.left)
     }
+    return findMin(root.left)
   }
 }
-//#endregion findMin
+// #endregion findMin
 
 // #region findMax
 /**
@@ -119,14 +117,13 @@ function findMax(root) {
     if (!root.right) {
       // 右子树不存在
       return root.value
-    } else {
-      return findMax(root.right)
     }
+    return findMax(root.right)
   }
 }
-//#endregion findMin
+// #endregion findMin
 
-//#region insert
+// #region insert
 /**
  * 插入新结点
  * @param {TreeNode} root 根结点
@@ -149,21 +146,18 @@ function insert(root, value) {
       // 左子树刚好为空
       root.left = node
       return true
-    } else {
-      return insert(root.left, value)
     }
-  } else {
-    // 插入在右子树上
-    if (root.right === null) {
-      // 右子树为空
-      root.right = node
-      return true
-    } else {
-      return insert(root.right, value)
-    }
+    return insert(root.left, value)
   }
+  // 插入在右子树上
+  if (root.right === null) {
+    // 右子树为空
+    root.right = node
+    return true
+  }
+  return insert(root.right, value)
 }
-//#endregion insert
+// #endregion insert
 
 // 取消父结点对子结点的引用
 function disconnect(parent, child) {
@@ -276,9 +270,9 @@ function deleteNode(root, value) {
   }
   return true
 }
-//#endregion deleteNode
+// #endregion deleteNode
 
-//#region traverse
+// #region traverse
 // 先序遍历
 function preorder(root, cb) {
   if (root) {
@@ -305,7 +299,7 @@ function postorder(root, cb) {
     cb(root.value)
   }
 }
-//#endregion traverse
+// #endregion traverse
 
 export {
   TreeNode,
@@ -318,5 +312,5 @@ export {
   deleteNode,
   preorder,
   inorder,
-  postorder
+  postorder,
 }

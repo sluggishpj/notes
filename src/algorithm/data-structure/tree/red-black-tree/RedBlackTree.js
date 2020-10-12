@@ -1,3 +1,4 @@
+// https://zh.wikipedia.org/wiki/%E7%BA%A2%E9%BB%91%E6%A0%91
 import BinarySearchTree from '../binary-search-tree/BinarySearchTree'
 
 const COLORS = { red: 'red', black: 'black' }
@@ -27,6 +28,10 @@ export default class RedBlackTree extends BinarySearchTree {
    * @param {BinarySearchTreeNode} node
    */
   balance(node) {
+    if (this.isNodeBlack(node)) {
+      // 黑色结点就不管了
+      return true
+    }
     let { parent } = node
     // 情形1：新结点N位于树的根上，没有父结点。在
     // 这种情形下，我们把它重绘为黑色以满足性质2。
@@ -57,35 +62,39 @@ export default class RedBlackTree extends BinarySearchTree {
       return this.balance(grandParent)
     }
 
-    // 情形4：父结点P是红色，叔结点U是黑色或缺少。
-    // 新结点N是其父结点P的右子结点 而 父结点P又是祖先结点G的左子结点。
-    // 对P进行左旋，然后按情形5处理
-    if (
-      (!uncle || this.isNodeBlack(uncle))
-      && node === parent.right
-      && parent === grandParent.left
-    ) {
+    // 以下情形：父结点P是红色，叔结点U是黑色或缺少。
+    // 4.1新结点N是其父结点P的右子结点 而 父结点P又是祖先结点G的左子结点。
+    // 对P进行左旋，然后按情形5.1处理
+    if (node === parent.right && parent === grandParent.left) {
       this.rotateRightRight(parent)
 
-      // 更新原结点指向，使之满足情况5
+      // 更新原结点指向，使之满足情况5.1
+      node = parent
+      parent = node.parent
+    } else if (node === parent.left && parent === grandParent.right) {
+      // 5.1的对称，也就是新结点N是父结点P的左子结点 而 父结点P又是祖先结点G的右子结点。
+      // 对P进行右旋，然后按情形5.2处理
+      this.rotateLeftLeft(parent)
+
       node = parent
       parent = node.parent
     }
 
-    // 情形5：父结点P是红色，叔父结点U是黑色或缺少
+    // 情形5.1
     // 新结点N是其父结点的左子结点，而父结点P又是祖先结点G的左子结点。
     // 针对祖父节点G的一次右旋转
     // 切换以前的父节点P和祖父节点G的颜色
-    if (
-      (!uncle || this.isNodeBlack(uncle))
-      && node === parent.left
-      && parent === grandParent.left
-    ) {
+    if (node === parent.left && parent === grandParent.left) {
       this.makeNodeBlack(parent)
       this.makeNodeRed(grandParent)
       this.rotateLeftLeft(grandParent)
-      return true
+    } else if (node === parent.right && parent === grandParent.right) {
+      // 情形5.2，也是5.1的对称
+      this.makeNodeBlack(parent)
+      this.makeNodeRed(grandParent)
+      this.rotateRightRight(grandParent)
     }
+    return true
   }
 
   /**
@@ -156,7 +165,12 @@ export default class RedBlackTree extends BinarySearchTree {
     rootNode.setRight(pivot.left)
     pivot.setLeft(rootNode)
 
-    parent.replaceChild(rootNode, pivot)
+    if (parent) {
+      parent.replaceChild(rootNode, pivot)
+    } else {
+      // 根结点
+      this.root = pivot
+    }
 
     pivot.parent = parent
   }

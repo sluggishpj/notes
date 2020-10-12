@@ -65,7 +65,7 @@ export default class BinaryTreeNode {
       // 说明 parent.parent 只有1个孩子
       return undefined
     }
-    if (this.nodeComparator.equal(this, grandNode.left)) {
+    if (this.nodeComparator.equal(this.parent, grandNode.left)) {
       return grandNode.right
     }
     return grandNode.left
