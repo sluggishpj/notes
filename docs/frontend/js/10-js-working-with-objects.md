@@ -62,6 +62,15 @@ fish.type = 'Fishes'
 fish.displayType() // Output:Fishes
 ```
 
+### 属性类型
+
+- configurable: 能否通过 `delete` 删除属性从而重新定义属性。一旦把该属性设置为false，就不能再把它设置为true了。
+- enumerable: 能否通过 `for-in` 循环返回属性
+- writable: 能否修改属性的值
+- value: 属性的数据值。读取属性值的时候，从这个位置读；写入属性值的时候，把新值保存在这个位置。这个特性的默认值为 undefined 。
+
+> 通过 `Object.defineProperty` 和 `Object.defineProperties` 进行设置
+
 ## 定义 getters 和 setters
 
 一个 `getter` 是一个获取某个特定属性的值的方法。一个 `setter` 是一个设定某个属性的值的方法。你可以为预定义的或用户定义的对象定义 `getter` 和 `setter` 以支持新增的属性。定义 `getter` 和 `setter` 的语法采用对象字面量语法

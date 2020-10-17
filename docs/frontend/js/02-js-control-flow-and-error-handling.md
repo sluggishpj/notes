@@ -2,6 +2,9 @@
 title: 流程控制与异常处理
 ---
 
+## switch
+switch 语句在比较值时使用的是全等操作符
+
 ## Falsy
 
 falsy 值 (虚值) 是在 Boolean 上下文中认定为 false 的值，有 7 个

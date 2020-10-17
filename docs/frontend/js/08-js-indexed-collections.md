@@ -34,6 +34,12 @@ items.sort(function(a, b) {
 // items is ['adieu', 'café', 'cliché', 'communiqué', 'premier', 'réservé']
 ```
 
+#### push, pop, shift, unshift, splice
+
+- `push`,`unshift`:返回调整后的数组长度
+- `pop`,`shift`：返回元素
+- `splice`：返回删除的元素组成的数组，如果没有则为[]。语法：`array.splice(start[, deleteCount[, item1[, item2[, ...]]]])`
+
 #### forEach, map, filter, some, every 等
 
 ##### forEach

@@ -119,6 +119,14 @@ var baz = function() {
   - `Date`
   - `RegExp`
 
+> 给字符串，布尔值，数字，Symbol，BigInt 添加属性，不会导致错误，但也不会添加成功
+
+```js
+const name = 'Megumin'
+name.age = 14
+console.log(name.age) // undefined
+```
+
 #### BigInt
 
 通过引入 BigInt，您可以操作超过 `Number.MAX_SAFE_INTEGER` 的数字
