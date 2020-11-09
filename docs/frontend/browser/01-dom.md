@@ -60,11 +60,12 @@ img.nodeType
 - previousSibling
 - nextSibling
 - parentNode
+- childNodes: 该节点所有子节点的实时的 `NodeList`
 
 ### 方法
 
-- `cloneNode()`
-- `contains()`
+- `cloneNode()`: 接受一个布尔值参数，表示是否执行深复制。在参数为 true 的情况下，执行深复制，也就是复制节点及其整个子节点树；在参数为 false 的情况下，执行浅复制，即只复制节点本身。
+- `contains()`: 判断传入的节点是否是自己的后代。
 - `appendChild()`
 - `removeChild()`
 - `replaceChild()`
@@ -79,8 +80,8 @@ img.nodeType
 - clientLeft
 - innerHTML
 - Element.classList：只读属性，返回一个元素的类属性的实时 `DOMTokenList`集合
-  - add( String [, String] )：添加指定的类值。如果这些类已经存在于元素的属性中，那么它们将被忽略。
-  - remove( String [,String] )：删除指定的类值。
+  - **add( String [, String] )**：添加指定的类值。如果这些类已经存在于元素的属性中，那么它们将被忽略。
+  - **remove( String [,String] )**：删除指定的类值。
   - **item** ( Number )：按集合中的索引返回类值。
   - **toggle** ( String [, force] )：当只有一个参数时：切换 class value; 即如果类存在，则删除它并返回 false，如果不存在，则添加它并返回 true。当存在第二个参数时：如果第二个参数的计算结果为 true，则添加指定的类值，如果计算结果为 false，则删除它
   - contains( String )：检查元素的类属性中是否存在指定的类值。
@@ -98,7 +99,7 @@ div.parentNode.replaceChild(p, div)
 
 - `removeAttribute()`
 - `scrollTo()`
-- `querySelector()`
+- `querySelector()`: 返回匹配的第 1 个元素/null
 - `querySelectorAll()`
 - `getBoundingClientRect()`
 - `getElementsByClassName()`
@@ -113,6 +114,12 @@ var sameSource = somePic.href
 > 当链接是绝对地址时，两者等价。当链接是相对地址时，somePic.href 会将相对地址转换为绝对地址。而 getAttribute('href')则依旧返回标签里的 href 属性，不做任何改变
 
 - `getBoundingClientRect()` 方法，包含 4 个属性： left 、 top 、 right 和 bottom。这些属性给出了元素在页面中相对于视口的位置，不管有没有进行设置
+
+### 元素大小
+
+![BHXZpd.png](https://s1.ax1x.com/2020/11/09/BHXZpd.png)
+![BHXe1A.png](https://s1.ax1x.com/2020/11/09/BHXe1A.png)
+![BHXm6I.png](https://s1.ax1x.com/2020/11/09/BHXm6I.png)
 
 ## Document
 
@@ -135,6 +142,21 @@ var sameSource = somePic.href
   - interactive：文档已经完成加载，文档已被解析，但是诸如图像，样式表和框架之类的子资源仍在加载。
   - complete：文档和所有子资源已完成加载。状态表示 `load` 事件即将被触发。
 - `document.hasFocus()` 方法，用于确定文档是否获得了焦点，失去页面焦点就会变为 false（失去焦点包括：离开当前页面，点击搜索栏，焦点在控制面板里）
+
+#### 自定义数据属性
+
+```html
+<div id="myDiv" data-myname="Nicholas" data-appid="12345"></div>
+```
+
+获取自定义属性的值
+
+```js
+const div = document.getElementById('myDiv')
+//取得自定义属性的值
+const myName = div.dataset.myname
+const appId = div.dataset.appid
+```
 
 ### 事件
 
