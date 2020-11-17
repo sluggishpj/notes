@@ -40,6 +40,43 @@ function Car(make, model, year) {
 var mycar = new Car('Eagle', 'Talon TSi', 1993)
 ```
 
+### 作用域安全的构造函数
+
+```js
+function Polygon(sides) {
+  if (this instanceof Polygon) {
+    this.sides = sides
+    this.getArea = function() {
+      return 0
+    }
+  } else {
+    return new Polygon(sides)
+  }
+}
+
+function Rectangle(width, height) {
+  Polygon.call(this, 2)
+  this.width = width
+  this.height = height
+  this.getArea = function() {
+    return this.width * this.height
+  }
+}
+var rect = new Rectangle(5, 10)
+console.log(rect.sides) //undefined
+```
+
+> 由于 Polygon 构造函数是作用域安全的， this 对象并非 Polygon 的实例，所以会创建并返回一个新的 Polygon 对象。 Rectangle 构造函数中的 this 对象并没有得到增长，同时 Polygon.call() 返回的值也没有用到，所以 Rectangle 实例中就不会有 sides 属性
+
+如果构造函数窃取结合使用原型链或者寄生组合则可以解决这个问题。
+
+```js
+// 添加
+Rectangle.prototype = new Polygon()
+var rect = new Rectangle(5, 10)
+console.log(rect.sides) //2
+```
+
 ### 使用 `Object.create` 方法
 
 ```js
@@ -64,7 +101,7 @@ fish.displayType() // Output:Fishes
 
 ### 属性类型
 
-- configurable: 能否通过 `delete` 删除属性从而重新定义属性。一旦把该属性设置为false，就不能再把它设置为true了。
+- configurable: 能否通过 `delete` 删除属性从而重新定义属性。一旦把该属性设置为 false，就不能再把它设置为 true 了。
 - enumerable: 能否通过 `for-in` 循环返回属性
 - writable: 能否修改属性的值
 - value: 属性的数据值。读取属性值的时候，从这个位置读；写入属性值的时候，把新值保存在这个位置。这个特性的默认值为 undefined 。
@@ -339,6 +376,12 @@ JS 解释器在遇到**非匿名的立即执行函数**时，会创建一个辅�
   console.log(foo)
 })() // -> ƒ foo() { foo = 10 ; console.log(foo) }
 ```
+
+## 防篡改对象
+
+- `Object.preventExtensions(obj)`: 禁止给对象 obj 添加属性和方法。检测`Object.isExtensible(obj)`
+- `Object.seal(obj)`: 不能添加/删除 属性和方法。检测`Object.isSealed(obj)`
+- `Object.freeze(obj)`: 不能添加/删除/修改 属性和方法。检测`Object.isFrozen()`
 
 ## 其他
 
