@@ -93,4 +93,10 @@ import('/modules/myModule.mjs').then(module => {
 })
 ```
 
+## Other
+
+在使用 `import` 进行导入时，这些绑定值只能被导入模块所读取，不可更改(类似 const)。但在 `export` 导出模块中对这些绑定值进行修改，所修改的值也会实时地更新。
+
 > https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Modules
+>
+> https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
