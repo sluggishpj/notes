@@ -19,3 +19,15 @@ export const generateArray = function generateArray(...args) {
   }
   return res
 }
+
+/**
+ * 新建并初始化数组
+ * @param {Number} length
+ * @param {any} defaultVal 默认值，函数的话则 (v,i) => {}
+ */
+export function initArray(length, defaultVal) {
+  if (typeof defaultVal === 'function') {
+    return Array.from({ length }, defaultVal)
+  }
+  return Array(length).fill(defaultVal)
+}

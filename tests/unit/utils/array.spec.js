@@ -1,4 +1,4 @@
-import { generateArray } from '@/utils/array'
+import { generateArray, initArray } from '@/utils/array'
 
 // generateArray
 describe('utils.array#generateArray', () => {
@@ -48,5 +48,30 @@ describe('utils.array#generateArray', () => {
         ['a', 'a', 'a', 'a'],
       ],
     ])
+  })
+})
+
+// initArray
+describe('utils.array#initArray', () => {
+  it('基本数据类型', () => {
+    const arr = initArray(3, 'a')
+    expect(arr).toEqual(['a', 'a', 'a'])
+
+    const arr2 = initArray(3, [])
+    arr2[0][0] = '00'
+    expect(arr2[0][0]).toBe('00')
+    // 引用的是同一个 空数组[]
+    expect(arr2[1][0]).toBe('00')
+  })
+
+  it('函数', () => {
+    const arr = initArray(3, () => [])
+    arr[0][0] = '00'
+    expect(arr[0][0]).toBe('00')
+    // 因为是函数返回的新数组，故引用的是不是同一个 空数组[]
+    expect(arr[1][0]).toBe(undefined)
+
+    const arr2 = initArray(3, (v, i) => i)
+    expect(arr2).toEqual([0, 1, 2])
   })
 })

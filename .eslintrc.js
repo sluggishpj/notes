@@ -20,6 +20,7 @@ module.exports = {
     'import/no-unresolved': 0,
     'class-methods-use-this': 0,
     'consistent-return': 0,
+    'no-script-url': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
   },
   overrides: [
     {
