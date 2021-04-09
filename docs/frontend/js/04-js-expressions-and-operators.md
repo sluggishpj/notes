@@ -139,6 +139,7 @@ typeof operand
 ```js
 var str = 'round'
 var boo = true
+var bigInt = 1n
 var sym = Symbol()
 var obj = {}
 var fun = new Function('5 + 2')
@@ -147,6 +148,7 @@ var num = 1
 
 typeof str // "string"
 typeof boo // "boolean"
+typeof bigInt // "bigint"
 typeof sym // "symbol"
 typeof obj // "object"
 typeof fun // "function"
@@ -156,6 +158,8 @@ typeof num // "number"
 typeof undef2 // "undefined"
 typeof null // "object"
 ```
+
+> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof
 
 ### void
 
