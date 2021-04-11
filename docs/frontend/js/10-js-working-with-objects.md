@@ -400,3 +400,42 @@ console.log(str.child) // undefined
 > 不可以对原始值设置属性，无效。因为每次隐式封装都会产生一个新的 String 对象，更新第一个封装对象并不会造成持久的影响。
 
 > https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
+
+### 一些 API
+
+#### Object.is
+
+```js
+;-0 === 0 // true
+Object.is(-0, 0) // false
+
+NaN === NaN // false
+Object.is(NaN, NaN) // true
+```
+
+##### polyfill
+
+```js
+if (!Object.is) {
+  Object.defineProperty(Object, 'is', {
+    value: function(x, y) {
+      // SameValue algorithm
+      if (x === y) {
+        // return true if x and y are not 0, OR
+        // if x and y are both 0 of the same sign.
+        // This checks for cases 1 and 2 above.
+        return x !== 0 || 1 / x === 1 / y
+      } else {
+        // return true if both x AND y evaluate to NaN.
+        // The only possibility for a variable to not be strictly equal to itself
+        // is when that variable evaluates to NaN (example: Number.NaN, 0/0, NaN).
+        // This checks for case 3.
+        return x !== x && y !== y
+      }
+    }
+  })
+}
+```
+
+> 其他和 `===` 一样
+> [Object.is | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)
