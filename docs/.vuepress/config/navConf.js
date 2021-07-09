@@ -13,6 +13,10 @@ module.exports = [
       {
         text: 'JavaScript',
         link: '/frontend/js/'
+      },
+      {
+        text: 'CSS',
+        link: '/frontend/css/'
       }
     ]
   },
