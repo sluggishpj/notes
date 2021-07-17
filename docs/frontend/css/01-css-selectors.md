@@ -23,7 +23,9 @@ title: 选择器
 
 ```css
 /* 匹配 lang="en", lang="en-US" 等 */
-*[lang|="en"] {color: white;}
+*[lang|='en'] {
+  color: white;
+}
 
 /* Internal links, beginning with "#" */
 a[href^='#'] {
@@ -70,6 +72,22 @@ a[href^='https'][href$='.org'] {
 
 > 一个选择器中只能使用一个伪元素。伪元素必须紧跟在语句中的简单选择器/基础选择器之后。
 > 注意：按照规范，伪元素应该使用双冒号（::）而不是单个冒号（:），以便区分伪类和伪元素。但是，由于旧版本的 W3C 规范并未对此进行特别区分，因此目前绝大多数的浏览器都同时支持使用这两种方式来表示伪元素。
+
+## `attr()`
+
+`attr()` 理论上能用于获取选中标签的 CSS 属性，但目前支持的仅有伪元素的 `content` 属性
+
+```html
+<style>
+  p:before {
+    content: attr(data-foo) ' ';
+  }
+</style>
+
+<p data-foo="hello">world</p>
+```
+
+> 渲染结果是 `hello world`
 
 ## REF
 
