@@ -3,7 +3,7 @@ name: Update Algolia Index
 on:
   push:
     branches:
-      - gh-pages
+      - master
   # Allow manual triggers.
   workflow_dispatch: {}
   # Run once a day.
