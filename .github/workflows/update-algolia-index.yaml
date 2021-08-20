@@ -16,7 +16,7 @@ jobs:
     - name: checkout
       uses: actions/checkout@v2
     - name: update
-      env: |
+      env:
         APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
         API_KEY: ${{ secrets.API_KEY }}
       run: |
