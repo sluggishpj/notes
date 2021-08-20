@@ -16,10 +16,14 @@ jobs:
     - name: checkout
       uses: actions/checkout@v2
     - name: update
+      env: |
+        APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
+        API_KEY: ${{ secrets.API_KEY }}
       run: |
+        echo $APPLICATION_ID
         # Based on https://docsearch.algolia.com/docs/run-your-own/
         docker run \
-          -e "APPLICATION_ID=${{ secrets.APPLICATION_ID }}" \
-          -e "API_KEY=${{ secrets.API_KEY }}" \
+          -e "APPLICATION_ID=$APPLICATION_ID" \
+          -e "API_KEY=$API_KEY" \
           -e "CONFIG=$(cat ./docsearch.config.json | jq -r tostring)" \
           algolia/docsearch-scraper:v1.16.0
