@@ -16,3 +16,5 @@ docs/.vuepress/dist/
 dist
 .vscode
 coverage
+
+*.env
