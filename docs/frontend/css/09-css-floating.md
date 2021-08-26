@@ -2,6 +2,8 @@
 title: 浮动
 ---
 
+## 浮动布局
+
 浮动元素应沿其容器的左侧或右侧放置(或者碰到另外一个浮动的元素)，允许文本和内联元素环绕它。该元素从网页的正常流动(文档流)中移除，当依旧是文档流的一部分。
 
 ```css
@@ -22,7 +24,7 @@ float: none;
 
 > 更多可查看：[float | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/float)
 
-### 清除浮动 clear
+## 清除浮动 clear
 
 ```css
 clear: none;

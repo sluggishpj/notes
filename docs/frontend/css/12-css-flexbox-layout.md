@@ -2,7 +2,7 @@
 title: Flex 布局
 ---
 
-### 容器属性
+## 容器属性
 
 ```css
 .container {
@@ -16,7 +16,7 @@ title: Flex 布局
 }
 ```
 
-### 子项的属性
+## 子项的属性
 
 ```css
 .item {
@@ -31,7 +31,7 @@ title: Flex 布局
 
 > `flex-basis` 比 `width` 具有更高的优先级
 
-### 参考资料
+## 参考资料
 
 > [CSS_Flexible_Box_Layout | MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout)
 

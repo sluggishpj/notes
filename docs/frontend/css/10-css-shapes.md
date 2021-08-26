@@ -2,7 +2,7 @@
 title: 形状
 ---
 
-### shape
+## shape
 
 在 [Level 1 specification](https://drafts.csswg.org/css-shapes/) 中，CSS Shapes 可以应用在浮动元素上，可以通过设置一些属性，使浮动元素周围元素不再是矩形围绕该元素。
 
@@ -14,7 +14,7 @@ title: 形状
 
 > [CSS_Shapes | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Shapes)
 
-#### shape-outside
+### shape-outside
 
 - 定义基本形状
 
@@ -54,14 +54,14 @@ shape-outside: url(image.png);
 shape-outside: linear-gradient(45deg, rgba(255, 255, 255, 0) 150px, red 150px);
 ```
 
-#### shape-image-threshold
+### shape-image-threshold
 
 ```css
 shape-outside: linear-gradient(50deg, rgb(77, 26, 103), transparent 80%, transparent);
 shape-image-threshold: 0.2;
 ```
 
-#### shape-margin
+### shape-margin
 
 作用和 margin 类似，控制形状和周围元素的间距
 
@@ -74,12 +74,12 @@ shape-margin: 20mm;
 shape-margin: 60%;
 ```
 
-#### 与 clip-path 的关系
+### 与 clip-path 的关系
 
 `clip-path` 是裁剪出可视区域，对原来的周边元素位置不影响。
 形状 控制的是 自身元素的显示区域，会影响周边元素的围绕.
 
-### clip-path
+## clip-path
 
 使用裁剪方式创建元素的可显示区域。区域内的部分显示，区域外的隐藏。
 
