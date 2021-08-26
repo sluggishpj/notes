@@ -2,6 +2,7 @@
 title: DOM
 ---
 
+# DOM
 ## 概述
 
 Document 和 Element 继承自接口 Node。
