@@ -22,6 +22,15 @@ module.exports = {
     editLinkText: '在 GitHub 上编辑此页',
     lastUpdated: '上次更新',
     sidebarDepth: 6,
-    collapsable: true
+    collapsable: true,
+    algolia: {
+      indexName: 'notes',
+      apiKey: '8e4716393f1a52c17e11c74e1d018419',
+      appId: 'EK9P3OJVR1',
+      algoliaOptions: {
+        hitsPerPage: 6,
+        facetFilters: ''
+      }
+    }
   }
 }
