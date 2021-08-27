@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>红黑树 | Notes </title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="icon" href="/notes/logo.png">
+    <link rel="manifest" href="/notes/manifest.json">
+    <link rel="apple-touch-icon" href="/notes/icons/apple-touch-icon-152x152.png">
+    <meta name="description" content="Just notes">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="/icons/msapplication-icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#000000">
+    <link rel="preload" href="/notes/assets/css/0.styles.8b2f1da5.css" as="style"><link rel="preload" href="/notes/assets/js/app.095f4842.js" as="script"><link rel="preload" href="/notes/assets/js/3.9ea24740.js" as="script"><link rel="preload" href="/notes/assets/js/20.4608c6c4.js" as="script"><link rel="preload" href="/notes/assets/js/4.851aaad8.js" as="script"><link rel="prefetch" href="/notes/assets/js/10.688d9625.js"><link rel="prefetch" href="/notes/assets/js/11.583aa56a.js"><link rel="prefetch" href="/notes/assets/js/12.10a32fff.js"><link rel="prefetch" href="/notes/assets/js/13.aa132f1e.js"><link rel="prefetch" href="/notes/assets/js/14.38f35143.js"><link rel="prefetch" href="/notes/assets/js/15.dd03b862.js"><link rel="prefetch" href="/notes/assets/js/16.ad1c7355.js"><link rel="prefetch" href="/notes/assets/js/17.eb1e03e0.js"><link rel="prefetch" href="/notes/assets/js/18.87a484f4.js"><link rel="prefetch" href="/notes/assets/js/19.dc61d30b.js"><link rel="prefetch" href="/notes/assets/js/21.ebe0d766.js"><link rel="prefetch" href="/notes/assets/js/22.0ea03d67.js"><link rel="prefetch" href="/notes/assets/js/23.9f2aa759.js"><link rel="prefetch" href="/notes/assets/js/24.e4d5f7d2.js"><link rel="prefetch" href="/notes/assets/js/25.67cf8876.js"><link rel="prefetch" href="/notes/assets/js/26.228cc0db.js"><link rel="prefetch" href="/notes/assets/js/27.dff5601e.js"><link rel="prefetch" href="/notes/assets/js/28.a701cb25.js"><link rel="prefetch" href="/notes/assets/js/29.ab567c53.js"><link rel="prefetch" href="/notes/assets/js/30.156fc13e.js"><link rel="prefetch" href="/notes/assets/js/31.7664ef45.js"><link rel="prefetch" href="/notes/assets/js/32.c646cebf.js"><link rel="prefetch" href="/notes/assets/js/33.361fe092.js"><link rel="prefetch" href="/notes/assets/js/34.f9c21455.js"><link rel="prefetch" href="/notes/assets/js/35.7e0b207f.js"><link rel="prefetch" href="/notes/assets/js/36.bb672fee.js"><link rel="prefetch" href="/notes/assets/js/37.5846c1d7.js"><link rel="prefetch" href="/notes/assets/js/38.f35c357e.js"><link rel="prefetch" href="/notes/assets/js/39.b4d387d9.js"><link rel="prefetch" href="/notes/assets/js/40.35be1448.js"><link rel="prefetch" href="/notes/assets/js/41.82506e8f.js"><link rel="prefetch" href="/notes/assets/js/42.041f8c83.js"><link rel="prefetch" href="/notes/assets/js/43.d028a865.js"><link rel="prefetch" href="/notes/assets/js/44.a8e2590e.js"><link rel="prefetch" href="/notes/assets/js/45.bf4c467b.js"><link rel="prefetch" href="/notes/assets/js/46.b60b8011.js"><link rel="prefetch" href="/notes/assets/js/47.c2f97bfd.js"><link rel="prefetch" href="/notes/assets/js/48.6b5c4dbb.js"><link rel="prefetch" href="/notes/assets/js/49.de744024.js"><link rel="prefetch" href="/notes/assets/js/5.53e746a9.js"><link rel="prefetch" href="/notes/assets/js/50.d42b3adb.js"><link rel="prefetch" href="/notes/assets/js/51.c9092405.js"><link rel="prefetch" href="/notes/assets/js/52.bb4626e8.js"><link rel="prefetch" href="/notes/assets/js/53.4c352da1.js"><link rel="prefetch" href="/notes/assets/js/54.a50aff35.js"><link rel="prefetch" href="/notes/assets/js/55.b229bfb9.js"><link rel="prefetch" href="/notes/assets/js/56.ea4c2725.js"><link rel="prefetch" href="/notes/assets/js/57.c9c9ad63.js"><link rel="prefetch" href="/notes/assets/js/58.8e1996c3.js"><link rel="prefetch" href="/notes/assets/js/59.23444f7e.js"><link rel="prefetch" href="/notes/assets/js/6.b3c7db3f.js"><link rel="prefetch" href="/notes/assets/js/60.81c23650.js"><link rel="prefetch" href="/notes/assets/js/61.545b2b35.js"><link rel="prefetch" href="/notes/assets/js/62.4c2c2257.js"><link rel="prefetch" href="/notes/assets/js/63.0b3d4b18.js"><link rel="prefetch" href="/notes/assets/js/64.477ecf2d.js"><link rel="prefetch" href="/notes/assets/js/65.93664d9e.js"><link rel="prefetch" href="/notes/assets/js/66.f8c6b7be.js"><link rel="prefetch" href="/notes/assets/js/67.1bb011b9.js"><link rel="prefetch" href="/notes/assets/js/68.37f62882.js"><link rel="prefetch" href="/notes/assets/js/69.92df6125.js"><link rel="prefetch" href="/notes/assets/js/7.622c11f9.js"><link rel="prefetch" href="/notes/assets/js/70.d562b60b.js"><link rel="prefetch" href="/notes/assets/js/71.bd6c6bc0.js"><link rel="prefetch" href="/notes/assets/js/72.1db45c52.js"><link rel="prefetch" href="/notes/assets/js/73.aa0eb233.js"><link rel="prefetch" href="/notes/assets/js/8.656c7a79.js"><link rel="prefetch" href="/notes/assets/js/9.a68884f7.js"><link rel="prefetch" href="/notes/assets/js/vendors~docsearch.883d461f.js">
+    <link rel="stylesheet" href="/notes/assets/css/0.styles.8b2f1da5.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/notes/" class="home-link router-link-active"><!----> <span class="site-name">Notes </span></a> <div class="links"><form id="search-form" role="search" class="algolia-search-wrapper search-box"><input id="algolia-search-input" class="search-query"></form> <nav class="nav-links can-hide"><div class="nav-item"><a href="/notes/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="算法与数据结构" class="dropdown-title"><span class="title">算法与数据结构</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/notes/algorithm/data-structure/" class="nav-link router-link-active">
+  数据结构
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/notes/frontend/browser/" class="nav-link">
+  Browser
+</a></li><li class="dropdown-item"><!----> <a href="/notes/frontend/js/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/notes/frontend/css/" class="nav-link">
+  CSS
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/notes/backend/nodejs/" class="nav-link">
+  Node.js
+</a></li></ul></div></div> <a href="https://github.com/sluggishpj/notes" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/notes/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="算法与数据结构" class="dropdown-title"><span class="title">算法与数据结构</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/notes/algorithm/data-structure/" class="nav-link router-link-active">
+  数据结构
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/notes/frontend/browser/" class="nav-link">
+  Browser
+</a></li><li class="dropdown-item"><!----> <a href="/notes/frontend/js/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/notes/frontend/css/" class="nav-link">
+  CSS
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/notes/backend/nodejs/" class="nav-link">
+  Node.js
+</a></li></ul></div></div> <a href="https://github.com/sluggishpj/notes" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>算法与数据结构</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/notes/algorithm/" aria-current="page" class="sidebar-link">前言</a></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading open"><span>数据结构</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/notes/algorithm/data-structure/" aria-current="page" class="sidebar-link">说明</a></li><li><a href="/notes/algorithm/data-structure/linked-list.html" class="sidebar-link">链表</a></li><li><a href="/notes/algorithm/data-structure/doubly-linked-list.html" class="sidebar-link">双向链表</a></li><li><a href="/notes/algorithm/data-structure/queue.html" class="sidebar-link">队列</a></li><li><a href="/notes/algorithm/data-structure/stack.html" class="sidebar-link">栈</a></li><li><a href="/notes/algorithm/data-structure/hash-table.html" class="sidebar-link">哈希表</a></li><li><a href="/notes/algorithm/data-structure/heap.html" class="sidebar-link">堆</a></li><li><a href="/notes/algorithm/data-structure/priority-queue.html" class="sidebar-link">优先队列</a></li><li><a href="/notes/algorithm/data-structure/trie.html" class="sidebar-link">字典树</a></li><li><a href="/notes/algorithm/data-structure/binary-tree.html" class="sidebar-link">二叉树</a></li><li><a href="/notes/algorithm/data-structure/binary-search-tree.html" class="sidebar-link">二叉查找树</a></li><li><a href="/notes/algorithm/data-structure/avl-tree.html" class="sidebar-link">AVL树</a></li><li><a href="/notes/algorithm/data-structure/red-black-tree.html" aria-current="page" class="active sidebar-link">红黑树</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/notes/algorithm/data-structure/red-black-tree.html#性质" class="sidebar-link">性质</a></li><li class="sidebar-sub-header"><a href="/notes/algorithm/data-structure/red-black-tree.html#操作" class="sidebar-link">操作</a></li></ul></li><li><a href="/notes/algorithm/data-structure/segment-tree.html" class="sidebar-link">线段树(Segment Tree)</a></li></ul></section></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="红黑树"><a href="#红黑树" class="header-anchor">#</a> 红黑树</h1> <p>红黑树（英语：Red–black tree）是一种自平衡二叉查找树，又称为&quot;对称二叉 B 树&quot;
+可以在 O(log n)时间内完成查找、插入和删除，这里的 n 是树中元素的数目。</p> <p>红黑树是 2-3-4 树的一种等同。换句话说，对于每个 2-3-4 树，都存在至少一个 数据元素是同样次序的红黑树。</p> <p>红黑树相对于 AVL 树来说，牺牲了部分平衡性以换取插入/删除操作时少量的旋转操作，整体来说性能要优于 AVL 树。</p> <h2 id="性质"><a href="#性质" class="header-anchor">#</a> 性质</h2> <p>在二叉查找树强制一般要求以外，对于任何有效的红黑树我们增加了如下的额外要求：</p> <ol><li>结点是红色或黑色</li> <li>根是黑色</li> <li>所有叶子都是黑色（叶子是 NIL 结点）</li> <li>每个红色结点必须有 2 个黑色的子节点。（从每个叶子到根的所有路径上不能有两个连续的红色节点。）</li> <li>从任一结点到其每个叶子的所有简单路径都包含相同数目的黑色结点</li></ol> <p>这些约束确保了红黑树的关键特性：从根到叶子的最长的可能路径不多于最短的可能路径的两倍长。结果是这个树大致上是平衡的。因为操作比如插入、删除和查找某个值的最坏情况时间都要求与树的高度成比例，这个在高度上的理论上限允许红黑树在最坏情况下都是高效的</p> <p><img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Red-black_tree_example.svg" alt="black_tree_example"></p> <blockquote><p>使用&quot;nil 叶子&quot;或&quot;空（null）叶子&quot;，如上图所示，它不包含数据而只充当树在此结束的指示。与此有关的结论是所有节点都有两个子节点，尽管其中的一个或两个可能是空叶子。</p></blockquote> <h2 id="操作"><a href="#操作" class="header-anchor">#</a> 操作</h2> <p>因为每一个红黑树也是一个特化的二叉查找树，因此红黑树上的只读操作与普通二叉查找树上的只读操作相同。然而，在红黑树上进行插入操作和删除操作会导致不再符合红黑树的性质。恢复红黑树的性质需要少量 O(logn) 的颜色变更（实际是非常快速的）和树旋转。虽然插入和删除很复杂，但操作时间仍可以保持为 O(logn) 次。</p> <p>详细内容看 👉 <a href="https://zh.wikipedia.org/wiki/%E7%BA%A2%E9%BB%91%E6%A0%91" target="_blank" rel="noopener noreferrer">WIKI<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">import</span> BinarySearchTree <span class="token keyword">from</span> <span class="token string">'../binary-search-tree/BinarySearchTree'</span>
+
+<span class="token keyword">const</span> <span class="token constant">COLORS</span> <span class="token operator">=</span> <span class="token punctuation">{</span> red<span class="token operator">:</span> <span class="token string">'red'</span><span class="token punctuation">,</span> black<span class="token operator">:</span> <span class="token string">'black'</span> <span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> <span class="token constant">COLOR_PROP_NAME</span> <span class="token operator">=</span> <span class="token string">'color'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">RedBlackTree</span> <span class="token keyword">extends</span> <span class="token class-name">BinarySearchTree</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 插入新结点</span>
+  <span class="token function">insert</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> newNode <span class="token operator">=</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+    newNode<span class="token punctuation">.</span>meta<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token constant">COLOR_PROP_NAME</span><span class="token punctuation">,</span> <span class="token constant">COLORS</span><span class="token punctuation">.</span>red<span class="token punctuation">)</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">balance</span><span class="token punctuation">(</span>newNode<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> newNode
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// 1. 结点是红色或黑色。</span>
+  <span class="token comment">// 2. 根是黑色。</span>
+  <span class="token comment">// 3. 所有叶子都是黑色（叶子是NIL结点）。</span>
+  <span class="token comment">// 4. 每个红色结点必须有两个黑色的子结点。（从每个叶子到根的所有路径上不能有两个连续的红色结点。）</span>
+  <span class="token comment">// 5. 从任一结点到其每个叶子的所有简单路径都包含相同数目的黑色结点。</span>
+  <span class="token comment">/**
+   * 平衡红黑树
+   * @param {BinarySearchTreeNode} node
+   */</span>
+  <span class="token function">balance</span><span class="token punctuation">(</span><span class="token parameter">node</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isNodeBlack</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 黑色结点就不管了</span>
+      <span class="token keyword">return</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">let</span> <span class="token punctuation">{</span> parent <span class="token punctuation">}</span> <span class="token operator">=</span> node
+    <span class="token comment">// 情形1：新结点N位于树的根上，没有父结点。在</span>
+    <span class="token comment">// 这种情形下，我们把它重绘为黑色以满足性质2。</span>
+    <span class="token comment">// 因为它在每个路径上对黑结点数目增加一，性质5符合。</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>parent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">makeNodeBlack</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+      <span class="token keyword">return</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 情形2：新结点的父结点P是黑色，所以性质4没有失效（新结点是红色的）。</span>
+    <span class="token comment">// 在这种情形下，树仍是有效的。性质5也未受到威胁，尽管新结点N有两个黑色叶子子结点；</span>
+    <span class="token comment">// 但由于新结点N是红色，通过它的每个子结点的路径就都有同通过它所取代的黑色的叶子的路径同样数目的黑色结点，所以依然满足这个性质。</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isNodeBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/* 以下情形，父结点都是红色（根据性质2，必有祖父结点） */</span>
+
+    <span class="token comment">// 情形3：父结点P和叔父结点U二者都是红色</span>
+    <span class="token comment">// 将 P 和 U 变黑，并将祖父结点变红，再 balance 祖父结点</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> uncle <span class="token punctuation">}</span> <span class="token operator">=</span> node
+    <span class="token keyword">const</span> grandParent <span class="token operator">=</span> parent<span class="token punctuation">.</span>parent
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>uncle <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isNodeRed</span><span class="token punctuation">(</span>uncle<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">makeNodeBlack</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>parent<span class="token punctuation">)</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">makeNodeBlack</span><span class="token punctuation">(</span>uncle<span class="token punctuation">)</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">makeNodeRed</span><span class="token punctuation">(</span>grandParent<span class="token punctuation">)</span>
+
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">balance</span><span class="token punctuation">(</span>grandParent<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 以下情形：父结点P是红色，叔结点U是黑色或缺少。</span>
+    <span class="token comment">// 4.1新结点N是其父结点P的右子结点 而 父结点P又是祖先结点G的左子结点。</span>
+    <span class="token comment">// 对P进行左旋，然后按情形5.1处理</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">===</span> parent<span class="token punctuation">.</span>right <span class="token operator">&amp;&amp;</span> parent <span class="token operator">===</span> grandParent<span class="token punctuation">.</span>left<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">rotateRightRight</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span>
+
+      <span class="token comment">// 更新原结点指向，使之满足情况5.1</span>
+      node <span class="token operator">=</span> parent
+      parent <span class="token operator">=</span> node<span class="token punctuation">.</span>parent
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">===</span> parent<span class="token punctuation">.</span>left <span class="token operator">&amp;&amp;</span> parent <span class="token operator">===</span> grandParent<span class="token punctuation">.</span>right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 5.1的对称，也就是新结点N是父结点P的左子结点 而 父结点P又是祖先结点G的右子结点。</span>
+      <span class="token comment">// 对P进行右旋，然后按情形5.2处理</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">rotateLeftLeft</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span>
+
+      node <span class="token operator">=</span> parent
+      parent <span class="token operator">=</span> node<span class="token punctuation">.</span>parent
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 情形5.1</span>
+    <span class="token comment">// 新结点N是其父结点的左子结点，而父结点P又是祖先结点G的左子结点。</span>
+    <span class="token comment">// 针对祖父节点G的一次右旋转</span>
+    <span class="token comment">// 切换以前的父节点P和祖父节点G的颜色</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">===</span> parent<span class="token punctuation">.</span>left <span class="token operator">&amp;&amp;</span> parent <span class="token operator">===</span> grandParent<span class="token punctuation">.</span>left<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">makeNodeBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">makeNodeRed</span><span class="token punctuation">(</span>grandParent<span class="token punctuation">)</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">rotateLeftLeft</span><span class="token punctuation">(</span>grandParent<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">===</span> parent<span class="token punctuation">.</span>right <span class="token operator">&amp;&amp;</span> parent <span class="token operator">===</span> grandParent<span class="token punctuation">.</span>right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 情形5.2，也是5.1的对称</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">makeNodeBlack</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">makeNodeRed</span><span class="token punctuation">(</span>grandParent<span class="token punctuation">)</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">rotateRightRight</span><span class="token punctuation">(</span>grandParent<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * 结点变红
+   * @param {BinarySearchTreeNode} node 结点
+   */</span>
+  <span class="token function">makeNodeRed</span><span class="token punctuation">(</span><span class="token parameter">node</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    node<span class="token punctuation">.</span>meta<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token constant">COLOR_PROP_NAME</span><span class="token punctuation">,</span> <span class="token constant">COLORS</span><span class="token punctuation">.</span>red<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> node
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * 结点变黑
+   * @param {BinarySearchTreeNode} node 结点
+   * @return {BinarySearchTreeNode}
+   */</span>
+  <span class="token function">makeNodeBlack</span><span class="token punctuation">(</span><span class="token parameter">node</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    node<span class="token punctuation">.</span>meta<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token constant">COLOR_PROP_NAME</span><span class="token punctuation">,</span> <span class="token constant">COLORS</span><span class="token punctuation">.</span>black<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> node
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * 是否红色结点
+   * @param {BinarySearchTreeNode} node
+   */</span>
+  <span class="token function">isNodeRed</span><span class="token punctuation">(</span><span class="token parameter">node</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> node<span class="token punctuation">.</span>meta<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token constant">COLOR_PROP_NAME</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token constant">COLORS</span><span class="token punctuation">.</span>red
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * 是否黑色结点
+   * @param {BinarySearchTreeNode} node
+   */</span>
+  <span class="token function">isNodeBlack</span><span class="token punctuation">(</span><span class="token parameter">node</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> node<span class="token punctuation">.</span>meta<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token constant">COLOR_PROP_NAME</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token constant">COLORS</span><span class="token punctuation">.</span>black
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * 结点是否有颜色
+   * @param {BinarySearchTreeNode} node
+   */</span>
+  <span class="token function">isNodeColored</span><span class="token punctuation">(</span><span class="token parameter">node</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isNodeRed</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isNodeBlack</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * 交换2个结点颜色
+   * @param {BinarySearchTreeNode} firstNode
+   * @param {BinarySearchTreeNode} secondNod
+   */</span>
+  <span class="token function">swapNodeColors</span><span class="token punctuation">(</span><span class="token parameter">firstNode<span class="token punctuation">,</span> secondNode</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> firstColor <span class="token operator">=</span> firstNode<span class="token punctuation">.</span>meta<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token constant">COLOR_PROP_NAME</span><span class="token punctuation">)</span>
+    <span class="token keyword">const</span> secondColor <span class="token operator">=</span> secondNode<span class="token punctuation">.</span>meta<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token constant">COLOR_PROP_NAME</span><span class="token punctuation">)</span>
+    firstNode<span class="token punctuation">.</span>meta<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token constant">COLOR_PROP_NAME</span><span class="token punctuation">,</span> secondColor<span class="token punctuation">)</span>
+    secondNode<span class="token punctuation">.</span>meta<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token constant">COLOR_PROP_NAME</span><span class="token punctuation">,</span> firstColor<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * 右右情况，进行左旋，参照AVL树理解：https://zh.wikipedia.org/wiki/AVL%E6%A0%91
+   * @param {BinarySearchTreeNode} rootNode
+   */</span>
+  <span class="token function">rotateRightRight</span><span class="token punctuation">(</span><span class="token parameter">rootNode</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> parent <span class="token punctuation">}</span> <span class="token operator">=</span> rootNode
+
+    <span class="token comment">// 旋转后重新平衡的树的根结点</span>
+    <span class="token keyword">const</span> pivot <span class="token operator">=</span> rootNode<span class="token punctuation">.</span>right
+
+    rootNode<span class="token punctuation">.</span><span class="token function">setRight</span><span class="token punctuation">(</span>pivot<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+    pivot<span class="token punctuation">.</span><span class="token function">setLeft</span><span class="token punctuation">(</span>rootNode<span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      parent<span class="token punctuation">.</span><span class="token function">replaceChild</span><span class="token punctuation">(</span>rootNode<span class="token punctuation">,</span> pivot<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 根结点</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>root <span class="token operator">=</span> pivot
+    <span class="token punctuation">}</span>
+
+    pivot<span class="token punctuation">.</span>parent <span class="token operator">=</span> parent
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * 左左情况，进行右旋，参照图理解
+   * @param {BinarySearchTreeNode} rootNode
+   */</span>
+  <span class="token function">rotateLeftLeft</span><span class="token punctuation">(</span><span class="token parameter">rootNode</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> parent <span class="token punctuation">}</span> <span class="token operator">=</span> rootNode
+
+    <span class="token comment">// 旋转后重新平衡的树的根结点</span>
+    <span class="token keyword">const</span> pivot <span class="token operator">=</span> rootNode<span class="token punctuation">.</span>left
+
+    rootNode<span class="token punctuation">.</span><span class="token function">setLeft</span><span class="token punctuation">(</span>pivot<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+    pivot<span class="token punctuation">.</span><span class="token function">setRight</span><span class="token punctuation">(</span>rootNode<span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      parent<span class="token punctuation">.</span><span class="token function">replaceChild</span><span class="token punctuation">(</span>rootNode<span class="token punctuation">,</span> pivot<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 根结点</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>root <span class="token operator">=</span> pivot
+    <span class="token punctuation">}</span>
+    pivot<span class="token punctuation">.</span>parent <span class="token operator">=</span> parent
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br><span class="line-number">137</span><br><span class="line-number">138</span><br><span class="line-number">139</span><br><span class="line-number">140</span><br><span class="line-number">141</span><br><span class="line-number">142</span><br><span class="line-number">143</span><br><span class="line-number">144</span><br><span class="line-number">145</span><br><span class="line-number">146</span><br><span class="line-number">147</span><br><span class="line-number">148</span><br><span class="line-number">149</span><br><span class="line-number">150</span><br><span class="line-number">151</span><br><span class="line-number">152</span><br><span class="line-number">153</span><br><span class="line-number">154</span><br><span class="line-number">155</span><br><span class="line-number">156</span><br><span class="line-number">157</span><br><span class="line-number">158</span><br><span class="line-number">159</span><br><span class="line-number">160</span><br><span class="line-number">161</span><br><span class="line-number">162</span><br><span class="line-number">163</span><br><span class="line-number">164</span><br><span class="line-number">165</span><br><span class="line-number">166</span><br><span class="line-number">167</span><br><span class="line-number">168</span><br><span class="line-number">169</span><br><span class="line-number">170</span><br><span class="line-number">171</span><br><span class="line-number">172</span><br><span class="line-number">173</span><br><span class="line-number">174</span><br><span class="line-number">175</span><br><span class="line-number">176</span><br><span class="line-number">177</span><br><span class="line-number">178</span><br><span class="line-number">179</span><br><span class="line-number">180</span><br><span class="line-number">181</span><br><span class="line-number">182</span><br><span class="line-number">183</span><br><span class="line-number">184</span><br><span class="line-number">185</span><br><span class="line-number">186</span><br><span class="line-number">187</span><br><span class="line-number">188</span><br><span class="line-number">189</span><br><span class="line-number">190</span><br><span class="line-number">191</span><br><span class="line-number">192</span><br><span class="line-number">193</span><br><span class="line-number">194</span><br><span class="line-number">195</span><br><span class="line-number">196</span><br></div></div><blockquote><p>https://zh.wikipedia.org/wiki/%E7%BA%A2%E9%BB%91%E6%A0%91</p> <p>https://github.com/trekhleb/javascript-algorithms/tree/master/src/data-structures/tree/red-black-tree</p></blockquote></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/sluggishpj/notes/edit/master/docs/algorithm/data-structure/red-black-tree.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">8/27/2021, 11:38:43 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/notes/algorithm/data-structure/avl-tree.html" class="prev">
+        AVL树
+      </a></span> <span class="next"><a href="/notes/algorithm/data-structure/segment-tree.html">
+        线段树(Segment Tree)
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/notes/assets/js/app.095f4842.js" defer></script><script src="/notes/assets/js/3.9ea24740.js" defer></script><script src="/notes/assets/js/20.4608c6c4.js" defer></script><script src="/notes/assets/js/4.851aaad8.js" defer></script>
+  </body>
+</html>
