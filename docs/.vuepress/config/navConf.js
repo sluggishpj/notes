@@ -4,6 +4,15 @@ module.exports = [
     link: '/'
   },
   {
+    text: '算法与数据结构',
+    items: [
+      {
+        text: '数据结构',
+        link: '/algorithm/data-structure/'
+      }
+    ]
+  },
+  {
     text: '前端',
     items: [
       {
@@ -13,6 +22,10 @@ module.exports = [
       {
         text: 'JavaScript',
         link: '/frontend/js/'
+      },
+      {
+        text: 'CSS',
+        link: '/frontend/css/'
       }
     ]
   },

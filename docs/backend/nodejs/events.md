@@ -2,6 +2,8 @@
 title: Events
 ---
 
+# Events
+
 ## Event loop
 
 Node 的 Event loop 分为 6 个阶段，它们会按照顺序反复运行
