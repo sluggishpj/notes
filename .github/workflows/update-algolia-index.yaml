@@ -1,5 +1,5 @@
 # REF: https://github.com/cilium/docsearch-scraper-webhook/blob/master/.github/workflows/update-algolia-index.yaml
-name: Update Algolia Index
+name: Build and Deploy
 on:
   push:
     branches:
@@ -7,12 +7,40 @@ on:
   # Allow manual triggers.
   workflow_dispatch: {}
   # Run once a day.
-  schedule:
-    - cron: "0 0 * * *"
+  # schedule:
+  #   - cron: "0 0 * * *"
+
 jobs:
-  update-algolia-index:
+  build-and-deploy:
+    name: Install and Build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: install # will run `yarn install` command
+      - name: Test 🧪
+          uses: borales/actions-yarn@v2.3.0
+          with:
+            cmd: test:unit
+      - name: Build 🔧
+          uses: borales/actions-yarn@v2.3.0
+          with:
+            cmd: docs:build
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: docs/.vuepress/dist # The folder the action should deploy.
+
+  update-algolia-index:
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Sleep for gh-pages published 💤
+      uses: jakejarvis/wait-action@master
+      with:
+        time: '10m'
     - name: checkout
       uses: actions/checkout@v2
     - name: update
