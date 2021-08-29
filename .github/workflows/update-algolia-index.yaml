@@ -20,13 +20,13 @@ jobs:
         with:
           cmd: install # will run `yarn install` command
       - name: Test 🧪
-          uses: borales/actions-yarn@v2.3.0
-          with:
-            cmd: test:unit
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: test:unit
       - name: Build 🔧
-          uses: borales/actions-yarn@v2.3.0
-          with:
-            cmd: docs:build
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: docs:build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
