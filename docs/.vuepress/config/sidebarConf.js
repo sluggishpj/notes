@@ -97,7 +97,8 @@ module.exports = {
               'css-positioning',
               'css-flexbox-layout',
               'css-grid-layout',
-              'css-table-layout'
+              'css-table-layout',
+              'css-animations'
             ])
           }
         ]
