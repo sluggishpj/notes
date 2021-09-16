@@ -1,5 +1,5 @@
 ---
-title: CSS 过渡 transition
+title: 过渡 transition
 ---
 
 # 过渡 transition
