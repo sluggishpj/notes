@@ -132,8 +132,86 @@ backface-visibility: visible;
 backface-visibility: hidden;
 ```
 
+## 应用
+
+### 平行四边形
+
+需要保持文字不变形。
+
+思路 1：嵌套元素，外部元素通过 `skew` 变形，内部元素从反方向`skew`变形
+思路 2：通过伪元素绝对定位，直接变换伪元素
+
+```scss
+// 嵌套元素
+.wrapper {
+  background: #6c9bc2;
+  transform: skew(-45deg);
+  .content {
+    // 内容反方向变化
+    transform: skew(45deg);
+  }
+}
+
+// 伪元素
+.no-wrapper {
+  position: relative;
+
+  &::after {
+    content: '';
+    transform: skew(-45deg);
+    z-index: -1;
+    background: #6c9bc2;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+```
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="css-secrect-平行四边形" src="https://codepen.io/rinxu/embed/LYLQqXe?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/rinxu/pen/LYLQqXe">
+  css-secrect-平行四边形</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+### 菱形图片
+
+- 方案 1：思路跟上面差不多，通过 `rotate` 外部容器，但是如果内部是图片的话，图片的宽度也需要进行 `scale` 1.42（√2） 倍，否则会填不满
+- 方案 2：使用 `clip-path`，具体查看 [css-shape 笔记](./css-shapes) 中的应用
+
+### 梯形
+
+思路：对伪元素使用 3D 变形（因为对自身元素使用 3D 变形，其内部元素不可逆转）
+
+```css
+.tab {
+    position: relative;
+    display: inline-block;
+    padding: .5em 1em .35em;
+    color: white;
+}
+.tab::before {
+    content:''; /* 用伪元素生成一个矩形 */
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
+    background: #58a;
+    /* 旋转后高度会变小，需适当放大 */
+    transform: scaleY(1.3) perspective(.5em) rotateX(5deg);
+    transform-origin: bottom; /* 旋转时底边固定住 */
+```
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="css-secrect-梯形" src="https://codepen.io/rinxu/embed/OJgQqqX?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/rinxu/pen/OJgQqqX">
+  css-secrect-梯形</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+
 ## REF
 
 > [how-css-perspective-works | CSS-TRICKS](https://css-tricks.com/how-css-perspective-works/)
-> 
+>
 > [transforms | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transforms/Using_CSS_transforms)

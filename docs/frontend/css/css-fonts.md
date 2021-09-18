@@ -36,3 +36,10 @@ title: 字体
 用于控制数字，分数和序号标记的替代字形
 
 > [font-variant-numeric](https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-variant-numeric)
+
+### font-variant-ligatures
+
+用于控制是否开启连字符
+
+> [font-variant-ligatures | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-ligatures)
+

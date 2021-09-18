@@ -106,10 +106,32 @@ clip-path: inset(100px 50px);
 clip-path: circle(50px at 0 100px);
 clip-path: ellipse(50px 60px at 0 10% 20%);
 clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-clip-path: path('M0.5,1 C0.5,1,0,0.7,0,0.3 A0.25,0.25,1,1,1,0.5,0.3 A0.25,0.25,1,1,1,1,0.3 C1,0.7,0.5,1,0.5,1 Z');
+clip-path: path(
+  'M0.5,1 C0.5,1,0,0.7,0,0.3 A0.25,0.25,1,1,1,0.5,0.3 A0.25,0.25,1,1,1,1,0.3 C1,0.7,0.5,1,0.5,1 Z'
+);
 
 /* Box and shape values combined */
 clip-path: padding-box circle(50px at 0 100px);
 ```
 
 > [clip-path | MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/clip-path)
+
+## 应用
+
+### 菱形图片
+
+```css
+img {
+  transition: all 2s;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+img:hover {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+```
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="css-secrect-菱形" src="https://codepen.io/rinxu/embed/NWgyJKP?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/rinxu/pen/NWgyJKP">
+  css-secrect-菱形</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
