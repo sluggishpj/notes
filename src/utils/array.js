@@ -31,3 +31,8 @@ export function initArray(length, defaultVal) {
   }
   return Array(length).fill(defaultVal)
 }
+
+// 交换数组中的2个元素
+export function swapArray(arr, i, j) {
+  [arr[i], arr[j]] = [arr[j], arr[i]]
+}

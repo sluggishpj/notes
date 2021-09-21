@@ -9,6 +9,10 @@ module.exports = [
       {
         text: '数据结构',
         link: '/algorithm/data-structure/'
+      },
+      {
+        text: '算法',
+        link: '/algorithm/algorithms/'
       }
     ]
   },
