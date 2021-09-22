@@ -100,7 +100,8 @@ module.exports = {
               'css-table-layout',
               'css-transforms',
               'css-transitions',
-              'css-animations'
+              'css-animations',
+              'css-filters-blending-clipping-masking'
             ])
           }
         ]

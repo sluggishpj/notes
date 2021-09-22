@@ -91,6 +91,47 @@ a[href^='https'][href$='.org'] {
 
 > 渲染结果是 `hello world`
 
+## 应用
+
+### 自定义复选框
+
+```css
+/* 隐藏原来的复选框，不使用 display:none 是让 tab 键能聚焦到 */
+input[type="checkbox"] {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* 未选中样式 */
+input[type="checkbox"] + label::before {
+  content: "\a0"; /* 不换行空格 */
+  display: inline-block;
+}
+
+/* 选中样式 */
+input[type="checkbox"]:checked + label::before {
+  content: "\2713"; /* 对勾 */
+  background: yellowgreen;
+}
+
+/* 聚焦样式 */
+input[type="checkbox"]:focus + label::before {
+  /* style content */
+}
+
+/* 禁用样式 */
+input[type="checkbox"]:disabled + label::before {
+  /* style content */
+}
+
+```
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="css-secrect-自定义复选框" src="https://codepen.io/rinxu/embed/zYzRQEK?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/rinxu/pen/zYzRQEK">
+  css-secrect-自定义复选框</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
 ## REF
 
 > https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Selectors
