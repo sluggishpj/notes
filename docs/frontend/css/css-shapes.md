@@ -116,6 +116,16 @@ clip-path: padding-box circle(50px at 0 100px);
 
 > [clip-path | MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/clip-path)
 
+## resize
+
+```css
+/* Keyword values */
+resize: none;
+resize: both;
+resize: horizontal;
+resize: vertical;
+```
+
 ## 应用
 
 ### 菱形图片
@@ -135,3 +145,15 @@ img:hover {
   css-secrect-菱形</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
+
+### 交互式图片对比控件
+
+利用了 `resize` 属性
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="css-secrect-交互式图片对比控件" src="https://codepen.io/rinxu/embed/KKqerXP?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/rinxu/pen/KKqerXP">
+  css-secrect-交互式图片对比控件</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+> 在实践时，发现图片设置了 `user-select: none` 还是可以拖拽，需要在 `<img>` 元素上设置 `draggable="false"` 才行

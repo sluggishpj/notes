@@ -162,6 +162,86 @@ animation-play-state: paused, running, running;
 }
 ```
 
+## 应用
+
+### 闪烁动画
+
+```css
+@keyframes blink-smooth {
+  to {
+    color: transparent;
+  }
+}
+
+.highlight {
+  animation: 0.5s blink-smooth infinite alternate;
+}
+
+@keyframes blink {
+  50% {
+    color: transparent;
+  }
+}
+.step-highlight {
+  animation: 1s steps(1) infinite blink;
+}
+```
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="css-secrect-闪烁动画" src="https://codepen.io/rinxu/embed/YzQvBBZ?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/rinxu/pen/YzQvBBZ">
+  css-secrect-闪烁动画</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+### 打字动画
+
+核心思路就是让容器的宽度成为动画的主体：把所有文本包裹在这个容器中，然后让它的宽度从 0 开始以步进动画的方式、一个字一个字地扩张到它应有的宽度。
+
+> 长度单位 `ch` 指代字符`0`的宽度，在英文等宽字体中可以使用它，但是中文却不行（不知道为啥）
+> 中文试了下，中文字符的宽度是 `font-size`大小
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="" src="https://codepen.io/rinxu/embed/MWoXxJW?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/rinxu/pen/MWoXxJW">
+  </a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+### 沿环形路径平移动画
+
+内部图片需要抵消掉外部的变换
+
+```css
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: #fec21e;
+  text-align: center;
+  animation: spin 6s infinite linear;
+}
+
+.avatar > img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  animation: spin 6s infinite linear reverse;
+  position: relative;
+  top: -25px;
+}
+```
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="css-secrect-沿环形路径平移的动画" src="https://codepen.io/rinxu/embed/VwWdJWr?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/rinxu/pen/VwWdJWr">
+  css-secrect-沿环形路径平移的动画</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
 ## REF
 
 > [animation | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/animation)
