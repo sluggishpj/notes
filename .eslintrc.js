@@ -21,6 +21,7 @@ module.exports = {
     'class-methods-use-this': 0,
     'consistent-return': 0,
     'no-script-url': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-bitwise': 0,
   },
   overrides: [
     {
