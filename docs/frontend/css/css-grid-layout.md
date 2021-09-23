@@ -573,6 +573,8 @@ grid-row: 3 / 5;
 
 ### grid 实现垂直左右居中
 
+垂直左右居中
+
 <p class="codepen" data-height="265" data-theme-id="0" data-default-tab="css,result" data-user="sluggishpj" data-slug-hash="ExxWmJG" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="css-grid-center">
   <span>See the Pen <a href="https://codepen.io/sluggishpj/pen/ExxWmJG">
   css-grid-center</a> by pj (<a href="https://codepen.io/sluggishpj">@sluggishpj</a>)
@@ -581,3 +583,26 @@ grid-row: 3 / 5;
 <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
 
 > [CSS_Grid_Layout | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
+
+### 自适应内部元素
+
+场景：容器的宽度由内部图片决定，但图片的大小不固定。图片下方还有文字，文字容器的 宽度也和图片宽度一致。
+方案：使用 `min-content`
+
+```css
+figure {
+  max-width: 300px; /*回退*/
+  max-width: min-content;
+  margin: auto;
+}
+figure > img {
+  max-width: inherit;
+  border: 1px solid #ccc;
+}
+```
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="css-secrect-自适应内部元素" src="https://codepen.io/rinxu/embed/LYLrXXQ?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/rinxu/pen/LYLrXXQ">
+  css-secrect-自适应内部元素</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
