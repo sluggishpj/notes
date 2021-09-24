@@ -104,11 +104,151 @@ export function shellSort(arr) {
 
 // #endregion shellSort
 
+// #region mergeOrderArr
+/**
+ * 合并数组中 有序的2部分到 目标数组中对应的位置
+ * @param {Array} origin 有2部分有序的数组，其中 leftEnd+1===rightStart
+ * @param {Array} targetArr 将上面2部分有序的数组合并到 targetArr 对应的位置
+ * @param {number} leftStart 左有序数组开始位置
+ * @param {number} leftEnd 左有序数组结束位置
+ * @param {number} rightStart 右有序数组开始位置
+ * @param {number} rightEnd 右有序数组结束位置
+ */
+function mergeOrderArr(origin, targetArr, leftStart, leftEnd, rightStart, rightEnd) {
+  if (leftStart >= rightEnd) {
+    return
+  }
+  let idx = leftStart
+  while (leftStart <= leftEnd && rightStart <= rightEnd) {
+    if (origin[leftStart] < origin[rightStart]) {
+      targetArr[idx] = origin[leftStart]
+      leftStart++
+    } else {
+      targetArr[idx] = origin[rightStart]
+      rightStart++
+    }
+    idx++
+  }
+  while (leftStart <= leftEnd) {
+    targetArr[idx++] = origin[leftStart++]
+  }
+  while (rightStart <= rightEnd) {
+    targetArr[idx++] = origin[rightStart++]
+  }
+}
+// #endregion mergeOrderArr
+
+// #region mergeSortRecursion
 /**
  * 归并排序-递归实现
- * @param {Array} arr 源数组
- * @param {Array} targetArr
+ * 将 targetArr [left,...right] 部分进行归并排序，结果写入到 origin 中
+ * @param {Array} origin 源数组
+ * @param {Array} targetArr 原数组的复制版本
+ * @param {number} left 开始位置
+ * @param {number} right 结束位置
  */
-export function mergeSortRecursion(arr) {
-  // TODO
+export function mergeSortRecursion(origin, targetArr = origin.slice(), left = 0, right = origin.length - 1) {
+  if (left >= right) {
+    return
+  }
+
+  const mid = (left + right) >> 1
+  mergeSortRecursion(targetArr, origin, left, mid)
+  mergeSortRecursion(targetArr, origin, mid + 1, right)
+  mergeOrderArr(targetArr, origin, left, mid, mid + 1, right)
 }
+// #endregion mergeSortRecursion
+
+// #region mergeSortIteration
+/**
+ * 归并排序-循环实现
+ * @param {Array} origin
+ */
+export function mergeSortIteration(origin) {
+  // 思路：先两两合并，再4 4合并 直到一半一半合并
+  if (origin.length <= 1) return
+
+  let step = 1 // 合并的2个数组中每个数组的长度
+  const len = origin.length
+  const lastIdx = len - 1
+  const midLen = Math.ceil(len / 2)
+  let cpArr = origin.slice()
+
+  // 计算需要合并几轮，也就是有多少个不同的 step
+  let stepCount = 1
+
+  while (step < midLen) {
+    step *= 2
+    stepCount++
+  }
+  step = 1
+
+  if (stepCount % 2 === 1) {
+    // 奇数轮，则首轮需要 将 cpArr 合并 到 origin 中
+    // 因为每轮循环开始前会先交换，所以需要提前交换一次，保证奇数轮时首轮合并入的是 origin
+    ;[origin, cpArr] = [cpArr, origin]
+  }
+
+  for (let cnt = 0; cnt < stepCount; cnt++) {
+    ;[origin, cpArr] = [cpArr, origin] // 每轮交互2个数组，避免来回复制，就是有点费解
+    for (let i = 0; i < len; i += 2 * step) {
+      const leftEnd = Math.min(i + step - 1, lastIdx)
+      const rightStart = leftEnd + 1
+      const rightEnd = Math.min(rightStart + step - 1, lastIdx)
+      mergeOrderArr(cpArr, origin, i, leftEnd, rightStart, rightEnd)
+    }
+
+    step *= 2
+  }
+}
+// #endregion mergeSortIteration
+
+// #region quickSort
+/**
+ * 返回第lo个元素pivot在 arr[lo,...hi] 中排序后的位置
+ * 并且插入对应位置，且 数组前部分 <= pivot <= 数组后部分
+ * @param {Array} arr
+ * @param {number} lo 左下标
+ * @param {number} hi 右下标
+ * @returns {number}
+ */
+function partition(arr, lo, hi) {
+  const pivot = arr[lo]
+
+  let i = lo + 1
+  let j = hi
+
+  while (i <= j && j <= hi) {
+    while (i <= j && arr[i] <= pivot) {
+      i++
+    }
+
+    while (j >= i && arr[j] >= pivot) {
+      j--
+    }
+
+    if (i <= j) {
+      swapArray(arr, i, j)
+      i++
+      j--
+    }
+  }
+
+  swapArray(arr, lo, j)
+  return j
+}
+
+/**
+ * 快速排序
+ * @param {Array} arr
+ */
+export function quickSort(arr, lo = 0, hi = arr.length - 1) {
+  if (lo >= hi) {
+    return
+  }
+
+  const pos = partition(arr, lo, hi)
+  quickSort(arr, lo, pos)
+  quickSort(arr, pos + 1, hi)
+}
+// #endregion quickSort

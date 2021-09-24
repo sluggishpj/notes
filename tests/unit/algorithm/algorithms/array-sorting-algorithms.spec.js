@@ -1,24 +1,33 @@
 import {
-  bubbleSort, selectSort, insertSort, shellSort,
+  bubbleSort,
+  selectSort,
+  insertSort,
+  shellSort,
+  mergeSortRecursion,
+  mergeSortIteration,
+  quickSort,
 } from '@/algorithm/algorithms/array-sorting-algorithms'
+import { generateRandomIntArray } from '@/utils/array'
+import { getRandomInt } from '@/utils/number'
+
+let emptyArr
+let randomArr
+let ascendArr
+let ascendArrCp
+let descendArr
+
+beforeEach(() => {
+  emptyArr = []
+  randomArr = generateRandomIntArray(getRandomInt(10, 20), 0, 1000)
+  ascendArr = randomArr.slice().sort((a, b) => a - b)
+  ascendArrCp = ascendArr.slice()
+  descendArr = randomArr.slice().sort((a, b) => b - a)
+})
 
 describe('冒泡排序', () => {
-  let randomArr
-  let ascendArr
-  let ascendArrCp
-  let descendArr
-
-  beforeEach(() => {
-    randomArr = [2, 462, 45, 5, 234, 7, 73, 5, 5, 35, 7, 23, 578, 34, 53]
-    ascendArr = [2, 5, 5, 5, 7, 7, 23, 34, 35, 45, 53, 73, 234, 462, 578]
-    ascendArrCp = ascendArr.slice()
-    descendArr = [578, 462, 234, 73, 53, 45, 35, 34, 23, 7, 7, 5, 5, 5, 2]
-  })
-
   it('空数组', () => {
-    const arr = []
-    bubbleSort(arr)
-    expect(arr).toEqual([])
+    bubbleSort(emptyArr)
+    expect(emptyArr).toEqual([])
   })
 
   it('乱序->升序', () => {
@@ -38,22 +47,9 @@ describe('冒泡排序', () => {
 })
 
 describe('选择排序', () => {
-  let randomArr
-  let ascendArr
-  let ascendArrCp
-  let descendArr
-
-  beforeEach(() => {
-    randomArr = [2, 462, 45, 5, 234, 7, 73, 5, 5, 35, 7, 23, 578, 34, 53]
-    ascendArr = [2, 5, 5, 5, 7, 7, 23, 34, 35, 45, 53, 73, 234, 462, 578]
-    ascendArrCp = ascendArr.slice()
-    descendArr = [578, 462, 234, 73, 53, 45, 35, 34, 23, 7, 7, 5, 5, 5, 2]
-  })
-
   it('空数组', () => {
-    const arr = []
-    selectSort(arr)
-    expect(arr).toEqual([])
+    selectSort(emptyArr)
+    expect(emptyArr).toEqual([])
   })
 
   it('乱序->升序', () => {
@@ -73,22 +69,9 @@ describe('选择排序', () => {
 })
 
 describe('插入排序', () => {
-  let randomArr
-  let ascendArr
-  let ascendArrCp
-  let descendArr
-
-  beforeEach(() => {
-    randomArr = [2, 462, 45, 5, 234, 7, 73, 5, 5, 35, 7, 23, 578, 34, 53]
-    ascendArr = [2, 5, 5, 5, 7, 7, 23, 34, 35, 45, 53, 73, 234, 462, 578]
-    ascendArrCp = ascendArr.slice()
-    descendArr = [578, 462, 234, 73, 53, 45, 35, 34, 23, 7, 7, 5, 5, 5, 2]
-  })
-
   it('空数组', () => {
-    const arr = []
-    insertSort(arr)
-    expect(arr).toEqual([])
+    insertSort(emptyArr)
+    expect(emptyArr).toEqual([])
   })
 
   it('乱序->升序', () => {
@@ -108,22 +91,9 @@ describe('插入排序', () => {
 })
 
 describe('希尔排序', () => {
-  let randomArr
-  let ascendArr
-  let ascendArrCp
-  let descendArr
-
-  beforeEach(() => {
-    randomArr = [2, 462, 45, 5, 234, 7, 73, 5, 5, 35, 7, 23, 578, 34, 53]
-    ascendArr = [2, 5, 5, 5, 7, 7, 23, 34, 35, 45, 53, 73, 234, 462, 578]
-    ascendArrCp = ascendArr.slice()
-    descendArr = [578, 462, 234, 73, 53, 45, 35, 34, 23, 7, 7, 5, 5, 5, 2]
-  })
-
   it('空数组', () => {
-    const arr = []
-    shellSort(arr)
-    expect(arr).toEqual([])
+    shellSort(emptyArr)
+    expect(emptyArr).toEqual([])
   })
 
   it('乱序->升序', () => {
@@ -138,6 +108,72 @@ describe('希尔排序', () => {
 
   it('降序->升序', () => {
     shellSort(descendArr)
+    expect(descendArr).toEqual(ascendArr)
+  })
+})
+
+describe('归并排序-递归版本', () => {
+  it('空数组', () => {
+    mergeSortRecursion(emptyArr)
+    expect(emptyArr).toEqual([])
+  })
+
+  it('乱序->升序', () => {
+    mergeSortRecursion(randomArr)
+    expect(randomArr).toEqual(ascendArr)
+  })
+
+  it('升序->升序', () => {
+    mergeSortRecursion(ascendArr)
+    expect(ascendArr).toEqual(ascendArrCp)
+  })
+
+  it('降序->升序', () => {
+    mergeSortRecursion(descendArr)
+    expect(descendArr).toEqual(ascendArr)
+  })
+})
+
+describe('归并排序-循环迭代版本', () => {
+  it('空数组', () => {
+    mergeSortIteration(emptyArr)
+    expect(emptyArr).toEqual([])
+  })
+
+  it('乱序->升序', () => {
+    mergeSortIteration(randomArr)
+    expect(randomArr).toEqual(ascendArr)
+  })
+
+  it('升序->升序', () => {
+    mergeSortIteration(ascendArr)
+    expect(ascendArr).toEqual(ascendArrCp)
+  })
+
+  it('降序->升序', () => {
+    mergeSortIteration(descendArr)
+    expect(descendArr).toEqual(ascendArr)
+  })
+})
+
+describe('快速排序', () => {
+  it('空数组', () => {
+    quickSort(emptyArr)
+    expect(emptyArr).toEqual([])
+  })
+
+  it('乱序->升序', () => {
+    quickSort(randomArr)
+    expect(randomArr).toEqual(ascendArr)
+  })
+
+  it('升序->升序', () => {
+    quickSort(ascendArr)
+    expect(ascendArr).toEqual(ascendArrCp)
+  })
+
+  it('降序->升序', () => {
+    quickSort(descendArr)
     expect(descendArr).toEqual(ascendArr)
   })
 })

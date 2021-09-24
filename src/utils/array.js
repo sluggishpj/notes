@@ -1,3 +1,5 @@
+import { getRandomInt } from './number'
+
 // 根据参数动态生成数组，比如传入n,m, val，则生成n x m 数组，每一项的值为 val
 // 传入i,j,k, val，则生成i x j x k 三维数组，每一项的值为 val
 // 最后1个参数总是val
@@ -34,5 +36,20 @@ export function initArray(length, defaultVal) {
 
 // 交换数组中的2个元素
 export function swapArray(arr, i, j) {
-  [arr[i], arr[j]] = [arr[j], arr[i]]
+  ;[arr[i], arr[j]] = [arr[j], arr[i]]
+}
+
+/**
+ * 返回 长度为 length 的随机整数数组
+ * @param {number} length 数组长度
+ * @param {number} min 最小整数
+ * @param {number} max 最大整数
+ * @returns {Array}
+ */
+export function generateRandomIntArray(length, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER) {
+  const res = []
+  for (let i = 0; i < length; i++) {
+    res.push(getRandomInt(min, max))
+  }
+  return res
 }

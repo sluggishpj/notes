@@ -46,6 +46,8 @@ title: 数组排序算法
 
 <<< @/src/algorithm/algorithms/array-sorting-algorithms.js#shellSort
 
+> 如果只用 1 个替换数组，来回反复替换有点饶，可以在 `mergeOrderArr` 函数内复制一份，然后直接修改原数组
+
 ## 归并排序
 
 原理：将数组分为两个部分，对两部分分别进行排序，排序完成后，再将各自排序好的两个部分合并还原成一个有序数组。
@@ -54,11 +56,27 @@ title: 数组排序算法
 
 > 图片来自 [Merge_sort | wikipedia](https://en.wikipedia.org/wiki/Merge_sort)
 
-- 递归
+- 合并数组中的两部分到新数组对应的位置，两部分各自有序，且相邻
 
-- 循环
+<<< @/src/algorithm/algorithms/array-sorting-algorithms.js#mergeOrderArr
+
+- 递归实现归并排序
+
+<<< @/src/algorithm/algorithms/array-sorting-algorithms.js#mergeSortRecursion
+
+- 循环实现归并排序
+
+<<< @/src/algorithm/algorithms/array-sorting-algorithms.js#mergeSortIteration
+
+> 这个有点饶，如果不考虑空间复杂度，函数返回个新数组，直接合并新数组会清晰很多
 
 ## 快速排序
+
+![quick sort](https://upload.wikimedia.org/wikipedia/commons/6/6a/Sorting_quicksort_anim.gif)
+
+> 图片来自 [Quicksort | wikipedia](https://en.wikipedia.org/wiki/Quicksort)
+
+<<< @/src/algorithm/algorithms/array-sorting-algorithms.js#quickSort
 
 ## 堆排序
 
