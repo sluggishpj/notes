@@ -1,4 +1,5 @@
-import { swapArray } from '../../utils/array'
+// 结合 https://leetcode-cn.com/problems/sort-an-array/submissions/
+import { swapArray, shuffleArray } from '../../utils/array'
 
 // #region bubbleSort
 /**
@@ -239,16 +240,81 @@ function partition(arr, lo, hi) {
 }
 
 /**
- * 快速排序
+ * 快速排序-实际操作函数
  * @param {Array} arr
  */
-export function quickSort(arr, lo = 0, hi = arr.length - 1) {
+function quickSortMain(arr, lo = 0, hi = arr.length - 1) {
   if (lo >= hi) {
     return
   }
 
   const pos = partition(arr, lo, hi)
-  quickSort(arr, lo, pos)
-  quickSort(arr, pos + 1, hi)
+  quickSortMain(arr, lo, pos - 1)
+  quickSortMain(arr, pos + 1, hi)
+}
+
+/**
+ * 快速排序
+ * @param {Array} arr
+ */
+export function quickSort(arr) {
+  shuffleArray(arr) // 先打乱数组，避免有序数组导致复杂度O(N^2)
+  quickSortMain(arr)
 }
 // #endregion quickSort
+
+// #region heapSort
+/**
+ * 将下标为i的元素下沉，调整成大顶堆
+ * @param {Array} arr
+ * @param {number} i 要下沉的元素下标
+ * @param {number} len 堆大小
+ * @returns
+ */
+function sink(arr, i, len) {
+  const leftChildIdx = i * 2 + 1
+  const rightChildIdx = leftChildIdx + 1
+
+  if (leftChildIdx >= len) {
+    return
+  }
+
+  let maxChildIdx = leftChildIdx
+
+  if (rightChildIdx < len && arr[rightChildIdx] > arr[leftChildIdx]) {
+    maxChildIdx = rightChildIdx
+  }
+
+  if (arr[maxChildIdx] > arr[i]) {
+    swapArray(arr, i, maxChildIdx) // 把大的换上来
+    sink(arr, maxChildIdx, len) // 继续向下调整
+  }
+}
+
+/**
+ * 堆排序
+ * 原理：
+ * 1. 将数组原地构造为大顶堆
+ * 2. 将堆顶和堆尾交换，缩小堆大小，再调整成堆。
+ * 3. 不断重复操作2, 直到堆大小为1
+ * @param {Array} arr
+ */
+export function heapSort(arr) {
+  let len = arr.length
+  if (len <= 1) return
+
+  // step1. 将数组原地构造为大顶堆。先调整倒数第2层，再3层，不断向上调整直到第1个元素，就形成了大顶堆。
+  let endParentIdx = (len >> 1) - 1 // 倒数第2层最右边的元素下标
+  while (endParentIdx >= 0) {
+    sink(arr, endParentIdx, len) // 逐层往上构造大顶堆
+    endParentIdx--
+  }
+
+  // step2&3, 将堆顶和堆尾交互，缩小堆大小，再从上往下调整堆
+  while (len >= 2) {
+    --len
+    swapArray(arr, 0, len)
+    sink(arr, 0, len)
+  }
+}
+// #endregion heapSort

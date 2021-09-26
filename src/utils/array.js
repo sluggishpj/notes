@@ -53,3 +53,16 @@ export function generateRandomIntArray(length, min = Number.MIN_SAFE_INTEGER, ma
   }
   return res
 }
+
+// 原地打乱数组
+export function shuffleArray(arr) {
+  const lastIdx = arr.length - 1
+  if (lastIdx <= 0) {
+    return
+  }
+
+  for (let i = 0; i <= lastIdx; i++) {
+    const targetIdx = getRandomInt(0, lastIdx)
+    swapArray(arr, i, targetIdx)
+  }
+}

@@ -6,6 +6,7 @@ import {
   mergeSortRecursion,
   mergeSortIteration,
   quickSort,
+  heapSort,
 } from '@/algorithm/algorithms/array-sorting-algorithms'
 import { generateRandomIntArray } from '@/utils/array'
 import { getRandomInt } from '@/utils/number'
@@ -174,6 +175,28 @@ describe('快速排序', () => {
 
   it('降序->升序', () => {
     quickSort(descendArr)
+    expect(descendArr).toEqual(ascendArr)
+  })
+})
+
+describe('堆排序', () => {
+  it('空数组', () => {
+    heapSort(emptyArr)
+    expect(emptyArr).toEqual([])
+  })
+
+  it('乱序->升序', () => {
+    heapSort(randomArr)
+    expect(randomArr).toEqual(ascendArr)
+  })
+
+  it('升序->升序', () => {
+    heapSort(ascendArr)
+    expect(ascendArr).toEqual(ascendArrCp)
+  })
+
+  it('降序->升序', () => {
+    heapSort(descendArr)
     expect(descendArr).toEqual(ascendArr)
   })
 })

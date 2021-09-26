@@ -80,6 +80,16 @@ title: 数组排序算法
 
 ## 堆排序
 
+思路：将数组构造成大顶堆，然后将堆顶和堆末尾交换，缩小堆的范围(把堆尾排除掉)，再调整成新的大顶堆，不断重复直到最后 1 个结束。
+
+![heap sort](https://z3.ax1x.com/2021/09/26/46tLK1.gif)
+
+> [图片来源](https://www.runoob.com/w3cnote/heap-sort.html)
+
+<<< @/src/algorithm/algorithms/array-sorting-algorithms.js#heapSort
+
+> 感觉就是[优先队列](/algorithm/data-structure/priority-queue)的特殊情况，优先队列多了新增操作，所以多了个 `swim` 操作
+
 ## 计数排序
 
 ## 桶排序
