@@ -7,6 +7,9 @@ import {
   mergeSortIteration,
   quickSort,
   heapSort,
+  countSort,
+  bucketSort,
+  radixSort,
 } from '@/algorithm/algorithms/array-sorting-algorithms'
 import { generateRandomIntArray } from '@/utils/array'
 import { getRandomInt } from '@/utils/number'
@@ -16,6 +19,7 @@ let randomArr
 let ascendArr
 let ascendArrCp
 let descendArr
+let descendArrCp
 
 beforeEach(() => {
   emptyArr = []
@@ -23,6 +27,7 @@ beforeEach(() => {
   ascendArr = randomArr.slice().sort((a, b) => a - b)
   ascendArrCp = ascendArr.slice()
   descendArr = randomArr.slice().sort((a, b) => b - a)
+  descendArrCp = descendArr.slice()
 })
 
 describe('冒泡排序', () => {
@@ -198,5 +203,75 @@ describe('堆排序', () => {
   it('降序->升序', () => {
     heapSort(descendArr)
     expect(descendArr).toEqual(ascendArr)
+  })
+})
+
+describe('计数排序', () => {
+  it('空数组', () => {
+    countSort(emptyArr)
+    expect(emptyArr).toEqual([])
+  })
+
+  it('乱序->升序', () => {
+    countSort(randomArr)
+    expect(randomArr).toEqual(ascendArr)
+  })
+
+  it('升序->升序', () => {
+    countSort(ascendArr)
+    expect(ascendArr).toEqual(ascendArrCp)
+  })
+
+  it('降序->升序', () => {
+    countSort(descendArr)
+    expect(descendArr).toEqual(ascendArr)
+  })
+})
+
+describe('桶排序', () => {
+  it('空数组', () => {
+    const arr = bucketSort(emptyArr)
+    expect(arr).toEqual([])
+  })
+
+  it('乱序->升序', () => {
+    const arr = bucketSort(randomArr)
+    expect(arr).toEqual(ascendArr)
+  })
+
+  it('升序->升序', () => {
+    const arr = bucketSort(ascendArr)
+    expect(ascendArr).toEqual(ascendArrCp)
+    expect(arr).toEqual(ascendArrCp)
+  })
+
+  it('降序->升序', () => {
+    const arr = bucketSort(descendArr)
+    expect(descendArr).toEqual(descendArrCp)
+    expect(arr).toEqual(ascendArr)
+  })
+})
+
+describe('基数排序', () => {
+  it('空数组', () => {
+    const arr = radixSort(emptyArr)
+    expect(arr).toEqual([])
+  })
+
+  it('乱序->升序', () => {
+    const arr = radixSort(randomArr)
+    expect(arr).toEqual(ascendArr)
+  })
+
+  it('升序->升序', () => {
+    const arr = radixSort(ascendArr)
+    expect(ascendArr).toEqual(ascendArrCp)
+    expect(arr).toEqual(ascendArrCp)
+  })
+
+  it('降序->升序', () => {
+    const arr = radixSort(descendArr)
+    expect(descendArr).toEqual(descendArrCp)
+    expect(arr).toEqual(ascendArr)
   })
 })

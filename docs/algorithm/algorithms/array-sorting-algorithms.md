@@ -92,13 +92,44 @@ title: 数组排序算法
 
 ## 计数排序
 
+原理：使用额外数组 countArr，其中 countArr[i] 的值 就是 待排序数组 arr 中元素值为 i 的个数
+
+![countingSort](https://z3.ax1x.com/2021/09/27/42oeeA.gif)
+
+> [图片来源](https://www.runoob.com/w3cnote/counting-sort.html)
+
+<<< @/src/algorithm/algorithms/array-sorting-algorithms.js#countSort
+
 ## 桶排序
+
+原理：将数组分到有限数量的桶里。每个桶再个别排序（有可能再使用别的排序算法或是以递归方式继续使用桶排序进行排序）
+
+- 元素分配到桶中
+
+![Bucket_sort_1](https://upload.wikimedia.org/wikipedia/commons/6/61/Bucket_sort_1.svg)
+
+- 将各个桶进行排序，最后合并
+
+![Bucket_sort_2](https://upload.wikimedia.org/wikipedia/commons/e/e3/Bucket_sort_2.svg)
+
+> 也可以在分配入桶时排序（下面的算法就是这样），图片来源 [Bucket_sort | wikipedia](https://en.wikipedia.org/wiki/Bucket_sort)
+
+<<< @/src/algorithm/algorithms/array-sorting-algorithms.js#bucketSort
 
 ## 基数排序
 
+原理：将整数按位数切割成不同的数字，然后按每个位数分别比较。由于整数也可以表达字符串（比如名字或日期）和特定格式的浮点数，所以基数排序也不是只能使用于整数。
+
+![radix sort](https://z3.ax1x.com/2021/09/27/4RkbY6.gif)
+
+> [图片来源](https://www.runoob.com/w3cnote/radix-sort.html)
+
+<<< @/src/algorithm/algorithms/array-sorting-algorithms.js#radixSort
+
+
 ## Timsort
 
-## 时间&空间复杂度
+## 时间&空间复杂度汇总
 
 ## REF
 

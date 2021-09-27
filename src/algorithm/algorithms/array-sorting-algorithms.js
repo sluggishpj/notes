@@ -303,7 +303,8 @@ export function heapSort(arr) {
   let len = arr.length
   if (len <= 1) return
 
-  // step1. 将数组原地构造为大顶堆。先调整倒数第2层，再3层，不断向上调整直到第1个元素，就形成了大顶堆。
+  // step1. 将数组原地构造为大顶堆。
+  // 先调整倒数第2层，再倒数3层，不断向上调整直到第1个元素，就形成了大顶堆。
   let endParentIdx = (len >> 1) - 1 // 倒数第2层最右边的元素下标
   while (endParentIdx >= 0) {
     sink(arr, endParentIdx, len) // 逐层往上构造大顶堆
@@ -318,3 +319,96 @@ export function heapSort(arr) {
   }
 }
 // #endregion heapSort
+
+// #region countSort
+/**
+ * 计数排序
+ * 原理：使用额外数组 countArr 计数
+ * 其中 countArr[i] 的值 就是 待排序数组 arr 中元素值为 i 的个数
+ * @param {Array} arr
+ */
+export function countSort(arr) {
+  const countArr = []
+  let len = arr.length - 1
+
+  while (len >= 0) {
+    const val = arr[len]
+    countArr[val] = (countArr[val] || 0) + 1 // 记录元素出现的次数
+    len--
+  }
+
+  const aLen = countArr.length
+  let j = 0
+  for (let i = 0; i < aLen; i++) {
+    let count = countArr[i]
+    while (count > 0) {
+      arr[j++] = i
+      count--
+    }
+  }
+}
+// #endregion countSort
+
+// #region bucketSort
+/**
+ * 桶排序
+ * @param {Array} arr
+ * @param {number} step 每个桶的取值区间，
+ * 比如区间为10，那么各个桶的取值范围为 [min, min+10), [min+10, min+20)...
+ */
+export function bucketSort(arr, step = 10) {
+  const min = Math.min(...arr)
+  const max = Math.max(...arr)
+
+  const bucketCount = ~~((max - min) / step) + 1 // 桶个数
+
+  const buckets = [] // 全部桶
+  for (let i = 0; i < bucketCount; i++) {
+    buckets.push([])
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    const val = arr[i]
+    const idx = ~~((val - min) / step) // 放入桶的下标
+
+    // 有序放入 buckets[idx] 桶中
+    const bucket = buckets[idx]
+    bucket.push(val)
+
+    // 插入排序调整新插入的元素
+    let j = bucket.length - 1
+    while (j >= 1 && bucket[j] < bucket[j - 1]) {
+      swapArray(bucket, j, --j)
+    }
+  }
+
+  // 各个桶排序结束了，进行合并
+  const res = buckets.reduce((prev, cur) => prev.concat(cur), [])
+  return res
+}
+// #endregion bucketSort
+
+// #region radixSort
+/**
+ * 基数排序
+ * 原理：先按个位数排序，然后按十位数排序，..直到数字中的最大位数
+ * @param {Array} arr
+ */
+export function radixSort(arr) {
+  const maxDigit = Math.max(...arr).toString().length // 最大位数
+
+  for (let i = 0; i < maxDigit; i++) {
+    const base = 10 ** i
+
+    const res = []
+    for (let j = 0; j < arr.length; j++) {
+      const val = arr[j]
+      const radix = ~~(val / base) % 10 // 从右到左第i位的数字
+      res[radix] = res[radix] || []
+      res[radix].push(val)
+    }
+    arr = res.reduce((prev, cur) => prev.concat(cur), [])
+  }
+  return arr
+}
+// #endregion radixSort
