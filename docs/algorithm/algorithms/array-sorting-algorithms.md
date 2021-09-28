@@ -26,6 +26,8 @@ title: 数组排序算法
 
 <<< @/src/algorithm/algorithms/array-sorting-algorithms.js#selectSort
 
+> 不稳定：比如 `[5,5,2]`, 排序后第 1 个`5`跑到最后去了
+
 ## 插入排序
 
 原理: 通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。
@@ -78,6 +80,8 @@ title: 数组排序算法
 
 <<< @/src/algorithm/algorithms/array-sorting-algorithms.js#quickSort
 
+> 不稳定，比如 `[5,6,6,4]`
+
 ## 堆排序
 
 思路：将数组构造成大顶堆，然后将堆顶和堆末尾交换，缩小堆的范围(把堆尾排除掉)，再调整成新的大顶堆，不断重复直到最后 1 个结束。
@@ -126,10 +130,29 @@ title: 数组排序算法
 
 <<< @/src/algorithm/algorithms/array-sorting-algorithms.js#radixSort
 
-
 ## Timsort
 
+Timsort 是一种混合稳定的排序算法，源自合并排序和插入排序，旨在较好地处理真实世界中各种各样的数据。
+
+将数组切成多片，每片使用插入排序，之后再进行归并排序。
+
+> 插入排序对于小数组比较高效
+
 ## 时间&空间复杂度汇总
+
+| 算法                     | 时间复杂度(最优) | 时间复杂度(平均) | 时间复杂度(最差) | 空间复杂度 | 排序方式     | 稳定性 |
+| ------------------------ | ---------------- | ---------------- | ---------------- | ---------- | ------------ | ------ |
+| Bubble Sort(冒泡排序)    | Ω(n)             | Θ(n^2)           | O(n^2)           | O(1)       | In-place     | 稳定   |
+| Selection Sort(选择排序) | Ω(n^2)           | Θ(n^2)           | O(n^2)           | O(1)       | In-place     | 不稳定 |
+| Insertion Sort(插入排序) | Ω(n)             | Θ(n^2)           | O(n^2)           | O(1)       | In-place     | 稳定   |
+| Shell Sort(希尔排序)     | Ω(n log(n))      | Θ(n(log(n))^2)   | O(n(log(n))^2)   | O(1)       | In-place     | 不稳定 |
+| Quicksort(快速排序)      | Ω(n log(n))      | Θ(n log(n))      | O(n^2)           | O(log(n))  | In-place     | 不稳定 |
+| Mergesort(归并排序)      | Ω(n log(n))      | Θ(n log(n))      | O(n log(n))      | O(n)       | In/Out-place | 稳定   |
+| Heapsort(堆排序)         | Ω(n log(n))      | Θ(n log(n))      | O(n log(n))      | O(1)       | In-place     | 不稳定 |
+| Counting Sort(计数排序)  | Ω(n+k)           | Θ(n+k)           | O(n+k)           | O(k)       | Out-place    | 稳定   |
+| Bucket Sort(桶排序)      | Ω(n+k)           | Θ(n+k)           | O(n^2)           | O(n)       | Out-place    | 稳定   |
+| Radix Sort(基数排序)     | Ω(nk)            | Θ(nk)            | O(nk)            | O(n+k)     | Out-place    | 稳定   |
+| Timsort                  | Ω(n)             | Θ(n log(n))      | O(n log(n))      | O(n)       | In-place     | 稳定   |
 
 ## REF
 

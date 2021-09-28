@@ -208,23 +208,23 @@ describe('堆排序', () => {
 
 describe('计数排序', () => {
   it('空数组', () => {
-    countSort(emptyArr)
-    expect(emptyArr).toEqual([])
+    const arr = countSort(emptyArr)
+    expect(arr).toEqual([])
   })
 
   it('乱序->升序', () => {
-    countSort(randomArr)
-    expect(randomArr).toEqual(ascendArr)
+    const arr = countSort(randomArr)
+    expect(arr).toEqual(ascendArr)
   })
 
   it('升序->升序', () => {
-    countSort(ascendArr)
-    expect(ascendArr).toEqual(ascendArrCp)
+    const arr = countSort(ascendArr)
+    expect(arr).toEqual(ascendArrCp)
   })
 
   it('降序->升序', () => {
-    countSort(descendArr)
-    expect(descendArr).toEqual(ascendArr)
+    const arr = countSort(descendArr)
+    expect(arr).toEqual(ascendArr)
   })
 })
 

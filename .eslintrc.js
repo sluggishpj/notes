@@ -23,6 +23,13 @@ module.exports = {
     'no-script-url': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-bitwise': 0,
     'import/extensions': 0,
+    'func-names': 'warn',
+    'no-restricted-syntax': [
+      'error',
+      'FunctionExpression',
+      'WithStatement',
+      "BinaryExpression[operator='in']",
+    ],
   },
   overrides: [
     {

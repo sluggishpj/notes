@@ -52,15 +52,16 @@ export function insertSort(arr) {
   const len = arr.length
   for (let i = 1; i < len; i++) {
     // 要插入的是第i项
-    for (let j = i; j > 0; j--) {
-      // 在 0-i 中从后往前依次交换，直到合适的位置
-      if (arr[j] < arr[j - 1]) {
-        swapArray(arr, j, j - 1)
-      } else {
-        // 已经交换到合适位置了
-        break
-      }
+    const val = arr[i]
+
+    let j = i - 1
+    while (j >= 0 && arr[j] > val) {
+      // 在 0-i-1 中从后往前依次比较，将大的交换到后面，直到合适的位置
+      arr[j + 1] = arr[j]
+      j--
     }
+
+    arr[j + 1] = val
   }
 }
 // #endregion insertSort
@@ -329,23 +330,41 @@ export function heapSort(arr) {
  */
 export function countSort(arr) {
   const countArr = []
-  let len = arr.length - 1
+  let len = arr.length
 
-  while (len >= 0) {
-    const val = arr[len]
+  for (const val of arr) {
     countArr[val] = (countArr[val] || 0) + 1 // 记录元素出现的次数
-    len--
   }
 
-  const aLen = countArr.length
-  let j = 0
-  for (let i = 0; i < aLen; i++) {
-    let count = countArr[i]
-    while (count > 0) {
-      arr[j++] = i
-      count--
+  // 处理方式1
+  // 计算元素的最后出现的位置, 计算后 countArr[i] 就是 元素i 最后出现的位置
+  for (let i = 0, prevLastIdx = -1, countLen = countArr.length; i < countLen; i++) {
+    if (countArr[i]) {
+      countArr[i] += prevLastIdx
+      prevLastIdx = countArr[i]
     }
   }
+
+  const res = [] // 用来存放排序后的元素
+  while (--len >= 0) {
+    const val = arr[len]
+    const idx = countArr[val]-- // 所在下标，每插入1个，所在下标往前一位
+    res[idx] = val
+  }
+
+  return res
+
+  // 处理方式2：下面这个处理有点投机，跟原来数组脱离关系了==
+  // 直接根据个数再重新生成新元素插入到原数组中，这没法判断稳定性了==
+  // const aLen = countArr.length
+  // let j = 0
+  // for (let i = 0; i < aLen; i++) {
+  //   let count = countArr[i]
+  //   while (count > 0) {
+  //     arr[j++] = i
+  //     count--
+  //   }
+  // }
 }
 // #endregion countSort
 
