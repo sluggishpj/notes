@@ -26,6 +26,11 @@ module.exports = {
               'red-black-tree',
               'segment-tree'
             ])
+          },
+          {
+            title: '算法',
+            collapsable: false,
+            children: addPathPrefix('/algorithm/algorithms/', ['', 'array-sorting-algorithms'])
           }
         ]
       }

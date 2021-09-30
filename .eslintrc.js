@@ -3,7 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ['airbnb-base'],
+  extends: ['airbnb-base', 'plugin:prettier/recommended'],
   parserOptions: {
     parser: 'babel-eslint',
   },
@@ -21,6 +21,15 @@ module.exports = {
     'class-methods-use-this': 0,
     'consistent-return': 0,
     'no-script-url': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-bitwise': 0,
+    'import/extensions': 0,
+    'func-names': 'warn',
+    'no-restricted-syntax': [
+      'error',
+      'FunctionExpression',
+      'WithStatement',
+      "BinaryExpression[operator='in']",
+    ],
   },
   overrides: [
     {
