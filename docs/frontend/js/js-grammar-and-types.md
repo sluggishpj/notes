@@ -101,6 +101,23 @@ var baz = function() {
 }
 ```
 
+#### 函数优先提升
+
+函数声明和变量声明都会被提升，但是**函数会首先被提升**，然后才是变量
+
+```js
+foo() // 1
+var foo
+
+function foo() {
+  console.log(1)
+}
+
+foo = function () {
+  console.log(2)
+}
+```
+
 ## 数据结构和类型
 
 ### 数据类型
