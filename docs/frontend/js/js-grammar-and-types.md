@@ -669,4 +669,40 @@ a >= b // true
 
 > 根据规范 `a <= b` 被处理为 `b < a`，然后将结果**反转**。因为 `b < a` 的结果是 false，所以 `a <= b` 的结果是 true。
 
+## 特性检测
+
+### 检测 API
+
+```js
+if (!Number.isNaN) {
+  Number.isNaN = function (x) {
+    return x !== x
+  }
+}
+```
+
+### 检测新语法
+
+下面这种没法检测，因为我们的 JavaScript 程序是需要编译的。所以，如果引擎还不支持 ES6 箭头函数的话，就会停在 `() => {}` 语法处。
+
+```js
+try {
+  a = () => {}
+  ARROW_FUNCS_ENABLED = true
+} catch (err) {
+  ARROW_FUNCS_ENABLED = false
+}
+```
+
+可以使用 `new Function(..)` 或 `eval(..)` 进行检测
+
+```js
+try {
+  new Function('( () => {} )')
+  ARROW_FUNCS_ENABLED = true
+} catch (err) {
+  ARROW_FUNCS_ENABLED = false
+}
+```
+
 > https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_types

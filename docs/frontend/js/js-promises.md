@@ -118,6 +118,8 @@ console.log(4)
 
 ### 返回值
 
+#### Promise.resolve()
+
 ```js
 Promise.resolve(1).then(2).then(Promise.resolve(3)).then(console.log)
 ```
@@ -155,6 +157,36 @@ p.then((res) => {
 ```
 
 > `Promise.resolve(..)` 可以接受任何 `thenable`，将其解封为它的非 `thenable` 值。从 `Promise.resolve(..)` 得到的是一个真正的 `Promise`，是一个可以信任的值。如果你传入的已经是真正的 `Promise`，那么你得到的就是它本身
+
+#### Promise.reject()
+
+`resolve(..)` 和 `Promise.resolve(..)` 可以接受 promise 并接受它的状态 / 决议，而 `reject (..)`和 `Promise.reject(..) `并不区分接收的值是什么。所以，如果传入 promise 或 thenable 来拒绝，这个 promise / thenable 本身会被设置为拒绝原因，而不是其底层值。
+
+```js
+function wait(n, isReject = false) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (isReject) {
+        reject(n)
+      } else {
+        resolve(n)
+      }
+    }, n * 1000)
+  })
+}
+
+let p1 = Promise.resolve(wait(1))
+p1.then((res) => {
+  console.log(res) // 1
+})
+
+let p2 = Promise.reject(wait(2))
+p2.then((res) => {
+  console.log(res)
+}).catch((err) => {
+  console.log(err) // Promise { <pending> }
+})
+```
 
 ## 应用
 
