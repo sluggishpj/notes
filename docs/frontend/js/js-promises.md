@@ -19,7 +19,7 @@ Promise.all([func1(), func2(), func3()]).then(([result1, result2, result3]) => {
 ```js
 ;[func1, func2, func3]
   .reduce((p, f) => p.then(f), Promise.resolve())
-  .then(result3 => {
+  .then((result3) => {
     /* use result3 */
   })
 ```
@@ -27,17 +27,17 @@ Promise.all([func1(), func2(), func3()]).then(([result1, result2, result3]) => {
 相当于
 
 ```js
-Promise.resolve()
-  .then(func1)
-  .then(func2)
-  .then(func3)
+Promise.resolve().then(func1).then(func2).then(func3)
 ```
 
 - 可复用的函数形式
 
 ```js
 const applyAsync = (acc, val) => acc.then(val)
-const composeAsync = (...funcs) => x => funcs.reduce(applyAsync, Promise.resolve(x))
+const composeAsync =
+  (...funcs) =>
+  (x) =>
+    funcs.reduce(applyAsync, Promise.resolve(x))
 
 const transformData = composeAsync(func1, func2, func3)
 const result3 = transformData(data)
@@ -93,12 +93,12 @@ const first = () =>
       resolve(1)
     })
     resolve(2)
-    p.then(arg => {
+    p.then((arg) => {
       console.log(arg)
     })
   })
 
-first().then(arg => {
+first().then((arg) => {
   console.log(arg)
 })
 console.log(4)
@@ -118,11 +118,10 @@ console.log(4)
 
 ### 返回值
 
+#### Promise.resolve()
+
 ```js
-Promise.resolve(1)
-  .then(2)
-  .then(Promise.resolve(3))
-  .then(console.log)
+Promise.resolve(1).then(2).then(Promise.resolve(3)).then(console.log)
 ```
 
 - 解析：`Promise.resolve` 方法的参数如果是一个原始值，或者是一个不具有 then 方法的对象，则 `Promise.resolve` 方法返回一个新的 Promise 对象，状态为 resolved，`Promise.resolve` 方法的参数，会同时传给回调函数。
@@ -131,21 +130,79 @@ Promise.resolve(1)
 
 - 答案：1
 
+```js
+var p1 = Promise.resolve(42)
+var p2 = Promise.resolve(p1)
+
+p1 === p2 // true
+
+const obj = {
+  then(resolve, reject) {
+    setTimeout(() => {
+      resolve('obj resolve')
+    }, 1000)
+  },
+}
+
+const p = Promise.resolve(obj)
+
+p.then((res) => {
+  console.log('res', res)
+}).catch((err) => {
+  console.error('err', err)
+})
+
+// 1s 后输出
+// res obj resolve
+```
+
+> `Promise.resolve(..)` 可以接受任何 `thenable`，将其解封为它的非 `thenable` 值。从 `Promise.resolve(..)` 得到的是一个真正的 `Promise`，是一个可以信任的值。如果你传入的已经是真正的 `Promise`，那么你得到的就是它本身
+
+#### Promise.reject()
+
+`resolve(..)` 和 `Promise.resolve(..)` 可以接受 promise 并接受它的状态 / 决议，而 `reject (..)`和 `Promise.reject(..) `并不区分接收的值是什么。所以，如果传入 promise 或 thenable 来拒绝，这个 promise / thenable 本身会被设置为拒绝原因，而不是其底层值。
+
+```js
+function wait(n, isReject = false) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (isReject) {
+        reject(n)
+      } else {
+        resolve(n)
+      }
+    }, n * 1000)
+  })
+}
+
+let p1 = Promise.resolve(wait(1))
+p1.then((res) => {
+  console.log(res) // 1
+})
+
+let p2 = Promise.reject(wait(2))
+p2.then((res) => {
+  console.log(res)
+}).catch((err) => {
+  console.log(err) // Promise { <pending> }
+})
+```
+
+## 应用
+
 ### 并发请求限制
 
 要求，任意时刻，同时执行的操作数量不可以超过 3 个，且尽可能快速地将所有操作执行
 
 - 解析：
-  先并发执行 3 个操作，可以得到 3 个 Promise，组成一个数组，就叫 promises 吧，然后不断的调用 Promise.race 来返回最快改变状态的 Promise，然后从数组（promises ）中删掉这个 Promise 对象，再加入一个新的 Promise，直到全部的 操作 被取完，最后再使用 Promise.all 来处理一遍数组（promises ）中没有改变状态的 Promise。
+  先并发执行 3 个操作，可以得到 3 个 Promise，组成一个数组，就叫 promises 吧，然后不断的调用 `Promise.race` 来返回最快改变状态的 Promise，然后从数组（promises ）中删掉这个 Promise 对象，再加入一个新的 Promise，直到全部的 操作 被取完，最后再使用 `Promise.all` 来处理一遍数组（promises ）中没有改变状态的 Promise。
 - 答案：
 
 ```js
 var arr = new Array(8).fill(0).map(() => Math.round(Math.random() * 100))
 
-console.log(arr)
-
 function wait(n) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     console.log('start <==', n)
     setTimeout(() => {
       console.log('done ==> ', n)
@@ -175,12 +232,12 @@ function limitLoad(arr, handler, limit) {
           // 返回最快改变状态的 Promise
           return Promise.race(promises)
         })
-        .catch(err => {
+        .catch((err) => {
           // 这里的 catch 不仅用来捕获 前面 then 方法抛出的错误
           // 更重要的是防止中断整个链式调用
           console.error(err)
         })
-        .then(res => {
+        .then((res) => {
           // 用新的 Promise 替换掉最快改变状态的 Promise
           promises[res] = handler(sequence[currentIndex]).then(() => {
             return res
@@ -201,10 +258,10 @@ async function limitLoade2(arr, handler, limit) {
   })
   while (cp.length > 0) {
     await Promise.race(proQueue)
-      .then(res => {
+      .then((res) => {
         proQueue[res] = handler(cp.shift()).then(() => res)
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err)
       })
   }
@@ -215,7 +272,7 @@ limitLoade2(arr, wait, 3)
   .then(() => {
     console.log('加载完成')
   })
-  .catch(err => {
+  .catch((err) => {
     console.error(err)
   })
 ```

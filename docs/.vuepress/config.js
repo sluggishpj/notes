@@ -23,7 +23,7 @@ module.exports = {
     lastUpdated: '上次更新',
     sidebarDepth: 6,
     collapsable: true,
-    algolia: {
+    algolia: process.env.NODE_ENV === 'production'? {
       indexName: 'notes',
       apiKey: '8e4716393f1a52c17e11c74e1d018419',
       appId: 'EK9P3OJVR1',
@@ -31,6 +31,6 @@ module.exports = {
         hitsPerPage: 6,
         facetFilters: ''
       }
-    }
+    }: null
   }
 }
