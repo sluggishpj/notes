@@ -24,16 +24,16 @@ module.exports = {
               'binary-search-tree',
               'avl-tree',
               'red-black-tree',
-              'segment-tree'
-            ])
+              'segment-tree',
+            ]),
           },
           {
             title: '算法',
             collapsable: false,
-            children: addPathPrefix('/algorithm/algorithms/', ['', 'array-sorting-algorithms'])
-          }
-        ]
-      }
+            children: addPathPrefix('/algorithm/algorithms/', ['', 'array-sorting-algorithms']),
+          },
+        ],
+      },
     ],
     '/frontend/': [
       {
@@ -56,8 +56,8 @@ module.exports = {
               'pwa',
               'memory-management',
               'web-security',
-              'web-performance'
-            ])
+              'web-performance',
+            ]),
           },
           {
             title: 'JavaScript',
@@ -80,8 +80,8 @@ module.exports = {
               'js-modules',
               'js-strict-mode',
               'js-es2020',
-              'js-es2021'
-            ])
+              'js-es2021',
+            ]),
           },
           {
             title: 'CSS',
@@ -106,11 +106,11 @@ module.exports = {
               'css-transforms',
               'css-transitions',
               'css-animations',
-              'css-filters-blending-clipping-masking'
-            ])
-          }
-        ]
-      }
+              'css-filters-blending-clipping-masking',
+            ]),
+          },
+        ],
+      },
     ],
     '/backend': [
       {
@@ -121,14 +121,47 @@ module.exports = {
           {
             title: 'Nodejs',
             collapsable: true,
-            children: addPathPrefix('/backend/nodejs/', ['', 'events'])
-          }
-        ]
-      }
-    ]
-  }
+            children: addPathPrefix('/backend/nodejs/', ['', 'events']),
+          },
+        ],
+      },
+    ],
+    '/cs': [
+      {
+        title: '计算机基础',
+        collapsable: false,
+        sidebarDepth: 5,
+        children: [
+          {
+            title: '计算机网络',
+            collapsable: true,
+            children: addPathPrefix('/cs/network', ['']),
+          },
+          {
+            title: '操作系统',
+            collapsable: true,
+            children: addPathPrefix('/cs/os', ['']),
+          },
+        ],
+      },
+    ],
+    '/thinking': [
+      {
+        title: '编程思想',
+        collapsable: false,
+        sidebarDepth: 5,
+        children: [
+          {
+            title: '设计模式',
+            collapsable: true,
+            children: addPathPrefix('/thinking/design-patterns', ['']),
+          },
+        ],
+      },
+    ],
+  },
 }
 
 function addPathPrefix(prefix, list) {
-  return list.map(filename => `${prefix}${filename}`)
+  return list.map((filename) => `${prefix}${filename}`)
 }
