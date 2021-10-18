@@ -133,6 +133,177 @@ title: Web 性能
 
 静态资源尽量使用 CDN 加载，由于浏览器对于单个域名有并发请求上限，可以考虑使用多个 CDN 域名。对于 CDN 加载静态资源需要注意 CDN 域名要与主站不同，否则每次请求都会带上主站的 Cookie。
 
+## Web Worker
+
+```js
+var w1 = new Worker('http://some.url.1/mycoolworker.js')
+w1.addEventListener('message', function (evt) {
+  // evt.data
+})
+w1.postMessage('something cool to say')
+
+// 中止worker
+// w1.terminate()
+```
+
+```js
+// "mycoolworker.js"
+addEventListener('message', function (evt) {
+  // evt.data
+})
+postMessage('a really cool reply')
+
+// workers 也可以调用自己的 close  方法进行关闭
+// close();
+```
+
+### Worker 环境
+
+```js
+// 在Worker内部
+importScripts('foo.js', 'bar.js')
+```
+
+> 脚本的下载顺序不固定，但执行时会按照传入 `importScripts()` 中的文件名顺序进行。这个过程是同步完成的；直到所有脚本都下载并运行完毕，`importScripts()` 才会返回
+
+> [Worker 可用上下文](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers)
+
+适用场景
+
+- 处理密集型数学计算
+- 大数据集排序
+- 数据处理（压缩、音频分析、图像处理等）
+- 高流量网络通信
+
+### 数据传递
+
+早期 Worker 需要**双向序列化**，以及双倍的内存。
+
+现在可以使用 [结构化克隆算法 (structured clone algorithm)](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/The_structured_clone_algorithm) 把这个对象复制到另一边。不用双向序列化，但仍需要双倍的内存。
+
+对于 [Transferable 对象](https://developer.mozilla.org/en-US/docs/Web/API/Transferable)，可以转让对象所有权（类比 C++中的引用），从一个上下文转移到另一个上下文。但与按照引用传递不同的是，一旦对象转让，那么它在原来上下文的那个版本将不复存在。该对象的所有权被转让到新的上下文内。例如，当你将一个`ArrayBuffer`对象从主应用转让到 Worker 中，原始的 `ArrayBuffer` **被清除并且无法使用**。它包含的内容会(完整无差的)传递给 Worker 上下文。
+
+```js
+// Create a 32MB "file" and fill it.
+var uInt8Array = new Uint8Array(1024 * 1024 * 32) // 32MB
+for (var i = 0; i < uInt8Array.length; ++i) {
+  uInt8Array[i] = i
+}
+
+worker.postMessage(uInt8Array.buffer, [uInt8Array.buffer])
+```
+
+> 第一个参数是一个原始缓冲区，第二个是一个要传输的内容的列表。不支持 Transferable 对象的浏览器就降级到结构化克隆
+
+### 共享 Worker
+
+> REF: https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker
+
+```js
+// square.js
+var squareNumber = document.querySelector('#number3')
+
+var result2 = document.querySelector('.result2')
+
+if (!!window.SharedWorker) {
+  var myWorker = new SharedWorker('worker.js')
+
+  squareNumber.onchange = function () {
+    myWorker.port.postMessage([squareNumber.value, squareNumber.value])
+    console.log('Message posted to worker')
+  }
+
+  myWorker.port.onmessage = function (e) {
+    result2.textContent = e.data
+    console.log('Message received from worker')
+  }
+}
+```
+
+```js
+// multiply.js
+var first = document.querySelector('#number1')
+var second = document.querySelector('#number2')
+
+var result1 = document.querySelector('.result1')
+
+if (!!window.SharedWorker) {
+  var myWorker = new SharedWorker('worker.js')
+
+  first.onchange = function () {
+    myWorker.port.postMessage([first.value, second.value])
+    console.log('Message posted to worker')
+  }
+
+  second.onchange = function () {
+    myWorker.port.postMessage([first.value, second.value])
+    console.log('Message posted to worker')
+  }
+
+  myWorker.port.onmessage = function (e) {
+    result1.textContent = e.data
+    console.log('Message received from worker')
+    console.log(e.lastEventId)
+  }
+}
+```
+
+```js
+// worker.js
+onconnect = function (e) {
+  var port = e.ports[0]
+
+  port.onmessage = function (e) {
+    var workerResult = 'Result: ' + e.data[0] * e.data[1]
+    port.postMessage(workerResult)
+  }
+}
+```
+
+> 如果父级线程 或 worker 线程使用了 `addEventListener` 来监听 `message` 事件，则需要手动调用 `port.start()`，如下：
+
+```js
+// square.js
+var squareNumber = document.querySelector('#number3')
+
+var result2 = document.querySelector('.result2')
+
+if (!!window.SharedWorker) {
+  var myWorker = new SharedWorker('worker.js')
+
+  myWorker.port.start() // notice!
+
+  squareNumber.onchange = function () {
+    myWorker.port.postMessage([squareNumber.value, squareNumber.value])
+    console.log('Message posted to worker')
+  }
+
+  // 使用了 addEventListener 监听 message
+  myWorker.port.addEventListener('message', function (e) {
+    result2.textContent = e.data
+    console.log('Message received from worker')
+  })
+}
+```
+
+```js
+// worker.js
+onconnect = function (e) {
+  var port = e.ports[0]
+
+  // 使用了 addEventListener 监听 message
+  port.addEventListener('message', (e) => {
+    var workerResult = 'Result: ' + e.data[0] * e.data[1]
+    port.postMessage(workerResult)
+  })
+
+  // 需手动 start()
+  port.start()
+}
+```
+
+[SharedWorker 兼容性](https://caniuse.com/?search=SharedWorker)
+
 ## 其他
 
 ### 使用 Webpack 优化项目

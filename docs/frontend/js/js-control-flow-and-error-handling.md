@@ -6,20 +6,42 @@ title: 流程控制与异常处理
 
 ## switch
 
-switch 语句在比较值时使用的是全等操作符
+switch 语句在比较值时使用的是全等操作符 `===`
+
+default 是可选的，并非必不可少（虽然惯例如此）。break 相关规则对 default 仍然适用
+
+```js
+var a = 10
+switch (a) {
+  case 1:
+  case 2:
+  // 永远执行不到这里
+  default:
+    console.log('default')
+  case 3:
+    console.log('3')
+    break
+  case 4:
+    console.log('4')
+}
+// default
+// 3
+```
+
+> 上例中的代码是这样执行的，首先遍历并找到所有匹配的 `case`，如果没有匹配则执行 `default` 中的代码。因为其中没有 `break`，所以继续执行已经遍历过的 `case 3` 代码块，直到 `break` 为止。
 
 ## Falsy
 
 falsy 值 (虚值) 是在 Boolean 上下文中认定为 false 的值，有 7 个
 
-| false                               | false 的关键字                                                   |
-| ----------------------------------- | ---------------------------------------------------------------- |
-| 0                                   | 数值 0                                                           |
-| 0n                                  | 当 BigInt 作为布尔值使用时, 遵从其作为数值的规则。0n 是 falsy 值 |
-| "", '', ``|空字符串，字符串长度为 0 |
-| null                                | 基本数据类型 null                                                |
-| undefined                           | 基本数据类型 undefined                                           |
-| NaN                                 | NaN                                                              |
+| false      | false 的关键字                                                   |
+| ---------- | ---------------------------------------------------------------- |
+| 0          | 数值 0                                                           |
+| 0n         | 当 BigInt 作为布尔值使用时, 遵从其作为数值的规则。0n 是 falsy 值 |
+| "", '', `` | 空字符串，字符串长度为 0                                         |
+| null       | 基本数据类型 null                                                |
+| undefined  | 基本数据类型 undefined                                           |
+| NaN        | NaN                                                              |
 
 ```js
 !!document.all // false
@@ -84,5 +106,28 @@ try {
 // OUTPUT
 // caught inner "bogus"
 ```
+
+### 错误
+
+TDZ（Temporal Dead Zone，暂时性死区），指的是由于代码中的变量还没有初始化而不能被引用的情况
+
+```js
+{
+  a = 2 // ReferenceError!
+  let a
+}
+```
+
+`typeof` 也不例外
+
+```js
+{
+  typeof a // undefined
+  typeof b // ReferenceError! (TDZ)
+  let b
+}
+```
+
+> 对未声明变量使用 `typeof` 不会产生错误
 
 > https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Control_flow_and_error_handling

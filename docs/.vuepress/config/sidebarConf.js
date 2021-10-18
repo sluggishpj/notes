@@ -76,6 +76,7 @@ module.exports = {
               'js-keyed-collections',
               'js-working-with-objects',
               'js-promises',
+              'js-iterators-and-generators',
               'js-meta-programming',
               'js-modules',
               'js-strict-mode',

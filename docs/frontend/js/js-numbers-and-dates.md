@@ -79,30 +79,28 @@ var a = 0xa
 - `Number.EPSILON`: 表示 1 和比最接近 1 且大于 1 的最小 Number 之间的差别
 - `Number.MIN_SAFE_INTEGER`: JavaScript 最小安全整数
 - `Number.MAX_SAFE_INTEGER`: JavaScript 最大安全整数
-- `Number.EPSILON`: 表示 1 与 Number 可表示的 大于 1 的最小的浮点数之间的差值
 
 判断小数是否相等
 
 ```js
-Number.EPSILON = (function() {
+Number.EPSILON = (function () {
   //解决兼容性问题
   return Number.EPSILON ? Number.EPSILON : Math.pow(2, -52)
 })()
 
-//上面是一个自调用函数，当JS文件刚加载到内存中，就会去判断并返回一个结果
-function numbersequal(a, b) {
+// 上面是一个自调用函数，当JS文件刚加载到内存中，就会去判断并返回一个结果
+function numbersCloseEnoughToEqual(a, b) {
   return Math.abs(a - b) < Number.EPSILON
 }
 
 //接下来再判断
 const a = 0.1 + 0.2
 const b = 0.3
-console.log(numbersequal(a, b))
-//这里就为true了
+
+numbersCloseEnoughToEqual(a, b) // true
+numbersCloseEnoughToEqual(0.0000001, 0.0000002) // false
 ```
 
-> https://segmentfault.com/a/1190000023312663
->
 > https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number/EPSILON
 
 ### 数字的方法
@@ -159,7 +157,9 @@ Math.sqrt(2) // 1.4142135623730951
 
 > https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math
 
-### 为什么 0.1 + 0.2 != 3
+### 其他
+
+#### 为什么 0.1 + 0.2 != 3
 
 因为 JS 采用 IEEE 754 双精度版本（64 位），并且只要采用 IEEE 754 的语言都有该问题。
 
@@ -180,6 +180,19 @@ $(-1)^{sign}*2^{(exponent-0x3ff)}*1.mantissa$
 // 0.3 = 0.010011001100110011001100110011001100110011001100110100
 
 // 转换位10进制就是：0.30000000000000004
+```
+
+#### `.`运算符
+
+对于 `.` 运算符需要给予特别注意，因为它是一个有效的数字字符，会被优先识别为数字常量的一部分，然后才是对象属性访问运算符。
+
+```js
+// 无效语法：
+42.toFixed( 3 ); // SyntaxError
+// 下面的语法都有效：
+(42).toFixed( 3 ); // "42.000"
+0.42.toFixed( 3 ); // "0.420"
+42..toFixed( 3 ); // "42.000"
 ```
 
 ## 日期对象
@@ -242,4 +255,30 @@ new Date(year, monthIndex [, day [, hours [, minutes [, seconds [, milliseconds]
   - `Date.parse(dateString)`: 解析一个表示某个日期的字符串，并返回从 1970-1-1 00:00:00 UTC 到该日期对象（该日期对象的 UTC 时间）的毫秒数，如果该字符串无法识别，或者一些情况下，包含了不合法的日期数值，则返回值为 NaN。
   - 相当于 `new Date(dateString).getTime()`
 
-> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Numbers_and_dates
+## 应用
+
+### 区分 -0 和 0
+
+```js
+console.log(-0 === 0) // true
+
+function isNegZero(n) {
+  n = Number(n)
+  return n === 0 && 1 / n === -Infinity
+}
+
+isNegZero(-0) // true
+isNegZero(0 / -3) // true
+isNegZero(0) // false
+```
+
+> `Object.is(..)` 判断 2 个值是否绝对相等
+
+```js
+Object.is(0, -0) // false
+Object.is(NaN, NaN) // true
+```
+
+## REF
+
+https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Numbers_and_dates

@@ -6,6 +6,25 @@ title: 索引集合类
 
 ## 数组对象
 
+- 数组也是对象，也可以包含字符串键值和属性（但这些并不计算在数组长度内）
+
+```js
+var a = []
+a[0] = 1
+a['foobar'] = 2
+a.length // 1
+a['foobar'] // 2
+a.foobar // 2
+```
+
+**注意，如果字符串键值能够被强制类型转换为十进制数字的话，它就会被当作数字索引来处理**
+
+```js
+var a = []
+a['13'] = 42
+a.length // 14
+```
+
 ### 方法
 
 #### sort
@@ -29,7 +48,7 @@ title: 索引集合类
 
 ```js
 var items = ['réservé', 'premier', 'cliché', 'communiqué', 'café', 'adieu']
-items.sort(function(a, b) {
+items.sort(function (a, b) {
   return a.localeCompare(b)
 })
 
@@ -53,7 +72,7 @@ function takeWhile(a, pred) {
   var result = []
   var earlyExit = {}
   try {
-    a.forEach(function(x, i) {
+    a.forEach(function (x, i) {
       if (!pred(x)) {
         throw earlyExit
       }
@@ -68,7 +87,7 @@ function takeWhile(a, pred) {
   return result
 }
 
-var prefix = takeWhile([1, 2, 10, 3, 30], function(n) {
+var prefix = takeWhile([1, 2, 10, 3, 30], function (n) {
   return n < 10
 })
 console.log(prefix) // [ 1, 2 ]
@@ -122,7 +141,7 @@ console.log(arr) // [1,2,3]
 - Array.isArray()
 
 ```js
-const isArray = function(value) {
+const isArray = function (value) {
   return (
     value && // 不接受null或其他为假的值
     typeof value === 'object' && // 剩下对象和数组
@@ -149,7 +168,7 @@ let a = {
   },
   [Symbol.toPrimitive]() {
     return 2
-  }
+  },
 }
 1 + a // => 3
 '1' + a // => '12'
