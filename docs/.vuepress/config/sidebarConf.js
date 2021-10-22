@@ -136,12 +136,12 @@ module.exports = {
           {
             title: '计算机网络',
             collapsable: true,
-            children: addPathPrefix('/cs/network', ['']),
+            children: addPathPrefix('/cs/network/', ['', 'http']),
           },
           {
             title: '操作系统',
             collapsable: true,
-            children: addPathPrefix('/cs/os', ['']),
+            children: addPathPrefix('/cs/os/', ['']),
           },
         ],
       },
