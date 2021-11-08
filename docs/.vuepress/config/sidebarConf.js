@@ -24,16 +24,16 @@ module.exports = {
               'binary-search-tree',
               'avl-tree',
               'red-black-tree',
-              'segment-tree'
-            ])
+              'segment-tree',
+            ]),
           },
           {
             title: '算法',
             collapsable: false,
-            children: addPathPrefix('/algorithm/algorithms/', ['', 'array-sorting-algorithms'])
-          }
-        ]
-      }
+            children: addPathPrefix('/algorithm/algorithms/', ['', 'array-sorting-algorithms']),
+          },
+        ],
+      },
     ],
     '/frontend/': [
       {
@@ -56,8 +56,8 @@ module.exports = {
               'pwa',
               'memory-management',
               'web-security',
-              'web-performance'
-            ])
+              'web-performance',
+            ]),
           },
           {
             title: 'JavaScript',
@@ -81,8 +81,8 @@ module.exports = {
               'js-modules',
               'js-strict-mode',
               'js-es2020',
-              'js-es2021'
-            ])
+              'js-es2021',
+            ]),
           },
           {
             title: 'CSS',
@@ -107,11 +107,11 @@ module.exports = {
               'css-transforms',
               'css-transitions',
               'css-animations',
-              'css-filters-blending-clipping-masking'
-            ])
-          }
-        ]
-      }
+              'css-filters-blending-clipping-masking',
+            ]),
+          },
+        ],
+      },
     ],
     '/backend': [
       {
@@ -122,14 +122,28 @@ module.exports = {
           {
             title: 'Nodejs',
             collapsable: true,
-            children: addPathPrefix('/backend/nodejs/', ['', 'events'])
-          }
-        ]
-      }
-    ]
-  }
+            children: addPathPrefix('/backend/nodejs/', ['', 'events']),
+          },
+        ],
+      },
+    ],
+    '/interview': [
+      {
+        title: '面试',
+        collapsable: false,
+        sidebarDepth: 5,
+        children: [
+          {
+            title: 'Interview',
+            collapsable: true,
+            children: addPathPrefix('/interview/', ['', 'html']),
+          },
+        ],
+      },
+    ],
+  },
 }
 
 function addPathPrefix(prefix, list) {
-  return list.map(filename => `${prefix}${filename}`)
+  return list.map((filename) => `${prefix}${filename}`)
 }
