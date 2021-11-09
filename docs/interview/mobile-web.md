@@ -42,9 +42,33 @@ const dpr = window.devicePixelRatio
 // }
 ```
 
+#### 视口
+
+![](https://raw.githubusercontent.com/sluggishpj/assets/main/images/h5-viewport.svg)
+
 #### Meta viewport
 
+```html
+<meta
+  name="viewport"
+  content="width=device-width; initial-scale=1; maximum-scale=1; minimum-scale=1; user-scalable=no;"
+/>
+```
 
+| Value         | 可能值                    | 描述                                                    |
+| ------------- | ------------------------- | ------------------------------------------------------- |
+| width         | 正整数或 device-width     | 以 pixels（像素）为单位， 定义布局视口的宽度。          |
+| height        | 正整数或 device-height    | 以 pixels（像素）为单位， 定义布局视口的高度。          |
+| initial-scale | 0.0 - 10.0                | 定义页面初始缩放比率。                                  |
+| minimum-scale | 0.0 - 10.0                | 定义缩放的最小值；必须小于或等于 maximum-scale 的值。   |
+| maximum-scale | 0.0 - 10.0                | 定义缩放的最大值；必须大于或等于 minimum-scale 的值。   |
+| user-scalable | 一个布尔值（yes 或者 no） | 如果设置为 no，用户将不能放大或缩小网页。默认值为 yes。 |
+
+#### 缩放
+
+`width` 可以决定布局视口的宽度，实际上它并不是布局视口的唯一决定性因素，设置 `initial-scale` 也有肯能影响到布局视口，因为**布局视口宽度取的是 `width` 和视觉视口宽度的最大值**。
+例如：若手机的理想视口宽度为 `400px`，设置 `width=device-width，initial-scale=2`，此时 `视觉视口宽度 = 理想视口宽度 / initial-scale` 即 `200px`，布局视口取两者最大值即 `device-width` `400px`。
+若设置 `width=device-width，initial-scale=0.5`，此时`视觉视口宽度 = 理想视口宽度 / initial-scale` 即 `800px`，布局视口取两者最大值即 `800px`。
 
 ### 高清屏图片适配
 

@@ -136,7 +136,7 @@ module.exports = {
           {
             title: 'Interview',
             collapsable: true,
-            children: addPathPrefix('/interview/', ['', 'html']),
+            children: addPathPrefix('/interview/', ['', 'html', 'mobile-web']),
           },
         ],
       },
