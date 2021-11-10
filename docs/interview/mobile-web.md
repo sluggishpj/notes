@@ -2,11 +2,9 @@
 title: 移动Web
 ---
 
-## 适配方案
+## 基础概念
 
-### UI 适配
-
-#### 设备像素比
+### 设备像素比
 
 - JS 获取
 
@@ -42,11 +40,11 @@ const dpr = window.devicePixelRatio
 // }
 ```
 
-#### 视口
+### 视口
 
 ![](https://raw.githubusercontent.com/sluggishpj/assets/main/images/h5-viewport.svg)
 
-#### Meta viewport
+### Meta viewport
 
 ```html
 <meta
@@ -70,13 +68,118 @@ const dpr = window.devicePixelRatio
 例如：若手机的理想视口宽度为 `400px`，设置 `width=device-width，initial-scale=2`，此时 `视觉视口宽度 = 理想视口宽度 / initial-scale` 即 `200px`，布局视口取两者最大值即 `device-width` `400px`。
 若设置 `width=device-width，initial-scale=0.5`，此时`视觉视口宽度 = 理想视口宽度 / initial-scale` 即 `800px`，布局视口取两者最大值即 `800px`。
 
-### 高清屏图片适配
-
-### 横屏适配
-
-### iphoneX 适配
-
 ## CSS 实现 1px 效果
+
+问题描述：在设备像素比大于 1 的屏幕上，我们写的 1px 实际上是被多个物理像素渲染，这就会出现 1px 在有些屏幕上看起来很粗的现象。
+
+### `border-image`
+
+原理：`border-image-slice` 会切割背景图片中的部分，显示在边框区域中。将高度为 2px 图片 塞进 1px 边框中，相当于缩小了一半。加上一半是透明的，表现效果就是 0.5px 的线
+
+```css
+.border-1px-with-border-image {
+  border-bottom: 1px solid #000;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .border-1px-with-border-image {
+    border-bottom: 1px solid transparent;
+    /* 上部分透明，下部分黑色 */
+    /* 使用图片 */
+    /* border-image-source: url('@/assets/images/1x2-half-black.svg'); */
+    /* 使用渐变 */
+    border-image-source: linear-gradient(to top, #000 50%, transparent 0);
+    border-image-slice: 0 0 100% 0;
+  }
+}
+```
+
+> 使用图片缺点：4 个边框需要 4 张图片，且不好调整颜色。
+
+### `background-image`
+
+和 `border-image` 类似
+
+```scss
+.border-1px-with-bg-image {
+  border-bottom: 1px solid #000;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .border-1px-with-bg-image {
+    border: none;
+    // 方式1. 使用图片。边框图片是 1x2，上部分是透明的
+    // background-image: url(@/assets/images/1x2-half-black.svg);
+    // 方式2. 使用渐变
+    background-image: linear-gradient(to top, #000 50%, transparent 0);
+    background-position: left bottom;
+    background-size: 100% 1px;
+    background-repeat: repeat-x;
+  }
+}
+```
+
+### 伪类+transform
+
+```scss
+.border-1px-with-transform {
+  position: relative;
+}
+.border-1px-with-transform::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background-color: #000;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .border-1px-with-transform::after {
+    transform: scaleY(0.5);
+  }
+}
+```
+
+## 适配方案
+
+### flexible 方案
+
+页面上统一使用 rem 来布局，通过 动态计算 html 节点的 `font-size`
+
+```js
+// set 1rem = viewWidth / 10
+function setRemUnit() {
+  var rem = docEl.clientWidth / 10
+  docEl.style.fontSize = rem + 'px'
+}
+
+setRemUnit()
+
+// reset rem unit on page resize
+window.addEventListener('resize', setRemUnit)
+window.addEventListener('pageshow', function (e) {
+  if (e.persisted) {
+    setRemUnit()
+  }
+})
+```
+
+> 由于 `viewport` 单位得到众多浏览器的兼容，`lib-flexible` 这个过渡方案已经可以放弃使用，不管是现在的版本还是以前的版本，都存有一定的问题。建议大家开始使用 `viewport` 来替代此方。
+
+### vh、vw 方案
+
+- `vw`: 1vw 等于视觉视口宽度的 1%
+- `vh`: 1vh 为视觉视口高度的 1%
+- `vmin`: vw 和 vh 中的较小值
+- `vmax`: 选取 vw 和 vh 中的较大值
+
+## 高清屏图片适配
+
+## 横屏适配
+
+## iphoneX 适配
 
 ## 屏蔽原生操作
 
