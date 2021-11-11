@@ -162,7 +162,7 @@ module.exports = {
           {
             title: '设计模式',
             collapsable: true,
-            children: addPathPrefix('/thinking/design-patterns', ['']),
+            children: addPathPrefix('/thinking/design-patterns/', ['']),
           },
         ],
       },

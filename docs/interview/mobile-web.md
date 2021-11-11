@@ -175,11 +175,32 @@ window.addEventListener('pageshow', function (e) {
 - `vmin`: vw 和 vh 中的较小值
 - `vmax`: 选取 vw 和 vh 中的较大值
 
+## iphoneX 适配
+
+> 缺少 iphonex 给我验证下==
+
+- 设置 `viewport-fit=cover`
+
+```html
+<meta name="viewport" content="initial-scale=1, viewport-fit=cover" />
+```
+
+```css
+@supports (padding: max(0px)) {
+  body {
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-right: max(12px, env(safe-area-inset-right));
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    padding-left: max(12px, env(safe-area-inset-left));
+  }
+}
+```
+
+> https://webkit.org/blog/7929/designing-websites-for-iphone-x/
+
 ## 高清屏图片适配
 
 ## 横屏适配
-
-## iphoneX 适配
 
 ## 屏蔽原生操作
 
