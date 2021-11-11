@@ -129,14 +129,40 @@ module.exports = {
     ],
     '/interview': [
       {
-        title: '面试',
+        title: 'Interview',
+        collapsable: true,
+        children: addPathPrefix('/interview/', ['', 'html', 'mobile-web']),
+      },
+    ],
+    '/cs': [
+      {
+        title: '计算机基础',
         collapsable: false,
         sidebarDepth: 5,
         children: [
           {
-            title: 'Interview',
+            title: '计算机网络',
             collapsable: true,
-            children: addPathPrefix('/interview/', ['', 'html', 'mobile-web']),
+            children: addPathPrefix('/cs/network/', ['', 'http']),
+          },
+          {
+            title: '操作系统',
+            collapsable: true,
+            children: addPathPrefix('/cs/os/', ['']),
+          },
+        ],
+      },
+    ],
+    '/thinking': [
+      {
+        title: '编程思想',
+        collapsable: false,
+        sidebarDepth: 5,
+        children: [
+          {
+            title: '设计模式',
+            collapsable: true,
+            children: addPathPrefix('/thinking/design-patterns', ['']),
           },
         ],
       },

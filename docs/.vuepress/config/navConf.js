@@ -51,4 +51,27 @@ module.exports = [
       },
     ],
   },
+  {
+    text: '计算机基础',
+    items: [
+      {
+        text: '计算机网络',
+        link: '/cs/network/',
+      },
+      {
+        text: '操作系统',
+        link: '/cs/os/',
+      },
+    ],
+  },
+
+  {
+    text: '编程思想',
+    items: [
+      {
+        text: '设计模式',
+        link: '/thinking/design-patterns/',
+      },
+    ],
+  },
 ]
