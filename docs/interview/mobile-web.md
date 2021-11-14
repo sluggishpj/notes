@@ -198,9 +198,90 @@ window.addEventListener('pageshow', function (e) {
 
 > https://webkit.org/blog/7929/designing-websites-for-iphone-x/
 
+## 横屏适配
+
+- JS
+
+```js
+window.addEventListener('resize', () => {
+  if (window.orientation === 180 || window.orientation === 0) {
+    // 正常方向或屏幕旋转180度
+    console.log('竖屏')
+  }
+  if (window.orientation === 90 || window.orientation === -90) {
+    // 屏幕顺时钟旋转90度或屏幕逆时针旋转90度
+    console.log('横屏')
+  }
+})
+```
+
+- CSS
+
+```css
+@media screen and (orientation: portrait) {
+  /*竖屏...*/
+}
+@media screen and (orientation: landscape) {
+  /*横屏...*/
+}
+```
+
 ## 高清屏图片适配
 
-## 横屏适配
+针对不同 DPR 的屏幕，我们需要展示不同分辨率的图片。
+
+### media 查询
+
+使用 [设备像素比](#设备像素比) 中的 mixin
+
+```scss
+@include drp(2) {
+  background-image: url('xxx@2x.png');
+}
+
+@include drp(3) {
+  background-image: url('xxx@3x.png');
+}
+```
+
+> 适用于背景图
+
+### `image-set()`
+
+> [image-set()|MDN](<https://developer.mozilla.org/en-US/docs/Web/CSS/image/image-set()>)
+
+```css
+.box {
+  background-image: -webkit-image-set(url('small-balloons.jpg') 1x, url('large-balloons.jpg') 2x);
+  background-image: image-set(url('small-balloons.jpg') 1x, url('large-balloons.jpg') 2x);
+}
+```
+
+> 适用于背景图
+
+### srcset
+
+
+- 根据 dpr
+
+```html
+<img src="favicon72.png" alt="MDN logo" srcset="favicon144.png 2x, favicon216.png 3x" />
+```
+
+- 根据 `sizes` 条件
+
+```html
+<img
+  src="clock-demo-200px.png"
+  alt="Clock"
+  srcset="clock-demo-200px.png 200w, clock-demo-400px.png 400w"
+  sizes="(max-width: 600px) 200px, 50vw"
+/>
+```
+
+### JS 手动调整
+
+### 使用 SVG
 
 ## 屏蔽原生操作
 
