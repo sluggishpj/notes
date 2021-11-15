@@ -261,7 +261,6 @@ window.addEventListener('resize', () => {
 
 ### srcset
 
-
 - 根据 dpr
 
 ```html
@@ -272,14 +271,26 @@ window.addEventListener('resize', () => {
 
 ```html
 <img
-  src="clock-demo-200px.png"
-  alt="Clock"
-  srcset="clock-demo-200px.png 200w, clock-demo-400px.png 400w"
-  sizes="(max-width: 600px) 200px, 50vw"
+  src="//placehold.it/140x140"
+  alt="test"
+  srcset="//placehold.it/140x140 140w, //placehold.it/280x280 280w"
+  sizes="(max-width: 600px) 140px, 50vw"
 />
 ```
 
+> 当屏幕尺寸小于 600 时，优先加载 `>=140px` 且接近 `140w` 的图片，且图片的默认宽度是 `140px`。上例是加载了 140x140 的图片。其他情况加载 另一张图片，且图片默认宽度为 `50vw`
+
+> https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-sizes
+
 ### JS 手动调整
+
+```js
+const dpr = window.devicePixelRatio
+const images = document.querySelectorAll('img')
+images.forEach((img) => {
+  img.src.replace('.', `@${dpr}x.`)
+})
+```
 
 ### 使用 SVG
 
