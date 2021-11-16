@@ -261,7 +261,7 @@ window.addEventListener('resize', () => {
 
 ### srcset
 
-- 根据 dpr
+- 根据 dpr，图片地址后面跟着 `${dpr}x`
 
 ```html
 <img src="favicon72.png" alt="MDN logo" srcset="favicon144.png 2x, favicon216.png 3x" />
@@ -366,6 +366,20 @@ img {
 > REF: https://stackoverflow.com/questions/19587555/disable-default-save-image-option-in-mobile
 
 ## JSBridge
+
+### Native 调用 JS
+
+原理：webview 对象的某个方法可以直接获取 `window` 上的对象/方法。感觉和 `eval()` 有点像
+
+### JS 调用 Native 方法
+
+- 方式 1，通过拦截 URL Scheme 请求
+
+原理：webview 可以监听到所有网络请求，可以通过自定义的 scheme 做对应处理。
+
+发起自定义请求方式：可以通过 `location.href` 或 构造`iframe`。通常是 `iframe`。因为第一种连续多次修改只会触发 1 次。
+
+- 方式 2，在页面 window 对象注入对象或方法，让 js 调用时，直接执行相应的 Native 代码逻辑。
 
 ## REF
 
