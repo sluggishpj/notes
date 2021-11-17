@@ -369,7 +369,7 @@ img {
 
 ### Native 调用 JS
 
-原理：webview 对象的某个方法可以直接获取 `window` 上的对象/方法。感觉和 `eval()` 有点像
+原理：webview 对象的某个方法可以直接获取 `window` 上的对象/方法。
 
 ### JS 调用 Native 方法
 
