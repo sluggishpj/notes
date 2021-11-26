@@ -51,6 +51,30 @@ title: CSS
 
 每个层叠上下文是自包含的：当元素的内容发生层叠后，整个该元素将会在父层叠上下文中按顺序进行层叠。少数 CSS 属性会触发一个新的层叠上下文，例如 `opacity` 小于 1，`filter` 不是 none，`transform` 不是 none。
 
+## 格式化上下文（BFC, Block Formatting Context）及其工作原理
+
+块格式化上下文（Block Formatting Context，BFC） 是 Web 页面的可视 CSS 渲染的一部分，是块盒子的布局过程发生的区域，也是浮动元素与其他元素交互的区域。
+
+一个 HTML 盒（Box）满足以下任意一条，会创建块格式化上下文：
+
+- `float` 的值不是 `none`.
+- `position` 的值不是 `static` 或 `relative`.
+- `display` 的值是 `table-cell`、`table-caption`、`inline-block`、`flex`、或 `inline-flex`、或 `grid`、`inline-grid` 或 **`flow-root`**。
+- `overflow` 的值不是 `visible`。
+
+应用：
+
+- 浮动定位和清除浮动时只会应用于同一个 BFC 内的元素。浮动不会影响其它 BFC 中元素的布局，而清除浮动只能清除同一 BFC 中在它前面的元素的浮动。
+- 外边距折叠（Margin collapsing）也只会发生在属于同一 BFC 的块级元素之间。
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="Untitled" src="https://codepen.io/rinxu/embed/WNEVOZQ?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/rinxu/pen/WNEVOZQ">
+  Untitled</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+> 看 [示例](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context#specifications) 更好理解。个人理解：一个 BFC 会把自己的孩子包裹住，不管孩子是否浮动。
+
 ## REF
 
 > https://github.com/yangshun/front-end-interview-handbook
