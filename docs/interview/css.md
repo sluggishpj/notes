@@ -75,6 +75,44 @@ title: CSS
 
 > 看 [示例](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context#specifications) 更好理解。个人理解：一个 BFC 会把自己的孩子包裹住，不管孩子是否浮动。
 
+## 有什么不同的方式可以隐藏内容（使其仅适用于屏幕阅读器）
+
+这些方法与可访问性（a11y）有关。
+
+- `width: 0; height: 0`：使元素不占用屏幕上的任何空间，导致不显示它。
+- `position: absolute; left: -99999px`： 将它置于屏幕之外。
+- `text-indent: -9999px`：这只适用于 block 元素中的文本。
+- [WAI-ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)：如何增加网页可访问性的 W3C 技术规范。
+
+```html
+<div id="percent-loaded" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+```
+
+## 编写高效 CSS
+
+首先，浏览器**从最右边**的选择器，即关键选择器（key selector），**向左**依次匹配。根据关键选择器，浏览器从 DOM 中筛选出元素，然后向上遍历被选元素的父元素，判断是否匹配。选择器匹配语句链越短，浏览器的匹配速度越快。避免使用标签和通用选择器作为关键选择器，因为它们会匹配大量的元素，浏览器必须要进行大量的工作，去判断这些元素的父元素们是否匹配。
+
+BEM (Block Element Modifier)原则上建议为独立的 CSS 类命名，并且在需要层级关系时，将关系也体现在命名中，这自然会使选择器高效且易于覆盖。eg. `.el-radio__input--small`
+
+搞清楚哪些 CSS 属性会触发重新布局（reflow）、重绘（repaint）和合成（compositing）。在写样式时，避免触发重新布局的可能。
+
+## 描述伪元素及其用途
+
+CSS 伪元素是添加到**选择器**的关键字，去**选择元素的特定部分**。它们可以用于装饰（`:first-line`，`:first-letter`）或将元素添加到标记中（与 `content:...`组合），而不必修改标记（`:before`，`:after`）。
+
+## block vs inline-block vs inline
+
+|                                 | `block`                                                     | `inline-block`                             | `inline`                                                                                                               |
+| ------------------------------- | ----------------------------------------------------------- | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| 大小                            | 填充其父容器的宽度。                                        | 取决于内容。                               | 取决于内容。                                                                                                           |
+| 定位                            | 从新的一行开始，并且不允许旁边有 HTML 元素（除非是`float`） | 与其他内容一起流动，并允许旁边有其他元素。 | 与其他内容一起流动，并允许旁边有其他元素。                                                                             |
+| 能否设置`width`和`height`       | 能                                                          | 能                                         | 不能。 设置会被忽略。                                                                                                  |
+| 可以使用`vertical-align`对齐    | 不可以                                                      | 可以                                       | 可以                                                                                                                   |
+| 边距（margin）和填充（padding） | 各个方向都存在                                              | 各个方向都存在                             | **只有水平方向**存在。垂直方向会被忽略。 尽管`border`和`padding`在`content`周围，但垂直方向上的空间取决于`line-height` |
+| 浮动（float）                   | -                                                           | -                                          | 就像一个`block`元素，可以设置垂直边距和填充。                                                                          |
+
+## `position`各个值区别
+
 ## REF
 
 > https://github.com/yangshun/front-end-interview-handbook
