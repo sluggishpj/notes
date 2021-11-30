@@ -127,6 +127,13 @@ module.exports = {
         ],
       },
     ],
+    '/interview': [
+      {
+        title: 'Interview',
+        collapsable: true,
+        children: addPathPrefix('/interview/', ['', 'html', 'css', 'mobile-web']),
+      },
+    ],
     '/cs': [
       {
         title: '计算机基础',
@@ -155,7 +162,7 @@ module.exports = {
           {
             title: '设计模式',
             collapsable: true,
-            children: addPathPrefix('/thinking/design-patterns', ['']),
+            children: addPathPrefix('/thinking/design-patterns/', ['']),
           },
         ],
       },

@@ -43,6 +43,15 @@ module.exports = [
     ],
   },
   {
+    text: '面试',
+    items: [
+      {
+        text: 'Interview',
+        link: '/interview/',
+      },
+    ],
+  },
+  {
     text: '计算机基础',
     items: [
       {
@@ -55,6 +64,7 @@ module.exports = [
       },
     ],
   },
+
   {
     text: '编程思想',
     items: [
