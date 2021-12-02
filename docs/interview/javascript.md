@@ -25,6 +25,50 @@ title: JavaScript
   - CommonJS `required()`是同步加载且立即执行
   - ES6 模块初始化(construction), 安装(instantiating) 和 执行(evaluating) 是可以分开的。
 
+## `function foo(){ }();` 可否做为 IIFE
+
+否。会报错: `Uncaught SyntaxError: Unexpected token ')'`。  
+原因：前者是函数声明；后者（一对括号）是试图调用一个函数，却没有指定名称。
+
+可以改为 `(function foo(){ })();` 即可作为 IIFE
+
+## `null`和`undefined`区别
+
+- `undefined`
+  - 未声明变量，直接访问会报错`ReferenceError`。直接对齐赋值，在严格模式下也会报错，非严格模式下会变为全局变量。对其 `typeof` 操作，会返回 `undefined`
+  - 已声明未赋值的变量，其值为 `undefined`
+- `null`: `null` 只能被显式赋值给变量。它表示空值
+
+## 闭包
+
+当内部函数以某一种方式被任何一个外部函数作用域访问时，一个闭包就产生了。 【函数 A 返回了一个函数 B，并且函数 B 中使用了函数 A 的变量，函数 B 就被称为闭包。】
+
+[闭包 | note](../frontend/js/js-functions.md#闭包)
+
+## JSONP 的工作原理
+
+JSONP（带填充的 JSON）是一种通常用于绕过 Web 浏览器中的跨域限制的方法，因为 Ajax 默认不允许跨域请求（除非设置了 CORS）。
+
+JSONP 通过`<script>`标签发送跨域请求，通常使用 `callback` 查询参数，例如：`https://example.com?callback=printData`。 然后服务器将数据包装在一个名为`printData` 的函数中并将其返回给客户端。
+
+```html
+<!-- https://mydomain.com -->
+<script>
+  function printData(data) {
+    console.log(`My name is ${data.name}!`)
+  }
+</script>
+
+<script src="https://example.com?callback=printData"></script>
+```
+
+```js
+// 文件加载自 https://example.com?callback=printData
+printData({ name: 'Yang Shun' })
+```
+
+> 客户端必须在其全局范围内具有 `printData` 函数，并且在收到来自跨域的响应时，该函数将由客户端执行。JSONP 可能具有一些安全隐患。由于 JSONP 是纯 JavaScript 实现，它可以完成 JavaScript 所能做的一切，因此需要信任 JSONP 数据的提供者。
+
 ## REF
 
 > https://frontendinterviewhandbook.com/zh/javascript-questions/
