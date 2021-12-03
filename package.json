@@ -8,7 +8,8 @@
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "test:unit": "jest"
+    "test:unit": "jest",
+    "test:promises": "promises-aplus-tests ./tests/unit/interview/promise-polyfill.js"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
@@ -25,6 +26,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^26.4.0",
     "prettier": "^2.4.1",
+    "promises-aplus-tests": "^2.1.2",
     "vuepress": "1.8.0",
     "vuepress-bar": "^0.3.1",
     "vuepress-plugin-mathjax": "^1.2.8",
