@@ -143,6 +143,8 @@ console.log(input.value) // Hello World!
 
 ### Promise polyfill
 
+<<< @/src/interview/promise-polyfill.js#Promise
+
 
 > REF: https://juejin.cn/post/6903725134977171463
 > MORE: [Promise | note](../frontend/js/js-promises.md)
