@@ -24,12 +24,7 @@ module.exports = {
     'no-bitwise': 0,
     'import/extensions': 0,
     'func-names': 'warn',
-    'no-restricted-syntax': [
-      'error',
-      'FunctionExpression',
-      'WithStatement',
-      "BinaryExpression[operator='in']",
-    ],
+    'no-restricted-syntax': ['error', 'WithStatement', "BinaryExpression[operator='in']"],
   },
   overrides: [
     {

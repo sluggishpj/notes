@@ -9,7 +9,7 @@ title: 函数
 ### 函数表达式
 
 ```js
-var square = function(number) {
+var square = function (number) {
   return number * number
 }
 
@@ -45,7 +45,7 @@ console.log(foo.length) // 3
 ```js
 function addMethod(object, name, fn) {
   const old = object[name]
-  object[name] = function() {
+  object[name] = function () {
     if (fn.length == arguments.length) {
       return fn.apply(this, arguments)
     } else if (typeof old === 'function') {
@@ -56,13 +56,13 @@ function addMethod(object, name, fn) {
 
 const myobj = {}
 
-addMethod(myobj, 'a', function() {
+addMethod(myobj, 'a', function () {
   console.log('0个参数')
 })
-addMethod(myobj, 'a', function(n) {
+addMethod(myobj, 'a', function (n) {
   console.log('1个参数', n)
 })
-addMethod(myobj, 'a', function(n1, n2) {
+addMethod(myobj, 'a', function (n1, n2) {
   console.log('两个参数', n1, n2)
 })
 
@@ -128,6 +128,7 @@ foo(3)
 
 test() // ReferenceError: test is not defined
 ```
+
 > test 被绑定在函数表达式自身的函数中而不是所在作用域中
 > 区分函数声明和表达式最简单的方法是看 function 关键字出现在声明中的位置（不仅仅是一行代码，而是整个声明中的位置）。如果 function 是声明中的第一个词，那么就是一个函数声明，否则就是一个函数表达式。
 
@@ -170,7 +171,7 @@ for (var i = 1; i <= 5; i++) {
 
 ```js
 for (var i = 1; i <= 5; i++) {
-  ;(function() {
+  ;(function () {
     setTimeout(function timer() {
       console.log(i)
     }, i * 1000)
@@ -183,7 +184,7 @@ for (var i = 1; i <= 5; i++) {
 
 ```js
 for (var i = 1; i <= 5; i++) {
-  ;(function(j) {
+  ;(function (j) {
     setTimeout(function timer() {
       console.log(j)
     }, j * 1000)
@@ -201,6 +202,7 @@ for (let i = 1; i <= 5; i++) {
 
 // 依次输出 1 2 3 4 5
 ```
+
 > for 循环头部的 let 声明还会有一个特殊的行为。这个行为指出变量在循环过程中不止被声明一次，每次迭代都会声明。随后的每个迭代都会使用上一个迭代结束时的值来初始化这个变量。
 
 ### 性能考量
@@ -259,7 +261,7 @@ if (shouldDefineZero) {
 ```js
 // 第1版
 function curry(fn, ...args1) {
-  return function(...args2) {
+  return function (...args2) {
     return fn.apply(this, [...args1, ...args2])
   }
 }
@@ -283,13 +285,13 @@ console.log(addCurry(1, 2)) // 3
 ```js
 // 第2版
 function subCurry(fn, ...args1) {
-  return function(...args2) {
+  return function (...args2) {
     return fn.apply(this, [...args1, ...args2])
   }
 }
 
 function curry(fn, length = fn.length) {
-  return function(...args1) {
+  return function (...args1) {
     if (args1.length >= length) {
       // 参数个数符合要求
       return fn.apply(this, args1)
@@ -298,7 +300,7 @@ function curry(fn, length = fn.length) {
   }
 }
 
-const fn = curry(function(a, b, c) {
+const fn = curry(function (a, b, c) {
   return [a, b, c]
 })
 
@@ -308,11 +310,28 @@ console.log(fn('a')('b')('c')) // ["a", "b", "c"]
 console.log(fn('a')('b', 'c')) // ["a", "b", "c"]
 ```
 
+```js
+// 第3版
+function curry(fn, ...args1) {
+  const len = fn.length
+
+  return function (...args2) {
+    const allArgs = [...args1, ...args2]
+
+    if (len <= allArgs.length) {
+      return fn.apply(this, allArgs)
+    } else {
+      return curry.call(this, fn, ...allArgs)
+    }
+  }
+}
+```
+
 ### “分部”函数
 
 ```js
 function partialArg(fn, ...args1) {
-  return function(...args2) {
+  return function (...args2) {
     let allArg = args1
     let j = 0
     allArg.forEach((v, idx) => {

@@ -10,11 +10,11 @@ title: JavaScript
 
 ### CommonJS (CJS)
 
-> [es6-module | note](../frontend/js/js-modules.md#ES6-模块)
+> [CommonJS | note](../frontend/js/js-modules.md#commonjs-模块-cjs)
 
 ### ES6 Module
 
-> [es6-module | note](<../frontend/js/js-modules.md#CommonJS-模块(CJS)>)
+> [es6-module | note](../frontend/js/js-modules.md#es6-模块)
 
 ### CommonJS vs ES6 Module
 
@@ -71,7 +71,7 @@ printData({ name: 'username' })
 
 ## 变量提升
 
-使用 **`var` 声明**的变量会被提升，**函数声明**也会提升，且函数声明比变量声明提升的更前。变量提升的是声明（未赋值），函数是整个都提升。
+使用 **`var` 声明**的变量会被提升，**函数声明**也会提升，且函数声明比变量声明提升的更前。变量提升的是声明（未赋值），函数是整个都提升（包括函数体）。
 
 - 变量提升
 
@@ -141,13 +141,34 @@ console.log(input.value) // Hello World!
 - 预渲染，如 `prerender-spa-plugin`
 - 针对爬虫单独处理: 识别是爬虫请求，返回所需的 HTML
 
-### Promise polyfill
+## Promise polyfill
 
 <<< @/src/interview/promise-polyfill.js#Promise
 
-
 > REF: https://juejin.cn/post/6903725134977171463
 > MORE: [Promise | note](../frontend/js/js-promises.md)
+
+## 柯里化函数（curry function）科里化函数
+
+[柯里化函数 | note](../frontend/js/js-functions.md#函数科里化)
+
+## 工具函数简单实现
+
+### 防抖(debounce) 和节流(throttle)
+
+### 深浅复制
+
+### 实现 `JSON.stringify()`
+
+## 常用 UI 的实现原理
+
+### 轮播图
+
+### 瀑布流布局
+
+### 圣杯布局
+
+### sticky 布局
 
 ## REF
 
