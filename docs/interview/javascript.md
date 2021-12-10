@@ -156,7 +156,30 @@ console.log(input.value) // Hello World!
 
 ### 防抖(debounce) 和节流(throttle)
 
+- 防抖: 距最近一次**调用**，必须隔一段时间后才会执行。原理：调用时清除旧定时器，重新启动 1 个
+
+<<< @/src/interview/javascript.js#debounce
+
+- 节流: 每隔一段时间，多次调用只会执行 1 次。原理：调用时如果定时器存在，则不执行。
+
+<<< @/src/interview/javascript.js#throttle
+
 ### 深浅复制
+
+<<< @/src/interview/javascript.js#cloneDeep
+
+> REF: https://juejin.cn/post/6844903929705136141
+
+### 事件总线 EventEmitter（发布订阅模式）
+
+注意点：
+
+- `once`: 是包装返回了新函数，并在新函数中 `off` 掉自己
+- `emit`: 遍历方法数组时中途可能被改变(`once`)，需要浅复制一遍
+
+<<< @/src/interview/javascript.js#EventEmitter
+
+> REF: https://github.com/browserify/events
 
 ### 实现 `JSON.stringify()`
 
