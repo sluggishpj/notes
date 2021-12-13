@@ -134,3 +134,85 @@ export class EventEmitter {
   }
 }
 // #endregion EventEmitter
+
+// 只处理常见的数据类型，字符串，布尔值，普通对象，数组，函数， undefined, null
+function resolveReplacer(key, val, replacer, isObjectItem) {
+  if (isObjectItem && Array.isArray(replacer)) {
+    return replacer.includes(key) ? val : undefined
+  }
+
+  return typeof replacer === 'function' ? replacer(key, val) : val
+}
+
+export function JSONStringify(val, replacer, space, map = new Map()) {
+  if (map.has(val)) {
+    // 循环引用了
+    throw new TypeError('Converting circular structure to JSON')
+  }
+
+  val = resolveReplacer('', val, replacer)
+
+  if (val === null) {
+    return 'null'
+  }
+
+  const valType = typeof val
+
+  switch (valType) {
+    case 'string':
+      return `"${val}"`
+    case 'boolean':
+    case 'number':
+      return `${val}`
+    default:
+  }
+
+  let res = ''
+
+  // 处理普通对象&数组
+  if (valType === 'object') {
+    map.set(val, true)
+    if (Array.isArray(val)) {
+      // 数组，注意不能用forEach，会跳过空项
+      res += '['
+      for (let idx = 0; idx < val.length; idx++) {
+        if (idx !== 0) {
+          res += ','
+        }
+
+        const childItem = resolveReplacer(idx, val[idx], replacer)
+        const childType = typeof childItem
+        if (childType === 'undefined' || childType === 'function') {
+          res += 'null'
+        } else {
+          res += JSONStringify(childItem, replacer, space, map)
+        }
+      }
+
+      res += ']'
+    } else {
+      // 普通对象
+      res += '{'
+
+      const keys = Object.keys(val)
+      keys.forEach((key) => {
+        const childVal = resolveReplacer(key, val[key], replacer, true)
+        const childType = typeof childVal
+        if (childType !== 'undefined' && childType !== 'function') {
+          if (res[res.length - 1] !== '{') {
+            res += ','
+          }
+          res += `"${key}":${JSONStringify(childVal, replacer, space, map)}`
+        }
+      })
+
+      res += '}'
+    }
+  }
+
+  if (valType === 'function' || valType === 'undefined') {
+    return undefined
+  }
+
+  return res
+}

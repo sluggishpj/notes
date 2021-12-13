@@ -1,4 +1,4 @@
-import { debounce, throttle, cloneDeep, EventEmitter } from '@/interview/javascript'
+import { debounce, throttle, cloneDeep, EventEmitter, JSONStringify } from '@/interview/javascript'
 
 afterEach(() => {
   jest.useRealTimers()
@@ -319,5 +319,98 @@ describe('EventEmitter', () => {
     ev.emit('b')
     expect(b1).toHaveBeenCalledTimes(2)
     expect(b2).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('JSONStringify', () => {
+  it('简单数据类型', () => {
+    expect(JSONStringify('str')).toBe(JSON.stringify('str'))
+    expect(JSONStringify(true)).toBe(JSON.stringify(true))
+    expect(JSONStringify(() => {})).toBe(JSON.stringify(() => {}))
+    expect(JSONStringify(undefined)).toBe(JSON.stringify(undefined))
+    expect(JSONStringify(null)).toBe(JSON.stringify(null))
+  })
+
+  it('普通对象', () => {
+    const obj1 = {
+      s: 'str',
+      b: false,
+      so: {
+        f() {},
+        u: undefined,
+        n: null,
+      },
+      f() {},
+      u: undefined,
+      n: null,
+    }
+
+    expect(JSONStringify(obj1)).toBe(JSON.stringify(obj1))
+  })
+
+  it('普通数组', () => {
+    const arr = ['s', false, () => {}, null, , undefined]
+    expect(JSONStringify(arr)).toBe(JSON.stringify(arr))
+  })
+
+  it('数组&对象混合', () => {
+    const objWithArr = {
+      s: 'str',
+      arr: [
+        false,
+        () => {},
+        ,
+        undefined,
+        null,
+        {
+          age: 22,
+          f() {},
+          u: undefined,
+          n: null,
+          arr2: [{}],
+        },
+      ],
+    }
+    const arrWithObj = ['s', false, () => {}, null, , undefined, { ...objWithArr }]
+
+    expect(JSONStringify(objWithArr)).toBe(JSON.stringify(objWithArr))
+    expect(JSONStringify(arrWithObj)).toBe(JSON.stringify(arrWithObj))
+  })
+
+  it('循环引用', () => {
+    let child = { name: 'child' }
+    let parent = { name: 'parent' }
+    child.parent = parent
+    parent.child = child
+
+    expect(() => JSONStringify(parent)).toThrow(TypeError('Converting circular structure to JSON'))
+  })
+
+  it('replacer', () => {
+    // 对象
+    const obj = { foundation: 'Mozilla', model: 'box', week: 45, transport: 'car', month: 7 }
+
+    function replacer1(key, value) {
+      if (typeof value === 'string') {
+        return undefined
+      }
+      return value
+    }
+
+    const replacer2 = ['week', 'month']
+
+    expect(JSONStringify(obj, replacer1)).toBe(JSON.stringify(obj, replacer1))
+    expect(JSONStringify(obj, replacer2)).toBe(JSON.stringify(obj, replacer2))
+
+    // 数组
+    const arr = ['s', false, () => {}, null, , undefined]
+    function replacer3(key, value) {
+      if (typeof value === 'string') {
+        return undefined
+      }
+      return value
+    }
+
+    expect(JSONStringify(arr, replacer3)).toBe(JSON.stringify(arr, replacer3))
   })
 })
