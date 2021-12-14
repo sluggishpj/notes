@@ -135,7 +135,9 @@ export class EventEmitter {
 }
 // #endregion EventEmitter
 
+// #region JSONStringify
 // 只处理常见的数据类型，字符串，布尔值，普通对象，数组，函数， undefined, null
+// 处理替换参数【第2个参数】
 function resolveReplacer(key, val, replacer, isObjectItem) {
   if (isObjectItem && Array.isArray(replacer)) {
     return replacer.includes(key) ? val : undefined
@@ -144,7 +146,23 @@ function resolveReplacer(key, val, replacer, isObjectItem) {
   return typeof replacer === 'function' ? replacer(key, val) : val
 }
 
-export function JSONStringify(val, replacer, space, map = new Map()) {
+// 处理空格
+function resolveSpace(space, layer = 0) {
+  let spaceStr
+  if (typeof space === 'string') {
+    spaceStr = space
+  } else if (typeof space === 'number') {
+    spaceStr = Array(space).fill(' ').join('')
+  }
+  return Array(layer).fill(spaceStr).join('')
+}
+
+export function JSONStringify(
+  val,
+  replacer,
+  space,
+  { map = new Map(), layer = 0 } = { map: new Map(), layer: 0 }
+) {
   if (map.has(val)) {
     // 循环引用了
     throw new TypeError('Converting circular structure to JSON')
@@ -164,55 +182,76 @@ export function JSONStringify(val, replacer, space, map = new Map()) {
     case 'boolean':
     case 'number':
       return `${val}`
+    case 'function':
+    case 'undefined':
+      return undefined
     default:
   }
 
   let res = ''
+  const preLayerSpace = resolveSpace(space, layer)
 
   // 处理普通对象&数组
   if (valType === 'object') {
     map.set(val, true)
+
+    const spaceStr = resolveSpace(space, layer + 1)
     if (Array.isArray(val)) {
+      if (val.length === 0) {
+        return '[]'
+      }
+
       // 数组，注意不能用forEach，会跳过空项
-      res += '['
+      res += `[${spaceStr ? '\n' : ''}`
+
       for (let idx = 0; idx < val.length; idx++) {
         if (idx !== 0) {
-          res += ','
+          res += `,${spaceStr ? '\n' : ''}`
         }
 
+        res += spaceStr
         const childItem = resolveReplacer(idx, val[idx], replacer)
         const childType = typeof childItem
         if (childType === 'undefined' || childType === 'function') {
           res += 'null'
         } else {
-          res += JSONStringify(childItem, replacer, space, map)
+          res += JSONStringify(childItem, replacer, space, { map, layer: layer + 1 })
         }
       }
 
-      res += ']'
+      res += `${spaceStr ? `\n${preLayerSpace}` : ''}]`
     } else {
       // 普通对象
-      res += '{'
-
       const keys = Object.keys(val)
+      if (keys.length === 0) {
+        return '{}'
+      }
+
+      res += `{${spaceStr ? '\n' : ''}`
+
       keys.forEach((key) => {
         const childVal = resolveReplacer(key, val[key], replacer, true)
         const childType = typeof childVal
+
         if (childType !== 'undefined' && childType !== 'function') {
-          if (res[res.length - 1] !== '{') {
-            res += ','
+          const lastTwoChar = res.slice(res.length - 2)
+          const lastChar = res[res.length - 1]
+
+          if (lastChar !== '{' && lastTwoChar !== '{\n') {
+            res += `,${spaceStr ? '\n' : ''}`
           }
-          res += `"${key}":${JSONStringify(childVal, replacer, space, map)}`
+          res += spaceStr
+          res += `"${key}":${spaceStr ? ' ' : ''}${JSONStringify(childVal, replacer, space, {
+            map,
+            layer: layer + 1,
+          })}`
         }
       })
 
-      res += '}'
+      res += `${spaceStr ? `\n${preLayerSpace}` : ''}}`
     }
-  }
-
-  if (valType === 'function' || valType === 'undefined') {
-    return undefined
   }
 
   return res
 }
+// #endregion JSONStringify

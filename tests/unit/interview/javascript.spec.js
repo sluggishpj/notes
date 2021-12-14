@@ -343,13 +343,14 @@ describe('JSONStringify', () => {
       f() {},
       u: undefined,
       n: null,
+      emptyObj: {}
     }
 
     expect(JSONStringify(obj1)).toBe(JSON.stringify(obj1))
   })
 
   it('普通数组', () => {
-    const arr = ['s', false, () => {}, null, , undefined]
+    const arr = ['s', false, () => {}, null, , undefined, []]
     expect(JSONStringify(arr)).toBe(JSON.stringify(arr))
   })
 
@@ -412,5 +413,52 @@ describe('JSONStringify', () => {
     }
 
     expect(JSONStringify(arr, replacer3)).toBe(JSON.stringify(arr, replacer3))
+  })
+
+  it('space', () => {
+    // 数组
+    const arr = ['s', false, () => {}, null, , undefined, [2, 3], []]
+    expect(JSONStringify(arr, null, '  ')).toBe(JSON.stringify(arr, null, '  '))
+    expect(JSONStringify(arr, null, 2)).toBe(JSON.stringify(arr, null, 2))
+
+    // 普通对象
+    const obj = {
+      s: 'str',
+      b: false,
+      emptyObj: {},
+      so: {
+        f() {},
+        u: undefined,
+        n: null,
+      },
+      f() {},
+      u: undefined,
+      n: null,
+    }
+    expect(JSONStringify(obj, null, '  ')).toBe(JSON.stringify(obj, null, '  '))
+    expect(JSONStringify(obj, null, 2)).toBe(JSON.stringify(obj, null, 2))
+
+    // 对象数组混合
+    const objWithArr = {
+      s: 'str',
+      arr: [
+        false,
+        () => {},
+        ,
+        undefined,
+        null,
+        {
+          age: 22,
+          f() {},
+          u: undefined,
+          n: null,
+          arr2: [{}],
+        },
+      ],
+    }
+    const arrWithObj = ['s', false, () => {}, null, , undefined, { ...objWithArr }]
+
+    expect(JSONStringify(objWithArr, null, 2)).toBe(JSON.stringify(objWithArr, null, 2))
+    expect(JSONStringify(arrWithObj, null, 3)).toBe(JSON.stringify(arrWithObj, null, 3))
   })
 })

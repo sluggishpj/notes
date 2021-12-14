@@ -183,6 +183,15 @@ console.log(input.value) // Hello World!
 
 ### 实现 `JSON.stringify()`
 
+注意点：
+
+- 对数组进行遍历时，`forEach()` 会跳过空项，比如`[,,]`遍历次数为 0
+- 第 2 个参数，可以是数组或函数。当遍历数组时，只有函数才会起作用
+
+<<< @/src/interview/javascript.js#JSONStringify
+
+> [JSON.stringify | MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
+
 ## 常用 UI 的实现原理
 
 ### 轮播图
