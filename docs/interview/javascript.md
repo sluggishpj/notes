@@ -196,11 +196,23 @@ console.log(input.value) // Hello World!
 
 ### 轮播图
 
+> TODO
+
 ### 瀑布流布局
+
+[瀑布流布局](https://sluggishpj.github.io/blog/2017/10/16/waterfall-flow-principle/)
 
 ### 圣杯布局
 
+<iframe height="300" style="width: 100%;" scrolling="no" title="Untitled" src="https://codepen.io/rinxu/embed/MWEGBda?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/rinxu/pen/MWEGBda">
+  Untitled</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
 ### sticky 布局
+
+[sticky-footer](https://sluggishpj.github.io/blog/2018/04/21/sticky-footer/)
 
 ## REF
 
