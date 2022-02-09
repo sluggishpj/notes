@@ -153,6 +153,13 @@ module.exports = {
         ],
       },
     ],
+    '/tools': [
+      {
+        title: '工具',
+        collapsable: true,
+        children: addPathPrefix('/tools/', ['', 'git']),
+      },
+    ],
     '/thinking': [
       {
         title: '编程思想',
