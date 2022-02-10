@@ -2,11 +2,11 @@
 title: Nginx
 ---
 
-## 常用配置及其注释说明
+## 常用配置
 
 - nginx.conf 文件
 
-```conf
+```sh
 #运行用户
 #user  nobody;
 worker_processes 1;
@@ -85,7 +85,7 @@ http {
 
 - myconfigs/system-b.conf
 
-```conf
+```sh
 server {
   #监听HTTP端口
   listen 9091;

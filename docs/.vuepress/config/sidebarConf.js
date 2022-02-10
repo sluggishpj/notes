@@ -157,7 +157,7 @@ module.exports = {
       {
         title: '工具',
         collapsable: true,
-        children: addPathPrefix('/tools/', ['', 'git']),
+        children: addPathPrefix('/tools/', ['', 'git', 'nginx', 'linux']),
       },
     ],
     '/thinking': [
