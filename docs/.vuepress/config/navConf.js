@@ -66,6 +66,11 @@ module.exports = [
   },
 
   {
+    text: '工具',
+    link: '/tools/'
+  },
+
+  {
     text: '编程思想',
     items: [
       {
