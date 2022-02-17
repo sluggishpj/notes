@@ -110,6 +110,15 @@ module.exports = {
               'css-filters-blending-clipping-masking',
             ]),
           },
+          {
+            title: 'Vue',
+            collaspable: true,
+            children: addPathPrefix('/frontend/vue/', [
+              '',
+              'basic',
+              'data-driven'
+            ]),
+          },
         ],
       },
     ],

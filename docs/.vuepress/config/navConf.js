@@ -31,6 +31,10 @@ module.exports = [
         text: 'CSS',
         link: '/frontend/css/',
       },
+      {
+        text: 'Vue',
+        link: '/frontend/vue/',
+      },
     ],
   },
   {
