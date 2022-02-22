@@ -116,7 +116,8 @@ module.exports = {
             children: addPathPrefix('/frontend/vue/', [
               '',
               'basic',
-              'data-driven'
+              'data-driven',
+              'reactivity'
             ]),
           },
         ],
