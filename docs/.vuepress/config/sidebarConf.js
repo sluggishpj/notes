@@ -117,7 +117,8 @@ module.exports = {
               '',
               'basic',
               'data-driven',
-              'reactivity'
+              'reactivity',
+              'next-tick'
             ]),
           },
         ],
