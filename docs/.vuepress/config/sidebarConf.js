@@ -118,7 +118,8 @@ module.exports = {
               'basic',
               'data-driven',
               'reactivity',
-              'next-tick'
+              'next-tick',
+              'vue-router'
             ]),
           },
         ],
