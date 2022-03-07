@@ -2,6 +2,8 @@
 title: Vue Router
 ---
 
+# Vue Router
+
 ![vue-router](https://raw.githubusercontent.com/sluggishpj/assets/main/images/vue-router.svg)
 
 ## REF

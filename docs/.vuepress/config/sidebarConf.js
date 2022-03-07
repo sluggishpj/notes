@@ -119,7 +119,8 @@ module.exports = {
               'data-driven',
               'reactivity',
               'next-tick',
-              'vue-router'
+              'vue-router',
+              'vuex'
             ]),
           },
         ],
