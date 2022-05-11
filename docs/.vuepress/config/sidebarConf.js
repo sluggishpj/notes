@@ -82,6 +82,7 @@ module.exports = {
               'js-strict-mode',
               'js-es2020',
               'js-es2021',
+              'js-es2022',
             ]),
           },
           {
