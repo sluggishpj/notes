@@ -192,6 +192,21 @@ console.log(input.value) // Hello World!
 
 > [JSON.stringify | MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
 
+### `call`/`apply`/`bind` 原理
+
+- `call`
+
+<<< @/src/interview/javascript.js#callPolyfill
+
+- `apply`
+
+<<< @/src/interview/javascript.js#applyPolyfill
+
+- `bind`
+
+<<< @/src/interview/javascript.js#bindPolyfill
+
+
 ## 常用 UI 的实现原理
 
 ### 轮播图
