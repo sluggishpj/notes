@@ -255,3 +255,45 @@ export function JSONStringify(
   return res
 }
 // #endregion JSONStringify
+
+// #region callPolyfill
+export function callPolyfill() {
+  // eslint-disable-next-line no-extend-native
+  Function.prototype.mockCall = function mockCall(context = window, ...args) {
+    const fn = this
+    context.fn = fn
+    const result = context.fn(...args)
+    delete context.fn
+    return result
+  }
+}
+// #endregion callPolyfill
+
+// #region applyPolyfill
+export function applyPolyfill() {
+  // eslint-disable-next-line no-extend-native
+  Function.prototype.mockApply = function mockApply(context = window, args) {
+    const fn = this
+    context.fn = fn
+    const result = context.fn(...args)
+    delete context.fn
+    return result
+  }
+}
+// #endregion applyPolyfill
+
+// #region bindPolyfill
+export function bindPolyfill() {
+  // eslint-disable-next-line no-extend-native
+  Function.prototype.mockBind = function mockBind(context = window, ...args) {
+    const fn = this
+    context.fn = fn
+
+    return function afterBindFn(...restArgs) {
+      const result = context.fn(...args, ...restArgs)
+      // delete context.fn
+      return result
+    }
+  }
+}
+// #endregion bindPolyfill

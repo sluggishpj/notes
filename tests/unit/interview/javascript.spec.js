@@ -1,4 +1,13 @@
-import { debounce, throttle, cloneDeep, EventEmitter, JSONStringify } from '@/interview/javascript'
+import {
+  debounce,
+  throttle,
+  cloneDeep,
+  EventEmitter,
+  JSONStringify,
+  callPolyfill,
+  applyPolyfill,
+  bindPolyfill,
+} from '@/interview/javascript'
 
 afterEach(() => {
   jest.useRealTimers()
@@ -343,7 +352,7 @@ describe('JSONStringify', () => {
       f() {},
       u: undefined,
       n: null,
-      emptyObj: {}
+      emptyObj: {},
     }
 
     expect(JSONStringify(obj1)).toBe(JSON.stringify(obj1))
@@ -460,5 +469,70 @@ describe('JSONStringify', () => {
 
     expect(JSONStringify(objWithArr, null, 2)).toBe(JSON.stringify(objWithArr, null, 2))
     expect(JSONStringify(arrWithObj, null, 3)).toBe(JSON.stringify(arrWithObj, null, 3))
+  })
+})
+
+describe('callPolyfill', () => {
+  callPolyfill()
+
+  function test(b) {
+    if (typeof this === 'undefined') {
+      return this
+    }
+    const a = this.a || 1
+    return a * b
+  }
+
+  it('严格模式默认是undefined', () => {
+    expect(test(3)).toBe(undefined)
+  })
+
+  it('this参数能生效', () => {
+    expect(test.call({ a: 3 }, 4)).toBe(12)
+    expect(test.mockCall({ a: 3 }, 4)).toBe(12)
+  })
+})
+
+describe('applyPolyfill', () => {
+  applyPolyfill()
+
+  function test(b) {
+    if (typeof this === 'undefined') {
+      return this
+    }
+    const a = this.a || 1
+    return a * b
+  }
+
+  it('严格模式默认是undefined', () => {
+    expect(test(3)).toBe(undefined)
+  })
+
+  it('this参数能生效', () => {
+    expect(test.apply({ a: 3 }, [4])).toBe(12)
+    expect(test.mockApply({ a: 3 }, [4])).toBe(12)
+  })
+})
+
+describe('bindPolyfill', () => {
+  bindPolyfill()
+
+  function test(b, c) {
+    if (typeof this === 'undefined') {
+      return this
+    }
+    const a = this.a || 1
+    return a + b + c
+  }
+
+  it('严格模式默认是undefined', () => {
+    expect(test(2, 3)).toBe(undefined)
+  })
+
+  it('this参数能生效', () => {
+    expect(test.bind({ a: 3 }, 4, 5)()).toBe(12)
+    expect(test.bind({ a: 3 }, 4)(5)).toBe(12)
+    expect(test.mockBind({ a: 3 }, 4, 5)()).toBe(12)
+    expect(test.mockBind({ a: 3 }, 4)(5)).toBe(12)
   })
 })
