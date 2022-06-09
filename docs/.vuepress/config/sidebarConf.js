@@ -124,6 +124,15 @@ module.exports = {
               'vuex'
             ]),
           },
+          {
+            title: 'Webpack',
+            collaspable: true,
+            children: addPathPrefix('/frontend/webpack/', [
+              '',
+              'basic',
+              'principle',
+            ]),
+          },
         ],
       },
     ],
