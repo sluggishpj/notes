@@ -96,7 +96,7 @@ Webpack 天生支持如下模块类型：
 
 通过 **loader** 可以使 webpack 支持多种语言和预处理器语法编写的模块。**loader** 向 webpack 描述了如何处理*非原生模块*，并将相关**依赖**引入到你的 bundles 中。
 
-规则包含多个 loader 时，从后往前执行。比如上面配置中的 `['style-loader', MiniCssExtractPlugin.loader, , 'css-loader', 'postcss-loader', 'sass-loader']`，先执行 `sass-loader`，再执行 `postcss-loader`...
+规则包含多个 loader 时，**从后往前**执行。比如上面配置中的 `['style-loader', MiniCssExtractPlugin.loader, , 'css-loader', 'postcss-loader', 'sass-loader']`，先执行 `sass-loader`，再执行 `postcss-loader`...
 
 ### plugin
 

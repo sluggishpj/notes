@@ -12,11 +12,38 @@ title: Webpack 原理
 
 ## 热更新原理
 
+![webpack-hrm](https://f000.backblazeb2.com/file/j-assets/webpack-hmr.jpg)
+
+> 图片来源：https://zhuanlan.zhihu.com/p/30669007
+
+### QA
+
+#### 对比 live reload
+
+live reload 不会保存应用的状态，刷新应用后，应用之前的状态会丢失
+
+
+### REF
+
+> https://zhuanlan.zhihu.com/p/30669007  
+> https://webpack.docschina.org/concepts/hot-module-replacement/
+> http://yizxq.xyz/2021/08/03/webpack/webpack_hotModuleReplacement%E5%8E%9F%E7%90%86/
+
 ## tree shaking
+
+依赖于 ES2015 模块语法的 静态结构 特性，例如 import 和 export，通过编译阶段的静态分析，找到没有引入的模块并打上标记，然后在压缩阶段利用像 terser 这样的工具删除这些没有用到的代码
+
+> https://webpack.docschina.org/guides/tree-shaking/
 
 ## babel 原理
 
+> https://juejin.cn/post/7025237833543581732
+> https://juejin.cn/post/6844903849442934798
+> https://babeljs.io/docs/en/
+
 ## 写个 loader
+
+> https://webpack.docschina.org/contribute/writing-a-loader/
 
 ## 写个 plugin
 
@@ -33,10 +60,9 @@ title: Webpack 原理
 
 ### sourcemap 原理
 
-> https://blog.fundebug.com/2018/10/12/understanding_frontend_source_map/
+> http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html  
 
 ## REF
 > https://webpack.docschina.org 
 > https://fed.taobao.org/blog/2016/09/10/webpack-flow  
 > https://juejin.cn/post/6854818576470933512  
-> https://zhuanlan.zhihu.com/p/30669007
