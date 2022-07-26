@@ -22,12 +22,10 @@ title: Webpack 原理
 
 live reload 不会保存应用的状态，刷新应用后，应用之前的状态会丢失
 
-
 ### REF
 
 > https://zhuanlan.zhihu.com/p/30669007  
-> https://webpack.docschina.org/concepts/hot-module-replacement/
-> http://yizxq.xyz/2021/08/03/webpack/webpack_hotModuleReplacement%E5%8E%9F%E7%90%86/
+> https://webpack.docschina.org/concepts/hot-module-replacement/ > http://yizxq.xyz/2021/08/03/webpack/webpack_hotModuleReplacement%E5%8E%9F%E7%90%86/
 
 ## tree shaking
 
@@ -37,15 +35,24 @@ live reload 不会保存应用的状态，刷新应用后，应用之前的状�
 
 ## babel 原理
 
+- 作用
+
+  - 转换语法，eg. 箭头函数转换为普通函数
+  - Polyfill，支持新对象/方法. eg. Promise
+
+- 原理：词法分析 -> 语法分析 -> 转换 AST -> 代码生成
+
+> https://github.com/starkwang/the-super-tiny-compiler-cn  
+> https://babeljs.io/docs/en/  
 > https://juejin.cn/post/7025237833543581732
-> https://juejin.cn/post/6844903849442934798
-> https://babeljs.io/docs/en/
 
 ## 写个 loader
 
 > https://webpack.docschina.org/contribute/writing-a-loader/
 
 ## 写个 plugin
+
+> https://webpack.docschina.org/contribute/writing-a-plugin/
 
 ## 其他
 
@@ -60,9 +67,10 @@ live reload 不会保存应用的状态，刷新应用后，应用之前的状�
 
 ### sourcemap 原理
 
-> http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html  
+> http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html
 
 ## REF
-> https://webpack.docschina.org 
+
+> https://webpack.docschina.org  
 > https://fed.taobao.org/blog/2016/09/10/webpack-flow  
-> https://juejin.cn/post/6854818576470933512  
+> https://juejin.cn/post/6854818576470933512
