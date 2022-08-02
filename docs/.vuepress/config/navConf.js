@@ -35,6 +35,10 @@ module.exports = [
         text: 'Vue',
         link: '/frontend/vue/',
       },
+      {
+        text: 'Webpack',
+        link: '/frontend/webpack/',
+      },
     ],
   },
   {
