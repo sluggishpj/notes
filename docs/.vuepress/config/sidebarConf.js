@@ -30,7 +30,11 @@ module.exports = {
           {
             title: '算法',
             collapsable: false,
-            children: addPathPrefix('/algorithm/algorithms/', ['', 'array-sorting-algorithms']),
+            children: addPathPrefix('/algorithm/algorithms/', [
+              '',
+              'array-sorting-algorithms',
+              'dynamic-programming',
+            ]),
           },
         ],
       },
@@ -121,17 +125,13 @@ module.exports = {
               'reactivity',
               'next-tick',
               'vue-router',
-              'vuex'
+              'vuex',
             ]),
           },
           {
             title: 'Webpack',
             collaspable: true,
-            children: addPathPrefix('/frontend/webpack/', [
-              '',
-              'basic',
-              'principle',
-            ]),
+            children: addPathPrefix('/frontend/webpack/', ['', 'basic', 'principle']),
           },
         ],
       },
