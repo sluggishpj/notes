@@ -384,5 +384,165 @@ function resolveZeroOneCnt(strs) {
 ### 322. 找零钱最少硬币数
 
 ```md
+给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。
+计算并返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回 -1 。
+你可以认为每种硬币的数量是无限的。
 
+示例 1：
+输入：coins = [1, 2, 5], amount = 11
+输出：3
+解释：11 = 5 + 5 + 1
+
+示例 2：
+输入：coins = [2], amount = 3
+输出：-1
+
+示例 3：
+输入：coins = [1], amount = 0
+输出：0
+
+提示：
+1 <= coins.length <= 12
+1 <= coins[i] <= 231 - 1
+0 <= amount <= 104
 ```
+
+[322. 零钱兑换](https://leetcode.cn/problems/coin-change/)
+
+<details>
+<summary>查看代码</summary>
+
+方法 1. 动态规划啊啊
+
+```js
+// 动态规划-理解为背包问题
+function coinChange1(coins, amount) {
+  // 问题定义
+  // dp[i][j] 前i种硬币 凑出 j，所需的最少硬币数
+  // 递推：最后1个放进去的硬币 面额为 v
+  //      dp[i][j] = min(dp[i-1][j], dp[i][j-v]+1)
+  // 初始：dp[0][j] = Infinity, dp[i][0] = 0
+  const len = coins.length
+  const dp = Array.from({ length: len + 1 }, () => [0])
+  for (let j = 1; j <= amount; j++) {
+    dp[0][j] = Infinity
+  }
+
+  for (let i = 1; i <= len; i++) {
+    const v = coins[i - 1]
+    for (let j = 1; j <= amount; j++) {
+      if (j >= v) {
+        dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - v] + 1)
+      } else {
+        dp[i][j] = dp[i - 1][j]
+      }
+    }
+  }
+
+  return dp[len][amount] === Infinity ? -1 : dp[len][amount]
+}
+```
+
+方法 2. 另一个很巧妙思路（然鹅想不到啊啊啊）
+
+```js
+// 完全背包，唉，主要是思路，没想到啊
+function coinChange2(coins, amount) {
+  // 提示：跟跳台阶类似
+  // 问题定义
+  // dp[i] 为 凑到 i 时所需的最少硬币数
+  // 递推：假设最后加进去的硬币面额为 v，则有
+  //      dp[i] = min(dp[i-v])+1，其中 i>=v，v 是 coins 任一硬币值
+  // 初始条件：dp[0] = 0
+  const dp = [0]
+
+  for (let i = 1; i <= amount; i++) {
+    let minCnt = Infinity
+    for (const v of coins) {
+      if (i >= v) {
+        minCnt = Math.min(minCnt, dp[i - v] + 1)
+      }
+    }
+    dp[i] = minCnt
+  }
+
+  return dp[amount] === Infinity ? -1 : dp[amount]
+}
+```
+
+</details>
+
+### 518. 找零钱的硬币数组合
+
+```md
+给你一个整数数组 coins 表示不同面额的硬币，另给一个整数 amount 表示总金额。
+
+请你计算并返回可以凑成总金额的硬币组合数。如果任何硬币组合都无法凑出总金额，返回 0 。
+
+假设每一种面额的硬币有无限个。 
+
+题目数据保证结果符合 32 位带符号整数。
+
+ 
+
+示例 1：
+输入：amount = 5, coins = [1, 2, 5]
+输出：4
+解释：有四种方式可以凑成总金额：
+5=5
+5=2+2+1
+5=2+1+1+1
+5=1+1+1+1+1
+
+示例 2：
+输入：amount = 3, coins = [2]
+输出：0
+解释：只用面额 2 的硬币不能凑成总金额 3 。
+
+示例 3：
+输入：amount = 10, coins = [10] 
+输出：1
+ 
+
+提示：
+1 <= coins.length <= 300
+1 <= coins[i] <= 5000
+coins 中的所有值 互不相同
+0 <= amount <= 5000
+```
+
+[518.  Coin Change 2](https://leetcode.cn/problems/coin-change-2/)
+
+<details>
+<summary>查看代码</summary>
+
+```js
+// 动态规划
+var change = function (amount, coins) {
+  // 问题定义：
+  // dp[i][j] 表示前i种硬币 凑出 j 的组合数
+  // 递推：分为加不加第i种 硬币，记 v = coins[i]
+  //      dp[i][j] = dp[i-1][j] + dp[i][j-v]
+  // 初始条件：dp[0][j] = 0, dp[i][0] = 1
+  const len = coins.length
+  const dp = Array.from({ length: len + 1 }, () => [1])
+  for (let j = 1; j <= amount; j++) {
+    dp[0][j] = 0
+  }
+
+  for (let i = 1; i <= len; i++) {
+    const v = coins[i - 1]
+    for (let j = 1; j <= amount; j++) {
+      if (j >= v) {
+        dp[i][j] = dp[i - 1][j] + dp[i][j - v]
+      } else {
+        dp[i][j] = dp[i - 1][j]
+      }
+    }
+  }
+
+  return dp[len][amount]
+}
+```
+
+</details>
