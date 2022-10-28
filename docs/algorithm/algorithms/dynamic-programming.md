@@ -479,11 +479,9 @@ function coinChange2(coins, amount) {
 
 请你计算并返回可以凑成总金额的硬币组合数。如果任何硬币组合都无法凑出总金额，返回 0 。
 
-假设每一种面额的硬币有无限个。 
+假设每一种面额的硬币有无限个。
 
 题目数据保证结果符合 32 位带符号整数。
-
- 
 
 示例 1：
 输入：amount = 5, coins = [1, 2, 5]
@@ -500,9 +498,8 @@ function coinChange2(coins, amount) {
 解释：只用面额 2 的硬币不能凑成总金额 3 。
 
 示例 3：
-输入：amount = 10, coins = [10] 
+输入：amount = 10, coins = [10]
 输出：1
- 
 
 提示：
 1 <= coins.length <= 300
@@ -511,7 +508,7 @@ coins 中的所有值 互不相同
 0 <= amount <= 5000
 ```
 
-[518.  Coin Change 2](https://leetcode.cn/problems/coin-change-2/)
+[518. Coin Change 2](https://leetcode.cn/problems/coin-change-2/)
 
 <details>
 <summary>查看代码</summary>
@@ -542,6 +539,78 @@ var change = function (amount, coins) {
   }
 
   return dp[len][amount]
+}
+```
+
+</details>
+
+### 139. 字符串能否按单词列表分割
+
+```md
+给你一个字符串 s 和一个字符串列表 wordDict 作为字典。请你判断是否可以利用字典中出现的单词拼接出 s 。
+注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。
+
+示例 1：
+输入: s = "leetcode", wordDict = ["leet", "code"]
+输出: true
+解释: 返回 true 因为 "leetcode" 可以由 "leet" 和 "code" 拼接成。
+
+示例 2：
+输入: s = "applepenapple", wordDict = ["apple", "pen"]
+输出: true
+解释: 返回 true 因为 "applepenapple" 可以由 "apple" "pen" "apple" 拼接成。
+注意，你可以重复使用字典中的单词。
+
+示例 3：
+输入: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
+输出: false
+
+提示：
+1 <= s.length <= 300
+1 <= wordDict.length <= 1000
+1 <= wordDict[i].length <= 20
+s 和 wordDict[i] 仅有小写英文字母组成
+wordDict 中的所有字符串 互不相同
+```
+
+[139. Word Break](https://leetcode-cn.com/problems/word-break/description/)
+
+<details>
+<summary>查看代码</summary>
+
+```js
+var wordBreak = function (s, wordDict) {
+  // 问题定义：
+  //    dp[i] 为 s.slice(0,i) 由 wordDict 凑出的组合数，
+  //    记最后1个放进去的单词为 c，其长度为 len
+  // 递推：
+  //    dp[i] = 或运算 {dp[i-len]}，单词c 属于 wordDict，且能最后放进去
+  // 初始条件：
+  //    dp[0] = 1
+
+  const dp = [1]
+  const sLen = s.length
+
+  for (let i = 1; i <= sLen; i++) {
+    let res = 0
+    const subStr = s.slice(0, i)
+
+    for (let j = 0; j < wordDict.length; j++) {
+      const c = wordDict[j]
+      const len = c.length
+      if (len <= i && subStr.slice(i - len) === c) {
+        // 能放进去
+        res = res || dp[i - len]
+        if (res) {
+          break
+        }
+      }
+    }
+
+    dp[i] = res
+  }
+
+  return dp[sLen] === 1
 }
 ```
 
