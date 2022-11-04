@@ -16,6 +16,9 @@ title: 动态规划
 
 `dp[i][j] = max(dp[i-1][j-w]+v, dp[i-1][j])`
 
+<details>
+<summary>查看代码</summary>
+
 ```js
 /**
  * 获取背包能装下的最大价值
@@ -53,11 +56,14 @@ function backpack(W, N, weights, values) {
 }
 ```
 
+</details>
+
 **空间优化**
 
 先思考下，自己手动编写下代码试试。
 
-先上代码：
+<details>
+<summary>查看代码</summary>
 
 ```js
 /**
@@ -86,6 +92,8 @@ function backpackLessSpace(W, N, weights, values) {
   return dp[W]
 }
 ```
+
+</details>
 
 看懂了吗？解释一波：
 观察状态转移方程可以知道，前 i 件物品的状态仅与前 `i-1` 件物品的状态有关，因此可以将 dp 定义为一维数组，其中 `dp[j]` 既可以表示 `dp[i-1][j]` 也可以表示 `dp[i][j]`。此时
@@ -615,3 +623,221 @@ var wordBreak = function (s, wordDict) {
 ```
 
 </details>
+
+### 377. 组合总和
+
+```md
+给你一个由 不同 整数组成的数组 nums ，和一个目标整数 target 。请你从 nums 中找出并返回总和为 target 的元素组合的个数。
+题目数据保证答案符合 32 位整数范围。
+
+示例 1：
+输入：nums = [1,2,3], target = 4
+输出：7
+解释：
+所有可能的组合为：
+(1, 1, 1, 1)
+(1, 1, 2)
+(1, 2, 1)
+(1, 3)
+(2, 1, 1)
+(2, 2)
+(3, 1)
+请注意，顺序不同的序列被视作不同的组合。
+
+示例 2：
+输入：nums = [9], target = 3
+输出：0
+
+提示：
+1 <= nums.length <= 200
+1 <= nums[i] <= 1000
+nums 中的所有元素 互不相同
+1 <= target <= 1000
+```
+
+<details>
+<summary>查看代码</summary>
+
+```js
+var combinationSum4 = function (nums, target) {
+  // 初步印象 跟青蛙跳台阶有点像
+  // 问题定义：
+  //    dp[i] 为 nums 中能够凑出的组合数
+  // 递推：
+  //    记 最后1个放进去的数字为 num
+  //    dp[i] = sum(dp[i-num])，num 属于 nums 之一，且能放进去
+  // 初始条件：
+  //    dp[0] = 1
+
+  const dp = [1]
+  for (let i = 1; i <= target; i++) {
+    let sum = 0
+    for (const num of nums) {
+      if (num <= i) {
+        sum += dp[i - num]
+      }
+    }
+    dp[i] = sum
+  }
+
+  return dp[target]
+}
+```
+
+</details>
+
+[377. 组合总和 IV](https://leetcode.cn/problems/combination-sum-iv/description/)
+
+## 股票交易
+
+### 309. 最佳买卖股票实际含冷冻期
+
+```md
+给定一个整数数组prices，其中第  prices[i] 表示第 i 天的股票价格 。​
+
+设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:
+
+卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。
+注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+
+示例 1:
+输入: prices = [1,2,3,0,2]
+输出: 3 
+解释: 对应的交易状态为: [买入, 卖出, 冷冻期, 买入, 卖出]
+
+示例 2:
+输入: prices = [1]
+输出: 0
+ 
+
+提示：
+1 <= prices.length <= 5000
+0 <= prices[i] <= 1000
+```
+
+<details>
+<summary>查看代码</summary>
+
+```js
+// 官方题解
+var maxProfit = function (prices) {
+  // 问题定义：
+  // dp[i][j] 为 第i天(i从0开始）操作结束之后 的各种状态赚到的最多钱
+  //      状态0. dp[i][0] 持有股票状态，可能昨天就持有了，或者当天买入的
+  //      状态1. dp[i][1] 为 未持有股票状态，处于冻结态，当天卖出了
+  //      状态2. dp[i][2] 为 未持有股票状态，也不处于冻结态，说明昨天也未持有
+  // 递推：
+  //      记 v = prices[i]
+  //      dp[i][0] = max(dp[i-1][0], dp[i-1][2] - v)
+  //      dp[i][1] = dp[i-1][0] + v
+  //      dp[i][2] = max(dp[i-1][1], dp[i-1][2])
+  // 初始状态：
+  //      dp[0][0] = -prices[0]
+  //      dp[0][1] = 0
+  //      dp[0][2] = 0
+  const len = prices.length
+  const dp = Array.from({ length: len }, () => [])
+
+  dp[0][0] = -prices[0]
+  dp[0][1] = 0
+  dp[0][2] = 0
+
+  for (let i = 1; i < len; i++) {
+    const v = prices[i]
+    dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][2] - v)
+    dp[i][1] = dp[i - 1][0] + v
+    dp[i][2] = Math.max(dp[i - 1][1], dp[i - 1][2])
+  }
+
+  return Math.max(...dp[len - 1])
+}
+```
+
+</details>
+
+[309. 最佳买卖股票实际含冷冻期](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/)
+
+
+### 714. 买卖股票的最佳时机含手续费
+
+```md
+给定一个整数数组 prices，其中 prices[i]表示第 i 天的股票价格 ；整数 fee 代表了交易股票的手续费用。
+
+你可以无限次地完成交易，但是你每笔交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。
+
+返回获得利润的最大值。
+
+注意：这里的一笔交易指买入持有并卖出股票的整个过程，每笔交易你只需要为支付一次手续费。
+
+ 
+
+示例 1：
+输入：prices = [1, 3, 2, 8, 4, 9], fee = 2
+输出：8
+解释：能够达到的最大利润:  
+在此处买入 prices[0] = 1
+在此处卖出 prices[3] = 8
+在此处买入 prices[4] = 4
+在此处卖出 prices[5] = 9
+总利润: ((8 - 1) - 2) + ((9 - 4) - 2) = 8
+
+
+示例 2：
+输入：prices = [1,3,7,5,10,3], fee = 3
+输出：6
+ 
+
+提示：
+1 <= prices.length <= 5 * 104
+1 <= prices[i] < 5 * 104
+0 <= fee < 5 * 104
+```
+
+<details>
+<summary>查看代码</summary>
+
+```js
+/**
+ * @param {number[]} prices
+ * @param {number} fee
+ * @return {number}
+ */
+var maxProfit = function (prices, fee) {
+  // 问题定义：
+  //  dp[i][j] 为第i天结束时所处的j状态 持有的最多的钱
+  //    dp[i][0] 持有股票状态，可能是当天买入或前一天持有
+  //    dp[i][1] 未持有股票状态，可能是当天卖出 或 前一天也未持有
+  // 递推：
+  //     手续费可以理解为卖出时 赚到的钱少了
+  //    记 v = prices[i]
+  //    dp[i][0] = max(dp[i-1][0], dp[i-1][1] - v)
+  //    dp[i][1] = max(dp[i-1][0] + v - fee, dp[i-1][1])
+
+  // 初始条件：
+  //    dp[0][0] = -prices[0]
+  //    dp[0][1] = 0
+
+  const len = prices.length
+  const dp = Array.from({ length: len }, () => [])
+
+  dp[0][0] = -prices[0]
+  dp[0][1] = 0
+
+  for (let i = 1; i < len; i++) {
+    const v = prices[i]
+    dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] - v)
+    dp[i][1] = Math.max(dp[i - 1][0] + v - fee, dp[i - 1][1])
+  }
+
+  return Math.max(...dp[len - 1])
+}
+```
+
+</details>
+
+[714. 买卖股票的最佳时机含手续费](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
+
+### 123. 只能进行2次的股票交易
+
+
