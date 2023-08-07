@@ -142,6 +142,35 @@ git restore --staged <file>...
 git restore <file>...
 ```
 
+## 撤销提交 revert commit
+
+通过新增新的提交 用于撤销已经提交的变更
+
+- revert 上一个 commit
+
+```sh
+git revert HEAD
+```
+
+- revert 多个 commit
+
+```sh
+git revert [倒数第一个提交的sha] [倒数第二个提交sha] [...]
+```
+
+或者
+
+```sh
+git revert [需要撤销的最早的提交的前一个提交sha]..[最晚的提交sha]
+git revert abcdef^..123456
+```
+
+> `abcdef^` 表示 `abcdef`的上一个提交
+> 也就是撤销了 abcdef（包括） 到 123456（包括） 的全部提交
+
+- 选项
+  - `--no-commit`: 在执行撤销操作后不要自动创建一个新的提交
+
 ## 版本回退 `git reset`
 
 ![stack overflow](https://i.stack.imgur.com/qRAte.jpg)
