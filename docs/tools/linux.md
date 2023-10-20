@@ -193,6 +193,26 @@ tab 键
   - eg: `alias rm='rm -i'`
 - 可以用 `unalias` 解除别名
 
+#### 日志文件处理
+
+- 查看文件内最新的1000行
+
+```sh
+tail -n 1000 filename
+```
+
+- 查看实时日志
+
+```sh
+tail -f filename
+```
+
+- 下载文件
+
+```sh
+sudo sz filename
+```
+
 ### 系统管理、磁盘管理
 
 #### 日历

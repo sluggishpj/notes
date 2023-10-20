@@ -128,3 +128,44 @@ server {
   }
 }
 ```
+
+## 常用命令
+
+### 查找 nginx 配置
+- 查看 nginx 二进制位置
+
+```sh
+ps -ef | grep nginx
+```
+
+- 查看 nginx 对应的 nginx.conf 配置文件
+
+```sh
+nginx -t
+```
+
+> 在 nginx 二进制文件下的目录运行，或者自己补全路径
+
+### nginx 运行相关命令
+
+```sh
+# 向主进程发送信号，重新加载配置文件，热重启
+nginx -s reload
+
+# 重启 Nginx
+nginx -s reopen
+
+# 快速关闭
+nginx -s stop
+
+# 等待工作进程处理完成后关闭
+nginx -s quit
+
+# 查看当前 Nginx 最终的配置
+nginx -T
+
+# 检查配置是否有问题，如果已经在配置目录，则不需要-c
+nginx -t -c <配置路径>
+```
+
+> https://juejin.cn/post/6844904144235413512
