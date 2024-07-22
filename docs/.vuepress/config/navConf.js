@@ -39,6 +39,10 @@ module.exports = [
         text: 'Webpack',
         link: '/frontend/webpack/',
       },
+      {
+        text: 'TypeScript',
+        link: '/frontend/typescript/',
+      },
     ],
   },
   {
