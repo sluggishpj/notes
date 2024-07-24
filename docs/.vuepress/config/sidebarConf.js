@@ -133,6 +133,14 @@ module.exports = {
               'principle',
             ]),
           },
+          {
+            title: 'Typescript',
+            collaspable: true,
+            children: addPathPrefix('/frontend/typescript/', [
+              '',
+              'note',
+            ]),
+          },
         ],
       },
     ],
