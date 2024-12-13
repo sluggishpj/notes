@@ -9,93 +9,289 @@ export default {
           text: 'Browser',
           collapsed: true,
           items: addPathPrefix('/frontend/browser/', [
-            '',
-            'dom',
-            'events',
-            'bom',
-            'cross-domain',
-            'storage',
-            'render',
-            'pwa',
-            'memory-management',
-            'web-security',
-            'web-performance',
+            {
+              text: '说明',
+              link: '',
+            },
+            {
+              text: 'DOM',
+              link: 'dom',
+            },
+            {
+              text: '事件',
+              link: 'events',
+            },
+            {
+              text: 'BOM',
+              link: 'bom',
+            },
+            {
+              text: '跨域',
+              link: 'cross-domain',
+            },
+            {
+              text: '存储',
+              link: 'storage',
+            },
+            {
+              text: '渲染机制',
+              link: 'render',
+            },
+            {
+              text: 'PWA',
+              link: 'pwa',
+            },
+            {
+              text: '内存管理',
+              link: 'memory-management',
+            },
+            {
+              text: 'Web安全',
+              link: 'web-security',
+            },
+            {
+              text: 'Web性能',
+              link: 'web-performance',
+            },
           ]),
         },
         {
           text: 'JavaScript',
           collapsed: true,
           items: addPathPrefix('/frontend/js/', [
-            '',
-            'js-in-html',
-            'js-grammar-and-types',
-            'js-control-flow-and-error-handling',
-            'js-functions',
-            'js-expressions-and-operators',
-            'js-numbers-and-dates',
-            'js-text-formatting',
-            'js-regular-expressions',
-            'js-indexed-collections',
-            'js-keyed-collections',
-            'js-working-with-objects',
-            'js-promises',
-            'js-iterators-and-generators',
-            'js-meta-programming',
-            'js-modules',
-            'js-strict-mode',
-            'js-es2020',
-            'js-es2021',
-            'js-es2022',
+            {
+              text: '说明',
+              link: '',
+            },
+            {
+              text: '在HTML中使用JS',
+              link: 'js-in-html',
+            },
+            {
+              text: '语法与数据结构',
+              link: 'js-grammar-and-types',
+            },
+            {
+              text: '流程控制与异常处理',
+              link: 'js-control-flow-and-error-handling',
+            },
+            {
+              text: '函数',
+              link: 'js-functions',
+            },
+            {
+              text: '表达式与运算符',
+              link: 'js-expressions-and-operators',
+            },
+            {
+              text: '数字和日期',
+              link: 'js-numbers-and-dates',
+            },
+            {
+              text: '字符串与文本',
+              link: 'js-text-formatting',
+            },
+            {
+              text: '正则表达式',
+              link: 'js-regular-expressions',
+            },
+            {
+              text: '索引集合类',
+              link: 'js-indexed-collections',
+            },
+            {
+              text: '带键的集合',
+              link: 'js-keyed-collections',
+            },
+            {
+              text: '对象',
+              link: 'js-working-with-objects',
+            },
+            {
+              text: 'Promise',
+              link: 'js-promises',
+            },
+            {
+              text: 'Iterators and generators',
+              link: 'js-iterators-and-generators',
+            },
+            {
+              text: '元编程',
+              link: 'js-meta-programming',
+            },
+            {
+              text: 'JS modules 模块',
+              link: 'js-modules',
+            },
+            {
+              text: 'JS 严格模式',
+              link: 'js-strict-mode',
+            },
+            {
+              text: 'ES2020',
+              link: 'js-es2020',
+            },
+            {
+              text: 'ES2021',
+              link: 'js-es2021',
+            },
+            {
+              text: 'ES2022',
+              link: 'js-es2022',
+            },
           ]),
         },
         {
           text: 'CSS',
           collapsed: true,
           items: addPathPrefix('/frontend/css/', [
-            '',
-            'css-css-and-documents',
-            'css-selectors',
-            'css-specificity-and-cascade',
-            'css-values-and-units',
-            'css-fonts',
-            'css-text-properties',
-            'css-box-model',
-            'css-border',
-            'css-color-and-background-and-gradients',
-            'css-floating',
-            'css-shapes',
-            'css-positioning',
-            'css-flexbox-layout',
-            'css-grid-layout',
-            'css-table-layout',
-            'css-transforms',
-            'css-transitions',
-            'css-animations',
-            'css-filters-blending-clipping-masking',
+            {
+              text: '说明',
+              link: '',
+            },
+            {
+              text: 'CSS和文档',
+              link: 'css-css-and-documents',
+            },
+            {
+              text: '选择器',
+              link: 'css-selectors',
+            },
+            {
+              text: '特殊性和层叠',
+              link: 'css-specificity-and-cascade',
+            },
+            {
+              text: '值和单位',
+              link: 'css-values-and-units',
+            },
+            {
+              text: '字体',
+              link: 'css-fonts',
+            },
+            {
+              text: '文本属性',
+              link: 'css-text-properties',
+            },
+            {
+              text: '盒子模型',
+              link: 'css-box-model',
+            },
+            {
+              text: '边框',
+              link: 'css-border',
+            },
+            {
+              text: '颜色/背景/渐变',
+              link: 'css-color-and-background-and-gradients',
+            },
+            {
+              text: '浮动',
+              link: 'css-floating',
+            },
+            {
+              text: '形状',
+              link: 'css-shapes',
+            },
+            {
+              text: '定位',
+              link: 'css-positioning',
+            },
+            {
+              text: 'Flex布局',
+              link: 'css-flexbox-layout',
+            },
+            {
+              text: 'Grid布局',
+              link: 'css-grid-layout',
+            },
+            {
+              text: 'Table布局',
+              link: 'css-table-layout',
+            },
+            {
+              text: '变换 transforms',
+              link: 'css-transforms',
+            },
+            {
+              text: '过渡 transition',
+              link: 'css-transitions',
+            },
+            {
+              text: '动画 animation',
+              link: 'css-animations',
+            },
+            {
+              text: '滤镜/混合/裁剪和遮罩',
+              link: 'css-filters-blending-clipping-masking',
+            },
           ]),
         },
         {
           text: 'Vue',
           collapsed: true,
           items: addPathPrefix('/frontend/vue/', [
-            '',
-            'basic',
-            'data-driven',
-            'reactivity',
-            'next-tick',
-            'vue-router',
-            'vuex',
+            {
+              text: '说明',
+              link: '',
+            },
+            {
+              text: 'Vue基础知识',
+              link: 'basic',
+            },
+            {
+              text: '数据驱动',
+              link: 'data-driven',
+            },
+            {
+              text: '响应式原理',
+              link: 'reactivity',
+            },
+            {
+              text: 'Vue.nextTick',
+              link: 'next-tick',
+            },
+            {
+              text: 'Vue Router',
+              link: 'vue-router',
+            },
+            {
+              text: 'Vuex',
+              link: 'vuex',
+            },
           ]),
         },
         {
           text: 'Webpack',
           collapsed: true,
-          items: addPathPrefix('/frontend/webpack/', ['', 'basic', 'principle']),
+          items: addPathPrefix('/frontend/webpack/', [
+            {
+              text: '说明',
+              link: '',
+            },
+            {
+              text: 'webpack基础',
+              link: 'basic',
+            },
+            {
+              text: 'webpack原理',
+              link: 'principle',
+            },
+          ]),
         },
         {
           text: 'Typescript',
           collapsed: true,
-          items: addPathPrefix('/frontend/typescript/', ['', 'note']),
+          items: addPathPrefix('/frontend/typescript/', [
+            {
+              text: '说明',
+              link: '',
+            },
+            {
+              text: '小记',
+              link: 'note',
+            },
+          ]),
         },
       ],
     },
@@ -189,6 +385,13 @@ export default {
 }
 
 function addPathPrefix(prefix, list) {
-  // return list.map((filename) => `${prefix}${filename}`)
-  return list.map((filename) => ({ text: filename || 'index', link: `${prefix}${filename}` }))
+  return list.map((config) => {
+    if (typeof config === 'object') {
+      return {
+        ...config,
+        link: `${prefix}${config.link}`,
+      }
+    }
+    return { text: config || 'index', link: `${prefix}${config}` }
+  })
 }
