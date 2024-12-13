@@ -8,6 +8,7 @@
   "scripts": {
     "start": "vitepress dev",
     "docs:dev": "vitepress dev",
+    "docs:preview": "vitepress preview",
     "docs:build": "vitepress build",
     "test:unit": "jest",
     "test:promises": "promises-aplus-tests ./tests/unit/interview/promise-polyfill.js"
