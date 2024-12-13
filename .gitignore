@@ -12,9 +12,9 @@ pids
 *.pid.lock
 
 node_modules
-docs/.vuepress/dist/
-docs/.vitepress/dist/
-docs/.vitepress/cache/
+.vuepress/dist/
+.vitepress/dist/
+.vitepress/cache/
 dist
 .vscode
 coverage
