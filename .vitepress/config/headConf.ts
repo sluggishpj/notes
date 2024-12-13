@@ -3,14 +3,14 @@ export default [
     'link',
     {
       rel: 'icon',
-      href: '/logo.png'
+      href: '/notes/logo.png'
     }
   ],
   [
     'link',
     {
       rel: 'manifest',
-      href: '/manifest.json'
+      href: '/notes/manifest.json'
     }
   ],
   [
@@ -38,7 +38,7 @@ export default [
     'link',
     {
       rel: 'apple-touch-icon',
-      href: `/icons/apple-touch-icon-152x152.png`
+      href: `/notes/icons/apple-touch-icon-152x152.png`
     }
   ],
   // [
@@ -53,7 +53,7 @@ export default [
     'meta',
     {
       name: 'msapplication-TileImage',
-      content: '/icons/msapplication-icon-144x144.png'
+      content: '/notes/icons/msapplication-icon-144x144.png'
     }
   ],
   [

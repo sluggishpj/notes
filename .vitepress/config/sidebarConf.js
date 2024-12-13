@@ -1,37 +1,5 @@
 export default {
   sidebar: {
-    '/algorithm/': {
-      text: '算法与数据结构',
-      collapsed: false,
-      sidebarDepth: 5,
-      items: [
-        {
-          text: '数据结构',
-          collapsed: false,
-          items: addPathPrefix('/algorithm/data-structure/', [
-            '',
-            'linked-list',
-            'doubly-linked-list',
-            'queue',
-            'stack',
-            'hash-table',
-            'heap',
-            'priority-queue',
-            'trie',
-            'binary-tree',
-            'binary-search-tree',
-            'avl-tree',
-            'red-black-tree',
-            'segment-tree',
-          ]),
-        },
-        {
-          text: '算法',
-          collapsed: false,
-          items: addPathPrefix('/algorithm/algorithms/', ['', 'array-sorting-algorithms']),
-        },
-      ],
-    },
     '/frontend/': {
       text: '前端',
       collapsed: false,
@@ -144,6 +112,40 @@ export default {
         },
       ],
     },
+
+    '/algorithm/': {
+      text: '算法与数据结构',
+      collapsed: false,
+      sidebarDepth: 5,
+      items: [
+        {
+          text: '数据结构',
+          collapsed: false,
+          items: addPathPrefix('/algorithm/data-structure/', [
+            '',
+            'linked-list',
+            'doubly-linked-list',
+            'queue',
+            'stack',
+            'hash-table',
+            'heap',
+            'priority-queue',
+            'trie',
+            'binary-tree',
+            'binary-search-tree',
+            'avl-tree',
+            'red-black-tree',
+            'segment-tree',
+          ]),
+        },
+        {
+          text: '算法',
+          collapsed: false,
+          items: addPathPrefix('/algorithm/algorithms/', ['', 'array-sorting-algorithms']),
+        },
+      ],
+    },
+
     '/interview': {
       text: 'Interview',
       collapsed: true,

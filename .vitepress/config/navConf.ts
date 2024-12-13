@@ -4,19 +4,6 @@ export default [
     link: '/',
   },
   {
-    text: '算法与数据结构',
-    items: [
-      {
-        text: '数据结构',
-        link: '/algorithm/data-structure/',
-      },
-      {
-        text: '算法',
-        link: '/algorithm/algorithms/',
-      },
-    ],
-  },
-  {
     text: '前端',
     items: [
       {
@@ -42,6 +29,19 @@ export default [
       {
         text: 'TypeScript',
         link: '/frontend/typescript/',
+      },
+    ],
+  },
+  {
+    text: '算法与数据结构',
+    items: [
+      {
+        text: '数据结构',
+        link: '/algorithm/data-structure/',
+      },
+      {
+        text: '算法',
+        link: '/algorithm/algorithms/',
       },
     ],
   },
