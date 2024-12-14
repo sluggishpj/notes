@@ -38,10 +38,13 @@ export default withMermaid(defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/sluggishpj/notes' }
     ],
-    algolia: process.env.NODE_ENV === 'production'? {
-      indexName: 'notes',
-      apiKey: '8e4716393f1a52c17e11c74e1d018419',
-      appId: 'EK9P3OJVR1',
-    }: undefined
+    search: {
+      provider: 'algolia',
+      options: {
+        indexName: 'notes',
+        apiKey: '8e4716393f1a52c17e11c74e1d018419',
+        appId: 'EK9P3OJVR1',
+      }
+    },
   }
 }))
