@@ -7,6 +7,9 @@ import {
   callPolyfill,
   applyPolyfill,
   bindPolyfill,
+  newPolyfill,
+  instanceofPolyfill,
+  objectCreatePolyfill,
 } from '@/interview/javascript'
 
 afterEach(() => {
@@ -536,3 +539,74 @@ describe('bindPolyfill', () => {
     expect(test.mockBind({ a: 3 }, 4)(5)).toBe(12)
   })
 })
+
+// #region newPolyfillTest
+describe('new Fake', () => {  
+  it('正常new 一个对象', () => {
+    function A(a) {
+      this.a = a
+    }
+    const obj = newPolyfill(A, 1)
+    expect(obj.a).toBe(1)
+    expect(obj instanceof A).toBe(true)
+    expect(Object.getPrototypeOf(obj) === A.prototype).toBe(true);
+  })
+
+  it('new 一个对象，使用了this，返回值是基本数据类型', () => {
+    function A(a) {
+      this.a = a
+      return 1
+    }
+    const obj = newPolyfill(A, 1)
+    expect(obj.a).toBe(1)
+    expect(obj instanceof A).toBe(true)
+    expect(Object.getPrototypeOf(obj) === A.prototype).toBe(true);
+  })
+
+  it('new 一个对象，未使用了this，返回值是基本数据类型', () => {
+    function A() {
+      return 1
+    }
+    const obj = newPolyfill(A)
+    expect(obj).toEqual({})
+    expect(obj instanceof A).toBe(true)
+    expect(Object.getPrototypeOf(obj) === A.prototype).toBe(true);
+  })
+})
+// #endregion newPolyfillTest
+
+// #region instanceofPolyfillTest
+describe('instanceofPolyfill', () => {
+  it('正常情况', () => {
+    function A() {}
+    const obj = new A()
+    expect(instanceofPolyfill(obj, A)).toBe(true)
+  })
+  it('原型链上有多个', () => {
+    function A() {}
+    function B() {}
+    function C() {}
+    C.prototype = new B()
+    const obj = new C()
+    expect(instanceofPolyfill(obj, A)).toBe(false)
+    expect(instanceofPolyfill(obj, B)).toBe(true)
+    expect(instanceofPolyfill(obj, C)).toBe(true)
+  })
+})
+// #endregion instanceofPolyfillTest
+
+// #region objectCreatePolyfillTest
+describe('objectCreatePolyfill', () => {
+  it('正常情况-普通对象', () => {
+    const parent = {a: 1}
+    const obj = objectCreatePolyfill(parent)
+    expect(Object.getPrototypeOf(obj)).toBe(parent);
+  })
+  it('正常情况-函数', () => {
+    function A() {}
+    const obj = objectCreatePolyfill(A.prototype)
+    expect(obj instanceof A).toBe(true)
+    expect(Object.getPrototypeOf(obj) === A.prototype).toBe(true);
+  })
+})
+// #endregion objectCreatePolyfillTest

@@ -79,7 +79,7 @@ export function cloneDeep(target, map = new Map()) {
   map.set(target, res) // 注意位置啊，在循环内可能已经引用到target了，所以要放前面
 
   for (const key in target) {
-    if (target.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(target, key)) {
       res[key] = cloneDeep(target[key], map)
     }
   }
@@ -297,3 +297,44 @@ export function bindPolyfill() {
   }
 }
 // #endregion bindPolyfill
+
+// #region newPolyfill
+export function newPolyfill(fnConstructor, ...args) {
+  // 等价于 obj.__proto__ = fnConstructor.prototype
+  const obj = Object.create(fnConstructor.prototype)
+  const result = fnConstructor.apply(obj, args)
+
+  return result instanceof Object ? result : obj
+}
+// #endregion newPolyfill
+
+// #region instanceofPolyfill
+export function instanceofPolyfill(obj, fnConstructor) {
+  // 处理非对象情况
+  if (obj === null || obj === undefined || (typeof obj !== 'object' && typeof obj !== 'function')) {
+    return false
+  }
+
+  let proto = Object.getPrototypeOf(obj)
+  const targetPrototype = fnConstructor.prototype
+  while (proto) {
+    if (proto === targetPrototype) {
+      return true
+    }
+    proto = Object.getPrototypeOf(proto)
+  }
+
+  return false
+}
+// #endregion instanceofPolyfill
+
+// #region objectCreatePolyfill
+export function objectCreatePolyfill(obj) {
+  if (typeof obj !== 'object' && typeof obj !== 'function') {
+    throw new TypeError('Object prototype may only be an Object or null')
+  }
+  function Fn() {}
+  Fn.prototype = obj
+  return new Fn()
+}
+// #endregion objectCreatePolyfill
