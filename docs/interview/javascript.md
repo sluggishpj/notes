@@ -206,6 +206,38 @@ console.log(input.value) // Hello World!
 
 <<< @/src/interview/javascript.js#bindPolyfill
 
+### `new` 原理
+
+<<< @/src/interview/javascript.js#newPolyfill
+
+- test case
+
+<<< @/tests/unit/interview/javascript.spec.js#newPolyfillTest
+
+### `Object.create()` 原理
+
+<<< @/src/interview/javascript.js#objectCreatePolyfill
+
+- test case
+
+<<< @/tests/unit/interview/javascript.spec.js#objectCreatePolyfillTest
+
+### `instanceof` 原理
+
+<<< @/src/interview/javascript.js#instanceofPolyfill
+
+- test case
+
+<<< @/tests/unit/interview/javascript.spec.js#instanceofPolyfillTest
+
+### 继承
+
+<<< @/src/interview/javascript.js#extendPolyfill
+
+- test case
+
+<<< @/tests/unit/interview/javascript.spec.js#extendPolyfillTest
+
 
 ## 常用 UI 的实现原理
 

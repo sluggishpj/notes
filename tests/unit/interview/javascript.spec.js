@@ -7,6 +7,10 @@ import {
   callPolyfill,
   applyPolyfill,
   bindPolyfill,
+  newPolyfill,
+  instanceofPolyfill,
+  objectCreatePolyfill,
+  extendPolyfill
 } from '@/interview/javascript'
 
 afterEach(() => {
@@ -536,3 +540,143 @@ describe('bindPolyfill', () => {
     expect(test.mockBind({ a: 3 }, 4)(5)).toBe(12)
   })
 })
+
+// #region newPolyfillTest
+describe('new Fake', () => {  
+  it('正常new 一个对象', () => {
+    function A(a) {
+      this.a = a
+    }
+    const obj = newPolyfill(A, 1)
+    expect(obj.a).toBe(1)
+    expect(obj instanceof A).toBe(true)
+    expect(Object.getPrototypeOf(obj) === A.prototype).toBe(true);
+  })
+
+  it('new 一个对象，使用了this，返回值是基本数据类型', () => {
+    function A(a) {
+      this.a = a
+      return 1
+    }
+    const obj = newPolyfill(A, 1)
+    expect(obj.a).toBe(1)
+    expect(obj instanceof A).toBe(true)
+    expect(Object.getPrototypeOf(obj) === A.prototype).toBe(true);
+  })
+
+  it('new 一个对象，未使用了this，返回值是基本数据类型', () => {
+    function A() {
+      return 1
+    }
+    const obj = newPolyfill(A)
+    expect(obj).toEqual({})
+    expect(obj instanceof A).toBe(true)
+    expect(Object.getPrototypeOf(obj) === A.prototype).toBe(true);
+  })
+})
+// #endregion newPolyfillTest
+
+// #region instanceofPolyfillTest
+describe('instanceofPolyfill', () => {
+  it('正常情况', () => {
+    function A() {}
+    const obj = new A()
+    expect(instanceofPolyfill(obj, A)).toBe(true)
+  })
+  it('原型链上有多个', () => {
+    function A() {}
+    function B() {}
+    function C() {}
+    C.prototype = new B()
+    const obj = new C()
+    expect(instanceofPolyfill(obj, A)).toBe(false)
+    expect(instanceofPolyfill(obj, B)).toBe(true)
+    expect(instanceofPolyfill(obj, C)).toBe(true)
+  })
+})
+// #endregion instanceofPolyfillTest
+
+// #region objectCreatePolyfillTest
+describe('objectCreatePolyfill', () => {
+  it('正常情况-普通对象', () => {
+    const parent = {a: 1}
+    const obj = objectCreatePolyfill(parent)
+    expect(Object.getPrototypeOf(obj)).toBe(parent);
+  })
+  it('正常情况-函数', () => {
+    function A() {}
+    const obj = objectCreatePolyfill(A.prototype)
+    expect(obj instanceof A).toBe(true)
+    expect(Object.getPrototypeOf(obj) === A.prototype).toBe(true);
+  })
+})
+// #endregion objectCreatePolyfillTest
+
+// #region extendPolyfillTest
+describe('extendPolyfill', () => {
+  it('should correctly set up inheritance between two classes', () => {
+    function Parent() {}
+    Parent.prototype.sayHello = function () {
+      return 'Hello from Parent';
+    };
+
+    function Child() {}
+    extendPolyfill(Child, Parent);
+
+    const childInstance = new Child();
+    expect(childInstance instanceof Child).toBe(true);
+    expect(childInstance instanceof Parent).toBe(true);
+    expect(childInstance.sayHello()).toBe('Hello from Parent');
+  });
+
+  it('should not affect the parent prototype when extending', () => {
+    function Parent() {}
+    Parent.prototype.sayHello = function () {
+      return 'Hello from Parent';
+    };
+
+    function Child() {}
+    extendPolyfill(Child, Parent);
+
+    const parentInstance = new Parent();
+    expect(parentInstance instanceof Parent).toBe(true);
+    expect(parentInstance instanceof Child).toBe(false);
+    expect(parentInstance.sayHello()).toBe('Hello from Parent');
+  });
+
+  it('should correctly set the constructor of the child class', () => {
+    function Parent() {}
+    function Child() {}
+    extendPolyfill(Child, Parent);
+
+    const childInstance = new Child();
+    expect(childInstance.constructor).toBe(Child);
+  });
+
+  it('should allow overriding parent methods in the child class', () => {
+    function Parent() {}
+    Parent.prototype.sayHello = function () {
+      return 'Hello from Parent';
+    };
+
+    function Child() {}
+    extendPolyfill(Child, Parent);
+    Child.prototype.sayHello = function () {
+      return 'Hello from Child';
+    };
+
+    const childInstance = new Child();
+    expect(childInstance.sayHello()).toBe('Hello from Child');
+  });
+
+  it('should handle cases where the parent has no prototype methods', () => {
+    function Parent() {}
+    function Child() {}
+    extendPolyfill(Child, Parent);
+
+    const childInstance = new Child();
+    expect(childInstance instanceof Parent).toBe(true);
+    expect(childInstance instanceof Child).toBe(true);
+  });
+});
+// #endregion extendPolyfillTest
