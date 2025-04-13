@@ -338,3 +338,10 @@ export function objectCreatePolyfill(obj) {
   return new Fn()
 }
 // #endregion objectCreatePolyfill
+
+// #region extendPolyfill
+export function extendPolyfill(child, parent) {
+  child.prototype = Object.create(parent.prototype)
+  child.prototype.constructor = child
+}
+// #endregion extendPolyfill

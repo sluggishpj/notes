@@ -10,6 +10,7 @@ import {
   newPolyfill,
   instanceofPolyfill,
   objectCreatePolyfill,
+  extendPolyfill
 } from '@/interview/javascript'
 
 afterEach(() => {
@@ -610,3 +611,72 @@ describe('objectCreatePolyfill', () => {
   })
 })
 // #endregion objectCreatePolyfillTest
+
+// #region extendPolyfillTest
+describe('extendPolyfill', () => {
+  it('should correctly set up inheritance between two classes', () => {
+    function Parent() {}
+    Parent.prototype.sayHello = function () {
+      return 'Hello from Parent';
+    };
+
+    function Child() {}
+    extendPolyfill(Child, Parent);
+
+    const childInstance = new Child();
+    expect(childInstance instanceof Child).toBe(true);
+    expect(childInstance instanceof Parent).toBe(true);
+    expect(childInstance.sayHello()).toBe('Hello from Parent');
+  });
+
+  it('should not affect the parent prototype when extending', () => {
+    function Parent() {}
+    Parent.prototype.sayHello = function () {
+      return 'Hello from Parent';
+    };
+
+    function Child() {}
+    extendPolyfill(Child, Parent);
+
+    const parentInstance = new Parent();
+    expect(parentInstance instanceof Parent).toBe(true);
+    expect(parentInstance instanceof Child).toBe(false);
+    expect(parentInstance.sayHello()).toBe('Hello from Parent');
+  });
+
+  it('should correctly set the constructor of the child class', () => {
+    function Parent() {}
+    function Child() {}
+    extendPolyfill(Child, Parent);
+
+    const childInstance = new Child();
+    expect(childInstance.constructor).toBe(Child);
+  });
+
+  it('should allow overriding parent methods in the child class', () => {
+    function Parent() {}
+    Parent.prototype.sayHello = function () {
+      return 'Hello from Parent';
+    };
+
+    function Child() {}
+    extendPolyfill(Child, Parent);
+    Child.prototype.sayHello = function () {
+      return 'Hello from Child';
+    };
+
+    const childInstance = new Child();
+    expect(childInstance.sayHello()).toBe('Hello from Child');
+  });
+
+  it('should handle cases where the parent has no prototype methods', () => {
+    function Parent() {}
+    function Child() {}
+    extendPolyfill(Child, Parent);
+
+    const childInstance = new Child();
+    expect(childInstance instanceof Parent).toBe(true);
+    expect(childInstance instanceof Child).toBe(true);
+  });
+});
+// #endregion extendPolyfillTest

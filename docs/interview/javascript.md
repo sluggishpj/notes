@@ -230,6 +230,13 @@ console.log(input.value) // Hello World!
 
 <<< @/tests/unit/interview/javascript.spec.js#instanceofPolyfillTest
 
+### 继承
+
+<<< @/src/interview/javascript.js#extendPolyfill
+
+- test case
+
+<<< @/tests/unit/interview/javascript.spec.js#extendPolyfillTest
 
 
 ## 常用 UI 的实现原理
