@@ -139,6 +139,10 @@ export default {
               text: 'ES2022',
               link: 'js-es2022',
             },
+            {
+              text: 'ES2023',
+              link: 'js-es2023',
+            },
           ]),
         },
         {
