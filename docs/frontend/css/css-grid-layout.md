@@ -31,11 +31,7 @@ block-size: fit-content;
 
 点进去看例子，调整宽度
 
-<iframe height="300" style="width: 100%;" scrolling="no" title="css-grid auto-fill vs auto-fit" src="https://codepen.io/rinxu/embed/NWgqWBK?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/rinxu/pen/NWgqWBK">
-  css-grid auto-fill vs auto-fit</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+<iframe height="300" style="width: 100%;" scrolling="no" title="css-grid auto-fill vs auto-fit" src="https://codepen.io/rinxu/embed/NWgqWBK?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 ### `minmax()`
 
@@ -97,10 +93,7 @@ grid-template-columns: repeat(auto-fill, 200px);
 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 ```
 
-<iframe height="341" style="width: 100%;" scrolling="no" title="css：grid-template-columns &amp; grid-template-rows" src="https://codepen.io/sluggishpj/embed/zYYZEOE?height=341&theme-id=0&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/sluggishpj/pen/zYYZEOE'>css：grid-template-columns &amp; grid-template-rows</a> by pj
-  (<a href='https://codepen.io/sluggishpj'>@sluggishpj</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<iframe height="341" style="width: 100%;" scrolling="no" title="css：grid-template-columns &amp; grid-template-rows" src="https://codepen.io/rinxu/embed/zYYZEOE?height=341&theme-id=0&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true"></iframe>
 
 #### 命名网格线
 
@@ -121,10 +114,8 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
 > 可以把命名线和线序号混合使用。为线命名的方法对于创建响应式页面特别有用，当需要在媒体查询中重新定义网格时，你就不需要通过修改线序号来改变布局，只要直接使用定义过的线名字就可以了，因为（即使在不同的布局中）线的名字总是相同的。
 
-<iframe height="349" style="width: 100%;" scrolling="no" title="ExxWwVQ" src="https://codepen.io/sluggishpj/embed/ExxWwVQ?height=349&theme-id=0&default-tab=css,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/sluggishpj/pen/ExxWwVQ'>ExxWwVQ</a> by pj
-  (<a href='https://codepen.io/sluggishpj'>@sluggishpj</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+
+<iframe height="349" style="width: 100%;" scrolling="no" title="ExxWwVQ" src="https://codepen.io/rinxu/embed/ExxWwVQ?height=349&theme-id=0&default-tab=css,result" frameborder="no" allowtransparency="true" allowfullscreen="true"></iframe>
 
 ##### 为网格线定义多个名字
 
@@ -184,12 +175,9 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 ```
 
-<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="css,result" data-user="sluggishpj" data-slug-hash="ExxWwWL" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="css: implicit-grid-lines-from-named-areas">
-  <span>See the Pen <a href="https://codepen.io/sluggishpj/pen/ExxWwWL">
-  css: implicit-grid-lines-from-named-areas</a> by pj (<a href="https://codepen.io/sluggishpj">@sluggishpj</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+> 示例
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="css: implicit-grid-lines-from-named-areas" src="https://codepen.io/rinxu/embed/ExxWwWL?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 ##### 使用 repeat()定义相同名字的多条线
 
@@ -255,12 +243,7 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 ```
 
-<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="css,result" data-user="sluggishpj" data-slug-hash="oNNZGyO" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="css: grid-repeat&amp;amp;span">
-  <span>See the Pen <a href="https://codepen.io/sluggishpj/pen/oNNZGyO">
-  css: grid-repeat&amp;span</a> by pj (<a href="https://codepen.io/sluggishpj">@sluggishpj</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<iframe height="300" style="width: 100%;" scrolling="no" title="css: grid-repeat&amp;span" src="https://codepen.io/rinxu/embed/oNNZGyO?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 ### grid-auto-rows & grid-auto-columns
 
@@ -279,12 +262,7 @@ grid-auto-rows: minmax(100px, auto);
 grid-auto-rows: 100px 200px;
 ```
 
-<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="css,result" data-user="sluggishpj" data-slug-hash="ZEEeXqx" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="css: auto-placement-in-grid-layout">
-  <span>See the Pen <a href="https://codepen.io/sluggishpj/pen/ZEEeXqx">
-  css: auto-placement-in-grid-layout</a> by pj (<a href="https://codepen.io/sluggishpj">@sluggishpj</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<iframe height="300" style="width: 100%;" scrolling="no" title="css: auto-placement-in-grid-layout" src="https://codepen.io/rinxu/embed/ZEEeXqx?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 ### grid-row-gap & grid-column-gap & grid-gap
 
@@ -336,12 +314,7 @@ grid-gap: 1em 10px;
 }
 ```
 
-<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="css,result" data-user="sluggishpj" data-slug-hash="NWWpaej" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="css: grid-template-areas">
-  <span>See the Pen <a href="https://codepen.io/sluggishpj/pen/NWWpaej">
-  css: grid-template-areas</a> by pj (<a href="https://codepen.io/sluggishpj">@sluggishpj</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<iframe height="300" style="width: 100%;" scrolling="no" title="css: grid-template-areas" src="https://codepen.io/rinxu/embed/NWWpaej?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 ### grid-template
 
@@ -559,11 +532,7 @@ grid-row: 3 / 5;
 
 在下面的例子中，一个容器中包含了四个子项。第三项是绝对定位的，并且使用基于行定位的方式把自己放置在网格中。网格容器具有 `position: relative` 属性，因此网格就成为该项目的定位上下文。
 
-<iframe height="300" style="width: 100%;" scrolling="no" title="css-grid-absolute" src="https://codepen.io/rinxu/embed/oNwXgpO?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/rinxu/pen/oNwXgpO">
-  css-grid-absolute</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+<iframe height="300" style="width: 100%;" scrolling="no" title="css-grid-absolute" src="https://codepen.io/rinxu/embed/oNwXgpO?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 ### 网格和`display: contents`
 
@@ -575,12 +544,7 @@ grid-row: 3 / 5;
 
 垂直左右居中
 
-<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="css,result" data-user="sluggishpj" data-slug-hash="ExxWmJG" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="css-grid-center">
-  <span>See the Pen <a href="https://codepen.io/sluggishpj/pen/ExxWmJG">
-  css-grid-center</a> by pj (<a href="https://codepen.io/sluggishpj">@sluggishpj</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<iframe height="300" style="width: 100%;" scrolling="no" title="css-grid-center" src="https://codepen.io/rinxu/embed/ExxWmJG?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 > [CSS_Grid_Layout | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
 
@@ -601,8 +565,4 @@ figure > img {
 }
 ```
 
-<iframe height="300" style="width: 100%;" scrolling="no" title="css-secrect-自适应内部元素" src="https://codepen.io/rinxu/embed/LYLrXXQ?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/rinxu/pen/LYLrXXQ">
-  css-secrect-自适应内部元素</a> by Rin (<a href="https://codepen.io/rinxu">@rinxu</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+<iframe height="300" style="width: 100%;" scrolling="no" title="css-secrect-自适应内部元素" src="https://codepen.io/rinxu/embed/LYLrXXQ?default-tab=css%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>

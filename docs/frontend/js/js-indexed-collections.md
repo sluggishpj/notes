@@ -182,7 +182,7 @@ let a = {
 
 JavaScript 类型数组被分解为缓冲(Buffer)和视图(views)。缓冲(由 `ArrayBuffer` 实现)是代表数据块的对象，它没有格式可言，并没有提供任何机制来访问其内容。为了访问包含在缓冲区中的内存，您需要使用视图。视图提供了一个上下文，即数据类型、起始偏移量和元素数，这些元素将数据转换为实际类型数组。
 
-![FROM-MDN](https://mdn.mozillademos.org/files/8629/typed_arrays.png)
+![FROM-MDN](https://f000.backblazeb2.com/file/j-assets/typed_arrays.png)
 
 ### ArrayBuffer
 
